@@ -11,3 +11,23 @@ Setup envirnoment
 	$ (env) cd SIRIUS
 	$ (env) python3 manage.py runserver
 
+
+Setup database:
+
+1. Create 'sirius' database
+	$ sudo su - postgres
+	postgres$ psql
+	> CREATE DATABASE sirius;
+
+2. Create 'sirius' user with password 'black' and configure with djangs settings
+	> CREATE USER sirius WITH PASSWORD 'black';
+	> ALTER ROLE sirius SET client_encoding TO 'utf8';
+	> ALTER ROLE sirius SET default_transaction_isolation TO 'read committed';
+	> ALTER ROLE sirius SET timezone TO 'UTC';
+	
+
+3. Grant privileges to this user in the db
+	> GRANT ALL PRIVILEGES ON DATABASE sirius TO sirius;
+	\q
+	postgres$ exit
+	
