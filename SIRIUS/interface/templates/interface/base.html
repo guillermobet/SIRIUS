@@ -1,0 +1,36 @@
+{% load static %}
+
+<html>
+
+	<head>
+		<title> SIRIUS Tool </title>
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.1.0-dist/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.1.0-dist/css/bootstrap-grid.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.1.0-dist/css/bootstrap-reboot.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'interface/css/base_style.css' %}">
+		
+		<script src="{% static 'bootstrap-4.1.0-dist/js/bootstrap.js' %}"></script>	
+	</head>
+	
+	<body>
+		<div class="page-header">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 align="center"><a href="{% url 'interface:index' %}">SIRIUS Tool</a></h1>
+				</div>
+			</div>
+		</div>
+		<hr/>
+		<br/>
+		<div class="content-container">
+			<div class="row">
+				<div class="col-md-12">
+					{% block content %}
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+		
+	</body>
+	
+</html>
