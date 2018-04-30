@@ -4,10 +4,12 @@
 
 	<head>
 		<title> SIRIUS Tool </title>
-		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-theme.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'js/bootstrap.min.js' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'css/base_style.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap3/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap3/bootstrap-theme.css' %}">
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		
+		<link rel="stylesheet" type="text/css" href="{% static 'interface/css/base_style.css' %}">
 	</head>
 	
 	<body>
@@ -17,9 +19,11 @@
 					<h1 align="center"><a href="{% url 'interface:index' %}">SIRIUS Tool</a></h1>
 				</div>
 			</div>
-		</div>
+		</div> <!-- page-header -->
+		
 		<hr/>
 		<br/>
+		
 		<div class="content-container">
 			<div class="row">
 				<div class="col-md-12">
@@ -27,9 +31,9 @@
 					{% endblock %}
 				</div>
 			</div>
-		</div>
+		</div> <!-- content-container -->
 		
 	</body>
-	<link rel="stylesheet" type="text/css" href="{% static 'js/jquery.min.js' %}">
+	
 	
 </html>
