@@ -1,4 +1,4 @@
-Setup envirnoment
+Setup environment
 
 1. Create vitualenv and activate it
 	$ virtualenv -p python3 env
@@ -11,6 +11,7 @@ Setup envirnoment
 	$ (env) cd SIRIUS
 	$ (env) python3 manage.py runserver
 
+-----------------------------------------------
 
 Setup database:
 
@@ -23,11 +24,16 @@ Setup database:
 	> CREATE USER sirius WITH PASSWORD 'black';
 	> ALTER ROLE sirius SET client_encoding TO 'utf8';
 	> ALTER ROLE sirius SET default_transaction_isolation TO 'read committed';
-	> ALTER ROLE sirius SET timezone TO 'UTC';
-	
+	> ALTER ROLE sirius SET timezone TO 'America/Caracas';
 
 3. Grant privileges to this user in the db
 	> GRANT ALL PRIVILEGES ON DATABASE sirius TO sirius;
 	\q
 	postgres$ exit
-	
+
+4. (Optional) To drop the database and user
+	$ sudo su - postgres
+	postgres$ psql
+	> REVOKE ALL PRIVILEGES ON DATABASE sirius TO sirius;
+	> DROP USER sirius;
+	> DROP DATABASE sirius;
