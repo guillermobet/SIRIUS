@@ -34,6 +34,6 @@ Setup database:
 4. (Optional) To drop the database and user
 	$ sudo su - postgres
 	postgres$ psql
-	> REVOKE ALL PRIVILEGES ON DATABASE sirius TO sirius;
+	> REVOKE ALL PRIVILEGES ON DATABASE sirius FROM sirius;
 	> DROP USER sirius;
 	> DROP DATABASE sirius;
