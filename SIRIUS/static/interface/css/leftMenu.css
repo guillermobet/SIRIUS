@@ -1,0 +1,76 @@
+.sidebar-header {
+  background-image: url(https://2.bp.blogspot.com/-2RewSLZUzRg/U-9o6SD4M6I/AAAAAAAADIE/voax99AbRx0/s1600/14%2B-%2B1%2B%281%29.jpg);
+  height: 150px;
+  padding-top: 40px;
+  text-align: center;
+  margin-bottom: 8px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.sidebar .sidebar-header .header-cover {
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.sidebar .sidebar-brand {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-weight: bolder;
+  display: block;
+  height: 70px;
+  line-height: 48px;
+  padding: 0;
+  padding-left: 16px;
+  padding-right: 56px;
+  text-decoration: none;
+  clear: both;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.sidebar .sidebar-brand:hover,
+.sidebar .sidebar-brand:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+}
+.sidebar .sidebar-brand .caret {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+}
+.sidebar .sidebar-brand .sidebar-badge {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+}
+.sidebar .sidebar-brand:hover,
+.sidebar .sidebar-brand:focus {
+  text-decoration: none;
+}
+
+.nav-pills{
+  border-radius: 0px;
+  background-color: #eee;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus {
+  background-color: #3f9db6;
+  border-radius: 0px;
+}
+
+.nav-pills>li.active>a:hover {
+  background-color: #78c0cf;
+  color: #333;
+  font-weight: bold;
+}

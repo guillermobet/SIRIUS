@@ -30,6 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	full_name = models.CharField(_('Nombre completo'), max_length=100, blank=True)
 	telephone = models.CharField(_('Telefono'),max_length=11, blank = True)
 	is_staff = models.BooleanField(_('staff'),default=False)
+	is_superuser = models.BooleanField(_('superuser'),default=False)
 	USERNAME_FIELD = 'user'
 	REQUIRED_FIELDS = ['email','full_name','telephone']
 

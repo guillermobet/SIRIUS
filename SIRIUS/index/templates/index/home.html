@@ -1,9 +1,31 @@
 {% extends 'index/barMenu.html' %}
+{% load static %}
 
 {% block content %}
       <div clas="row">
         <div class="col-md-3">
-          <h3>Aqui va el menu</h3>
+        	<div class="row">
+              <!-- Sidebar header -->
+			    <div class="sidebar-header header-cover">
+			        <h2  class="sidebar-brand text-uppercase" href="#">
+			            <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> <strong>{{user.user}}</strong>
+			        </h2>
+			    </div>
+			    <div class="row">
+			    	<div class="col-md-12">
+				    	<ul class="nav nav-pills nav-stacked">
+						  <li role="presentation" class="active"><a href="#"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Home</a></li>
+						  <li role="presentation"><a href="#"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Profile</a></li>
+						  <li role="presentation"><a href="#"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Test</a></li>
+						  {% if user.is_superuser %}
+						  <li role="presentation"><a href="#"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Add features</a></li>
+						  <li role="presentation"><a href="#"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Add sub-features</a></li>
+						  <li role="presentation"><a href="#"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Add feature details</a></li>
+						  {% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
         </div>
 
         <div class="col-md-9">
