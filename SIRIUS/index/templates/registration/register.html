@@ -1,15 +1,4 @@
-<!--!DOCTYPE html>
-<html>
-<head>
-    <title>Registro</title>
-</head>
-<body>
-    <form method="POST">
-        {% csrf_token %} {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-</body>
-</html-->
+
 {% load static %}
 
 <html>
@@ -24,15 +13,18 @@
     </head>
     <div class="container ">
         <div class="log-form">
-          <h2>Make an account</h2>
+          <h2>Create an account</h2>
           <form method="POST">
+            {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>ERROR.</strong> {{ form.user.errors }} {{ form.email.errors }} {{ form.password.errors }}
+            </div>
+            {% endif %}
             {% csrf_token %}
             {% for field in form %}
             <p>
-                {{ field }}<br>
-                {% for error in field.errors %}
-                   <p style="color: red">{{ error }}</p>
-                    {% endfor %}  
+                {{ field }}<br> 
              </p>
              {% endfor %}
             <button type="submit" class="btn">Create</button>

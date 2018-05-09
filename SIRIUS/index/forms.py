@@ -1,7 +1,9 @@
 from django import forms
+from .models import User
+
 
 class UserRegistrationForm(forms.Form):
-    username = forms.CharField(
+    user = forms.CharField(
         required = True,
         label = 'Username',
         max_length = 32,
@@ -22,7 +24,7 @@ class UserRegistrationForm(forms.Form):
         widget = forms.TextInput({"placeholder": "Telephone"})
 
     )
-    email = forms.CharField(
+    email = forms.EmailField(
         required = True,
         label = 'Email',
         max_length = 32,
@@ -34,4 +36,15 @@ class UserRegistrationForm(forms.Form):
         max_length = 32,
         widget = forms.PasswordInput({"placeholder": "Password"})
     )
-
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email = email).exists():
+            raise forms.ValidationError("Email already exists.")
+        return email
+    
+    def clean_user(self):
+        users = self.cleaned_data['user']
+        if User.objects.filter(user = users).exists():
+            raise forms.ValidationError("Username already exists.")
+        return users
