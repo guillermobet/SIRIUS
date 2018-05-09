@@ -45,3 +45,17 @@ class User(AbstractBaseUser, PermissionsMixin):
 	def __str__(self):
 		return self.user
 
+class Website(models.Model):
+	id = models.AutoField(primary_key=True)
+	url = models.URLField()
+	name = models.CharField(max_length=100)
+	description = models.TextField()
+
+class Review(models.Model):
+	id = models.AutoField(primary_key=True)
+	website_id = models.ForeignKey("Website", to_field="id", on_delete=models.CASCADE)
+	username_id = models.ForeignKey("User", to_field="user", on_delete=models.CASCADE)
+	review = models.TextField(default=None) #temporal
+
+	class Meta:
+		unique_together = ("website_id", "username_id")
