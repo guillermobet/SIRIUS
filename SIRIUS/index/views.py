@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django import forms
 from .forms import UserRegistrationForm
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -20,7 +21,7 @@ def register(request):
         User = get_user_model()
         if form.is_valid():
             userObj = form.cleaned_data
-            username = userObj['username']
+            username = userObj['user']
             full_name = userObj['full_name']
             telephone = userObj['telephone']
             email =  userObj['email']
@@ -31,7 +32,8 @@ def register(request):
                 login(request, user)
                 return HttpResponseRedirect('/home')
             else:
-                raise forms.ValidationError('Parece que el username o correo ya existe. Prueba con otro.')
+                messages.error(request,'El usuario o correo ya existe, intenta con otro.')
+                HttpResponseRedirect('/login')
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form' : form})
