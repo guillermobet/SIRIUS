@@ -4,50 +4,7 @@
 
 
 {% block content %}
-<style type="text/css">
-	.glyphicon.glyphicon-triangle-bottom{
-		float: right;
-		padding-top: 4px;
-		padding-bottom: 4px;
-		font-size: 12px;
-	}
-	.rojo{
-		background-color: #ed403c;
-		color: white;
-		font-weight: bold;
-	}
-	.rojo:hover, .rojo:active{
-		background-color: #ed403c;
-		border-color: #c30904;
-		color:white;
-		-webkit-box-shadow:2px 2px 2px 2px #c30904;
-		-moz-box-shadow:2px 2px 2px 2px #c30904;
-		box-shadow:2px 2px 2px 2px #c30904;
-	}
-	.azul{
-		background-color: #3f9db6;
-		color: white;
-		font-weight: bold;
-	}
-	.azul:hover, .azul:active{
-		background-color: #3f9db6;
-		border-color: #78c0cf;
-		color:white;
-		-webkit-box-shadow:2px 2px 2px 2px #78c0cf;
-		-moz-box-shadow:2px 2px 2px 2px #78c0cf;
-		box-shadow:2px 2px 2px 2px #78c0cf;
-	}
-	.espacio-izq{
-		margin-left: 15px;
-	}
-	.espacio-der{
-		margin-right: 15px;
-	}
-	.centro{
-		text-align: center;
-		padding-left: 20px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
       <div clas="row">
         <div class="col-md-3">
         	<div class="row">
@@ -154,7 +111,6 @@
         	</div><!-- row md 9-->
         </div><!-- col-md-9 -->
       </div>
-
  <script>
 	function showSettings() {
 	    var x = document.getElementById("s1");
