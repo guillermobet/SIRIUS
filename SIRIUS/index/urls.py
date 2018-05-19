@@ -9,4 +9,8 @@ urlpatterns = [
 	path("logout/", auth_views.logout, name="logout"),
 	path("register/", views.register, name="register"),
 	path("home/", views.home, name="home"),
+	path("home/indicator", views.indicator, name="indicator"),
+	path("home/features", views.features, name="features"),
+	path("home/subfeatures", views.subfeatures, name="subfeatures"),
+	path("home/attributes", views.attributes, name="attributes"),
 ]

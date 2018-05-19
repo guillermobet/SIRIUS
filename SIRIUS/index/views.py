@@ -15,6 +15,18 @@ def index(request):
 def home(request):
     return render(request, "index/home.html", {})
 
+def indicator(request):
+    return render(request, "settings/indicator.html", {})
+
+def features(request):
+    return render(request, "settings/features.html", {})
+
+def subfeatures(request):
+    return render(request, "settings/subfeatures.html", {})
+
+def attributes(request):
+    return render(request, "settings/attributes.html", {})
+
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
