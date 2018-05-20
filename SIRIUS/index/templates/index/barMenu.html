@@ -29,7 +29,11 @@
   </head>
 
   <body>
-
+<style type="text/css">
+  #s1,#s2,#s3,#s4{
+    display: none;
+  }
+</style>
     <!-- Navigation -->
     <nav class="navbar navbar-white bg-white static-top">
       <div class="container">
@@ -47,15 +51,6 @@
         </div>
         
 
-
-        <!--ul class="nav navbar-nav navbar-right">
-        {% if user.is_authenticated %}
-          <li><a href="/home" class="navbar-text active"><span class="glyphicon glyphicon-user "></span> Welcome {{ user.user }} </a></li>
-          <li><a href="/logout" class="navbar-text">Logout</a></p></li>
-        {% else %}
-        <li><a class="navbar-text active" href="/login"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Sign in </a></li>
-        {% endif %}
-        </ul-->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
        <ul class="nav navbar-nav navbar-right">
        {% if user.is_authenticated %}
@@ -77,8 +72,44 @@
 
     <!-- Masthead -->
     <div class="container-fluid">
-    {% block content %}
-    {% endblock %}
+      <div clas="row">
+        <div class="col-md-3">
+          <div class="row">
+              <!-- Sidebar header -->
+          <div class="sidebar-header header-cover">
+              <h2  class="sidebar-brand text-uppercase" href="#">
+                  <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> <strong>{{user.user}}</strong>
+              </h2>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="nav nav-pills nav-stacked">
+              <li id="home" class="active" role="presentation"><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+              <li id="profile" role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
+              <li id="test"role="presentation"><a href="#"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Test</a></li>
+              {% if user.is_superuser %}
+              
+              <li id="setting"  role="presentation"><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
+              <li id="s1" role="presentation"><a href="/home/indicator"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Indicator</a></li>
+              <li id="s2" role="presentation"><a href="/home/features"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Features</a></li>
+              <li id="s3" role="presentation"><a href="/home/subfeatures"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-features</a></li>
+              <li  id="s4" role="presentation"><a href="/home/attributes"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Attributes</a></li>
+
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+        </div>
+
+        <div class="col-md-9">
+          <div class="row">
+                  {% block content %}
+                  {% endblock %}
+          </div><!-- row md 9-->
+        </div><!-- col-md-9 -->
+      </div>
+
     </div>
      <!-- Footer -->
     <footer class="footer bg-white">
@@ -127,10 +158,11 @@
       </div>
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.js"></script>
 
-  </body>
+
+</body>
 
 </html>

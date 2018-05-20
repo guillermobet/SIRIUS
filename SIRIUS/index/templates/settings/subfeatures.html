@@ -6,143 +6,96 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
 
-      <div clas="row">
-        <div class="col-md-3">
-        	<div class="row">
-              <!-- Sidebar header -->
-			    <div class="sidebar-header header-cover">
-			        <h2  class="sidebar-brand text-uppercase" href="#">
-			            <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> <strong>{{user.user}}</strong>
-			        </h2>
-			    </div>
-			    <div class="row">
-			    	<div class="col-md-12">
-				    	<ul class="nav nav-pills nav-stacked">
-						  <li id="home" role="presentation"><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-						  <li id="profile" role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
-						  <li id="test"role="presentation"><a href="#"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Test</a></li>
-						  {% if user.is_superuser %}
-						  
-						  <li id="setting" role="presentation" id="showSettings" onclick="showSettings()" ><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
-						  <li id="s1"  role="presentation"><a href="/home/indicator"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Indicator</a></li>
-						  <li id="s2" role="presentation"><a href="/home/features"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Features</a></li>
-						  <li id="s3" class="active" role="presentation"><a href="/home/subfeatures"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-features</a></li>
-						  <li id="s4" role="presentation"><a href="/home/attributes"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Attributes</a></li>
+<div class="col-md-12">
+	<div class="page-header">
+	  <h1> Sub-features <small> settings</small></h1>
+	</div>
+	
+</div> <!-- col md 12-->
+<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-3">
+		</div>	
+		<div class="col-md-6">
+			    <div class="well well-lg">
+    				<form class="form-horizontal">
+    				  <div class="form-group">
+					    <label for="inputID" class="col-sm-3 control-label">Feature </label>
+					    <div class="col-sm-9">
+					      <select  class="form-control" id="inputID" required>
+					      	<option >Choose a feature</option>
+						    <option>2</option>
+						    <option>3</option>
+						    <option>4</option>
+					      </select>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputID" class="col-sm-3 control-label">ID </label>
+					    <div class="col-sm-9">
+					      <input type="text" class="form-control" id="inputID" placeholder="Ex: 12345" required>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputDes" class="col-sm-3 control-label">Description </label>
+					    <div class="col-sm-9">
+					      <input type="text-uppercase" class="form-control" id="inputDes" placeholder="Describe the feature" required>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-3 col-sm-9">
+					      <button type="button" class="btn rojo espacio-der">Cancel <span class="glyphicon glyphicon-remove"></span></button>
+					      <button type="submit" class="btn azul espacio-izq">Save <span class="glyphicon glyphicon-ok"></span></button>
+					    </div>
+					  </div>
+					</form>
+    			</div> <!-- well  -->
+		</div><!-- col-md-6 -->	
+		<div class="col-md-3">
+		</div>	
+	</div> <!-- row-->
+	<div class="row">
+		<div class="col-md-2">
+		</div><!-- col-->
+		<div class="col-md-8">
+			<table class="table table-hover">
+			    <thead>
+			      <tr>
+			        <th>ID</th>
+			        <th>Feature</th>
+			        <th>Descrption</th>
+			        <th>Modificar</th>
+			        <th>Eliminar</th>
+			        <th>Manita</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			    {% for i in "xyz" %}
+			      <tr class="warning">
+			        <td>{{i}}</td>
+			        <td>Feature</td>
+			        <td>Description</td>
+			        <td><span class="glyphicon glyphicon-edit centro"></span></td>
+			        <td><span class="glyphicon glyphicon-remove centro"></span></td>
+			        <td><span class="glyphicon glyphicon-link centro"></span></td>
+			      </tr>
+			    {% endfor %}
+			    </tbody>
+			  </table>
+		</div><!-- col-->
+		<div class="col-md-2">
+		</div><!-- col-->
+		
+	</div> <!--  row -->
 
-						  {% endif %}
-						</ul>
-					</div>
-				</div>
-			</div>
-        </div>
+</div> <!-- col md 12-->
+<script type="text/javascript">
+$('#home').removeClass('active');
+$('#s3').addClass('active');
+$('#s1,#s2,#s3,#s4').show();
 
-        <div class="col-md-9">
-        	<div class="row">
-        		<div class="col-md-12">
-        			<div class="page-header">
-					  <h1> Sub-features <small> settings</small></h1>
-					</div>
-        			
-        		</div> <!-- col md 12-->
-        		<div class="col-md-12">
-        			<div class="row">
-		        		<div class="col-md-3">
-		        		</div>	
-		        		<div class="col-md-6">
-							    <div class="well well-lg">
-			        				<form class="form-horizontal">
-			        				  <div class="form-group">
-									    <label for="inputID" class="col-sm-3 control-label">Feature </label>
-									    <div class="col-sm-9">
-									      <select  class="form-control" id="inputID" required>
-									      	<option >Choose a feature</option>
-										    <option>2</option>
-										    <option>3</option>
-										    <option>4</option>
-									      </select>
-									    </div>
-									  </div>
-									  <div class="form-group">
-									    <label for="inputID" class="col-sm-3 control-label">ID </label>
-									    <div class="col-sm-9">
-									      <input type="text" class="form-control" id="inputID" placeholder="Ex: 12345" required>
-									    </div>
-									  </div>
-									  <div class="form-group">
-									    <label for="inputDes" class="col-sm-3 control-label">Description </label>
-									    <div class="col-sm-9">
-									      <input type="text-uppercase" class="form-control" id="inputDes" placeholder="Describe the feature" required>
-									    </div>
-									  </div>
-									  <div class="form-group">
-									    <div class="col-sm-offset-3 col-sm-9">
-									      <button type="button" class="btn rojo espacio-der">Cancel <span class="glyphicon glyphicon-remove"></span></button>
-									      <button type="submit" class="btn azul espacio-izq">Save <span class="glyphicon glyphicon-ok"></span></button>
-									    </div>
-									  </div>
-									</form>
-			        			</div> <!-- well  -->		        			
-		        		</div><!-- col-md-6 -->	
-		        		<div class="col-md-3">
-		        		</div>	
-					</div> <!-- row-->
-					<div class="row">
-						<div class="col-md-2">
-						</div><!-- col-->
-						<div class="col-md-8">
-							<table class="table table-hover">
-							    <thead>
-							      <tr>
-							        <th>ID</th>
-							        <th>Feature</th>
-							        <th>Descrption</th>
-							        <th>Modificar</th>
-							        <th>Eliminar</th>
-							        <th>Manita</th>
-							      </tr>
-							    </thead>
-							    <tbody>
-							    {% for i in "xyz" %}
-							      <tr class="warning">
-							        <td>{{i}}</td>
-							        <td>Feature</td>
-							        <td>Description</td>
-							        <td><span class="glyphicon glyphicon-edit centro"></span></td>
-							        <td><span class="glyphicon glyphicon-remove centro"></span></td>
-							        <td><span class="glyphicon glyphicon-link centro"></span></td>
-							      </tr>
-							    {% endfor %}
-							    </tbody>
-							  </table>
-						</div><!-- col-->
-						<div class="col-md-2">
-						</div><!-- col-->
-						
-					</div> <!--  row -->
-
-        		</div> <!-- col md 12-->
-
-        	</div><!-- row md 9-->
-        </div><!-- col-md-9 -->
-      </div>
-
- <script>
-	function showSettings() {
-	    var x = document.getElementById("s1");
-	    var y = document.getElementById("s2");
-	    var z = document.getElementById("s3");
-	    var w = document.getElementById("s4");
-	    if (x.style.display === "none" ) {
-	        x.style.display = "block";
-	        y.style.display = "block";
-	        z.style.display = "block";
-	        w.style.display = "block";
-	    } else {
-	        x.style.display = "none";
-	        y.style.display = "none";
-	        z.style.display = "none";
-	        w.style.display = "none";
-	    }
-	}
+$('#setting').click(function(){
+   $('#s1,#s2,#s3,#s4').toggle();
+});
 </script>
 {% endblock %}

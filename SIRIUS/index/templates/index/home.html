@@ -12,67 +12,18 @@
 		font-size: 12px;
 	}
 </style>
-      <div clas="row">
-        <div class="col-md-3">
-        	<div class="row">
-              <!-- Sidebar header -->
-			    <div class="sidebar-header header-cover">
-			        <h2  class="sidebar-brand text-uppercase" href="#">
-			            <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> <strong>{{user.user}}</strong>
-			        </h2>
-			    </div>
-			    <div class="row">
-			    	<div class="col-md-12">
-				    	<ul class="nav nav-pills nav-stacked">
-						  <li id="home" role="presentation" class="active"><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-						  <li id="profile" role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
-						  <li id="test"role="presentation"><a href="#"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Test</a></li>
-						  {% if user.is_superuser %}
-						  
-						  <li id="setting" role="presentation" id="showSettings" onclick="showSettings()" ><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
-						  <li id="s1" style="display: none;" role="presentation"><a href="/home/indicator"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Indicator</a></li>
-						  <li id="s2" style="display: none;" role="presentation"><a href="/home/features"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Features</a></li>
-						  <li id="s3" style="display: none;" role="presentation"><a href="/home/subfeatures"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-features</a></li>
-						  <li id="s4" style="display: none;" role="presentation"><a href="/home/attributes"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Attributes</a></li>
-
-						  {% endif %}
-						</ul>
-					</div>
-				</div>
-			</div>
-        </div>
-
-        <div class="col-md-9">
-            <img class="img-responsive" src="{% static 'img/SIRIUS.png' %}">
-        </div>
-      </div>
- <script>
-$(document).ready(function(){
-    $('.nav li').click(function(){
-        $(this).siblings('li').removeClass('active');
-        $(this).addClass('active');
-    });    
+<link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
+<div class="col-md-9">
+    <img class="img-responsive" src="{% static 'img/SIRIUS.png' %}">
+</div>
+<script type="text/javascript">
+  
+$('#setting').click(function(){
+   	$('#s1,#s2,#s3,#s4').toggle();
+	$('#home').removeClass('active');
+	$('#setting').addClass('active');
 });
-</script>
- <script>
-	function showSettings() {
-	    var x = document.getElementById("s1");
-	    var y = document.getElementById("s2");
-	    var z = document.getElementById("s3");
-	    var w = document.getElementById("s4");
-	    if (x.style.display === "none" ) {
-	        x.style.display = "block";
-	        y.style.display = "block";
-	        z.style.display = "block";
-	        w.style.display = "block";
-	    } else {
-	        x.style.display = "none";
-	        y.style.display = "none";
-	        z.style.display = "none";
-	        w.style.display = "none";
-	    }
-	}
-</script>
 
+</script>
 {% endblock %}
 
