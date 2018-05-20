@@ -27,6 +27,12 @@ def subfeatures(request):
 def attributes(request):
     return render(request, "settings/attributes.html", {})
 
+def evaluate(request):
+    return render(request, "evaluate/evaluate.html", {})
+
+def evaluate1(request):
+    return render(request, "evaluate/1.html", {})
+
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)

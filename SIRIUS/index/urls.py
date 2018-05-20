@@ -13,4 +13,6 @@ urlpatterns = [
 	path("home/features", views.features, name="features"),
 	path("home/subfeatures", views.subfeatures, name="subfeatures"),
 	path("home/attributes", views.attributes, name="attributes"),
+	path("home/evaluate", views.evaluate, name="evaluate"),
+	path("home/evaluate/1", views.evaluate1, name="evaluate1"),
 ]
