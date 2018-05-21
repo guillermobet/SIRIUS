@@ -1,5 +1,7 @@
+from django.contrib.admin.widgets import AdminDateWidget
 from django import forms
 from .models import User
+import datetime
 
 
 class UserRegistrationForm(forms.Form):
@@ -48,3 +50,37 @@ class UserRegistrationForm(forms.Form):
         if User.objects.filter(user = users).exists():
             raise forms.ValidationError("Username already exists.")
         return users
+        
+class EvaluationGeneralForm(forms.Form):
+	evaluator = forms.CharField(
+		required = True,
+		label = 'Evaluator',
+		max_length = 60,
+		widget = forms.TextInput({"placeholder": "Ex. Maigualida Perez",
+								   "readonly": True
+								   })
+	)
+	date = forms.DateField(
+		required = True,
+		label = 'Evaluation Date',
+		initial = datetime.date.today,
+	)
+	website_name = forms.CharField(
+		required = True,
+		label = "Website's Name",
+		max_length = 100,
+		widget = forms.TextInput({"placeholder": "Ex. Google"})
+	)
+	website_url = forms.URLField(
+		required = True,
+		label = "Website's URL",
+		widget = forms.URLInput({'placeholder': 'Ex. https://www.google.com/'})
+	)
+	website_description = forms.CharField(
+		required = True,
+		label = "Website's description",
+		widget = forms.TextInput({"placeholder": 'Ex. Search'})
+	)
+	
+	
+	

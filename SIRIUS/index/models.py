@@ -42,6 +42,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 	def natural_key(self):
 		return self.user
+		
+	def is_tester(self):
+		return self.is_staff
+		
+	def is_admin(self):
+		return self.is_superuser
 
 	def __str__(self):
 		return self.user

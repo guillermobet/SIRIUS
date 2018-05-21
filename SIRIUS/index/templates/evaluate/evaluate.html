@@ -1,9 +1,9 @@
 {% extends 'index/barMenu.html' %}
 {% load static %}
-
-
+{% load addcssclass %}
 
 {% block content %}
+
 
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
 <div class="col-md-9">
@@ -17,48 +17,21 @@
     	<div class="col-md-1">
     	</div>
     	<div class="col-md-9">
-    		<form class="form-horizontal" action="/home/evaluate">
-			  <div class="form-group">
-			    <label class="control-label col-sm-4" for="evaluater">Evaluater:</label>
-			    <div class="col-sm-8">
-			      <input type="text" class="form-control" id="evaluater" placeholder="Ex: Maigualida Perez" required>
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label class="control-label col-sm-4" for="date">Date's evaluation:</label>
-			    <div class="col-sm-8"> 
-			      <input type="date" class="form-control" id="date" value="2018-01-01" required>
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label class="control-label col-sm-4" for="nameWeb">Web site's name:</label>
-			    <div class="col-sm-8">
-			      <input type="text" class="form-control" id="nameWeb" placeholder="Ex: Google" required>
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label class="control-label col-sm-4" for="urlWeb"> Web site's URL:</label>
-			    <div class="col-sm-8">
-			      <input type="url" class="form-control" id="urlWeb" placeholder="http//:wwww.sirius.com.ve" required>
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label class="control-label col-sm-4" for="typeWeb"> Web site's type:</label>
-			    <div class="col-sm-8">
-			      <input type="text" class="form-control" id="typeWeb" placeholder="Ex: Search">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label class="control-label col-sm-4" for="browser"> Browser:</label>
-			    <div class="col-sm-8">
-			      <input type="text" class="form-control" id="browser" placeholder="Ex: Internet explorer" required>
-			    </div>
-			  </div>
-			  <div class="form-group"> 
-			    <div class="col-sm-offset-6 col-sm-6">
-			      <button type="submit" href="/home/evaluate/1" class="btn azul">  Next  <span class="glyphicon glyphicon-share-alt"></span></button>
-			    </div>
-			  </div>
+			<form action ="" method="post" class="form-horizontal">
+				{% csrf_token %}
+				{% for field in form %}
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="{{field.name}}">{{field.label}}:</label>
+						<div class="col-sm-8">
+							{% if field.name == "date" %}
+								<input type="date" class="form-control" name="date" value="{{today}}" required id="id_date" />
+							{% else %}
+						  		{{field|addcssclass:"form-control"}}
+						  	{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+				<input type="submit" value="Next">
 			</form>
     	</div>
 		<div class="col-md-2">

@@ -5,8 +5,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django import forms
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, EvaluationGeneralForm
 from django.contrib import messages
+import datetime
+from .decorators import student_required
 # Create your views here.
 
 def index(request):
@@ -27,8 +29,21 @@ def subfeatures(request):
 def attributes(request):
     return render(request, "settings/attributes.html", {})
 
+@student_required
 def evaluate(request):
-    return render(request, "evaluate/evaluate.html", {})
+	user = request.user
+	form = EvaluationGeneralForm({'evaluator' : user.full_name})
+	
+	context = {'form' : form,
+				'today' : datetime.date.today()
+				}
+				
+	if request.method == 'POST':
+		form = EvaluationGeneralForm(request.POST)
+		if form.is_valid():
+			print('Form is valid')
+	
+	return render(request, "evaluate/evaluate.html", {'form' : form})
 
 def evaluate1(request):
     return render(request, "evaluate/1.html", {})
