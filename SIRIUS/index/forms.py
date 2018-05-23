@@ -1,6 +1,7 @@
 from django.contrib.admin.widgets import AdminDateWidget
 from django import forms
-from .models import User
+from .models import User, MetaHeuristic, MetaCriteria
+from django.utils.safestring import mark_safe
 import datetime
 
 
@@ -93,6 +94,46 @@ class EvaluationGeneralForm(forms.Form):
 		max_length = 10,
 		widget = forms.TextInput({"placeholder": "Ex. 66"})
 	)
+
+class HorizontalRadioRenderer(forms.RadioSelect):
+   def render(self):
+     return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
+	
+class ReviewItemsForm(forms.Form):
+	def __init__(self, *args, **kwargs):
+		super(ReviewItemsForm, self).__init__(*args, **kwargs)
+		quantitative_choices = [('1', '1'), ('2', '2'), ('3', '3'),
+								('4', '4'), ('5', '5'), ('6', '6'),
+								('7', '7'), ('8', '8'), ('9', '9'), 
+								('10', '10')
+								]
+		"""
+		qualitative_chices = [('1', 'NA'), ('2', 'NTS'), ('3', 'NEP'),
+							  ('4', 'NPP'), ('5', 'NPI'), ('6', 'S')
+							  ]
+		"""
+		qualitative_chices = [('NA', 'NA'), ('NTS', 'NTS'), ('NEP', 'NEP'),
+							  ('NPP', 'NPP'), ('NPI', 'NPI'), ('S', 'S')
+							  ]
+		
+		heuristics = MetaHeuristic.objects.all()
+		for i in range(0, len(heuristics)):
+			criteria = MetaCriteria.objects.filter(heuristic = heuristics[i])
+			for j in range(0, len(criteria)):
+				if(criteria[j].atribute == 'qualitative'):
+					choices = qualitative_chices
+				else:
+					choices = quantitative_choices
+				#self.fields['H'+str(i)+'C'+str(j)] = forms.ChoiceField(
+				self.fields['H_'+str(heuristics[i].pk)+'_C_'+str(criteria[j].pk)] = forms.ChoiceField(
+					label = criteria[j].name,
+					choices = choices,
+					initial = '1',
+					widget = forms.RadioSelect()
+					#widget = HorizontalRadioRenderer()
+				)
+		# do the logic and add the fields here
+		# self.fields['field_name'] = FieldType()
 	
 	
 	

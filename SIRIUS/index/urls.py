@@ -14,5 +14,7 @@ urlpatterns = [
 	path("home/subfeatures", views.subfeatures, name="subfeatures"),
 	path("home/attributes", views.attributes, name="attributes"),
 	path("home/evaluate", views.evaluate, name="evaluate"),
-	path("home/evaluate/1", views.evaluate1, name="evaluate1"),
+	path("home/evaluate/items/<int:review_id>/", views.evaluate_items, name="evaluate_items"),
+	path("home/reviews", views.reviews, name="reviews"),
+	path("home/reviews/<int:review_id>/", views.reviews_edit, name="reviews_edit"),
 ]

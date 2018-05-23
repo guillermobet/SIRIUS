@@ -1,36 +1,28 @@
 {% extends 'index/barMenu.html' %}
 {% load static %}
-{% load addcssclass %}
+
+
 
 {% block content %}
-
 
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
 <div class="col-md-9">
     <div class="row">
     	<div class="col-md-12">
 			<div class="page-header">
-			  <h1> General data<small> evaluation</small></h1>
+			  <h1> General information <small> evaluation</small></h1>
 			</div>
 			
 		</div> <!-- col md 12-->
     	<div class="col-md-1">
     	</div>
     	<div class="col-md-9">
-			<form action ="" method="post" class="form-horizontal">
+    		<h2 class="text-center"><span class="label label-danger">Elementos relacionados con los objetivos del sitio</span></h2>
+    		<br>
+
+    		<form action = "" method="post" class="form-horizontal">
 				{% csrf_token %}
-				{% for field in form %}
-					<div class="form-group">
-						<label class="control-label col-sm-4" for="{{field.name}}">{{field.label}}:</label>
-						<div class="col-sm-8">
-							{% if field.name == "date" %}
-								<input type="date" class="form-control" name="date" value="{{today}}" required id="id_date" />
-							{% else %}
-						  		{{field|addcssclass:"form-control"}}
-						  	{% endif %}
-						</div>
-					</div>
-				{% endfor %}
+				{{ form }}
 				<button type="submit" href="/home/evaluate/1" class="btn azul">  Next  <span class="glyphicon glyphicon-share-alt"></span></button>
 			</form>
     	</div>

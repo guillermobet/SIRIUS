@@ -1,0 +1,28 @@
+{% extends 'index/barMenu.html' %}
+{% load static %}
+{% load addcssclass %}
+
+{% block content %}
+
+	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-header">
+				  <h1> {{review.website.name}}'s<small> Review</small></h1>
+				</div>
+			</div> <!-- col md 12-->
+			
+			<div class="col-md-12">
+				{% for crit in criteria %}
+					<h3> {{crit.meta_criteria.name}}</h3>
+					<h2> {{crit.value}}</h2>
+					<br>
+				{% endfor %}			
+			</div>
+			
+    		<div class="col-md-12">
+    		</div>
+		</div>
+	</div>
+
+{% endblock %}

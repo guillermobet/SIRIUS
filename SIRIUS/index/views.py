@@ -6,11 +6,11 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django import forms
-from .forms import UserRegistrationForm, EvaluationGeneralForm
+from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm
 from django.contrib import messages
 import datetime
 from .decorators import student_required
-from .models import Website, Review
+from .models import Website, Review, Criteria, MetaCriteria
 # Create your views here.
 
 def index(request):
@@ -66,19 +66,43 @@ def evaluate(request):
 						)
 			
 			# Creo objeto review	
-			Review.objects.create(
+			review = Review.objects.create(
 				website = website,
 				username = user,
 				browser = browser_name,
 				browser_version = browser_version,
+				date = date,
 				comment = ''
 			)
-			return HttpResponseRedirect(reverse('evaluate1', args=(), kwargs={}))
+			kwargs = {'review_id' : review.pk}
+			return HttpResponseRedirect(reverse('evaluate_items', args=(), kwargs=kwargs))
 	
 	return render(request, "evaluate/evaluate.html", {'form' : form})
 
-def evaluate1(request):
-    return render(request, "evaluate/1.html", {})
+@student_required
+def evaluate_items(request, review_id):
+	
+	user = request.user
+	form = ReviewItemsForm()
+	context = {'form' : form }
+	
+	if request.method == 'POST':
+		form = ReviewItemsForm(request.POST)
+		if form.is_valid():
+			review = Review.objects.get(pk = review_id)
+			for value in form.cleaned_data:
+				split = value.split('_')
+				criteria_id = int(split[3])
+				meta_criteria = MetaCriteria.objects.get(pk = criteria_id)
+				Criteria.objects.create(
+					review = review,
+					meta_criteria = meta_criteria,
+					value = form.cleaned_data[value]
+				)
+			return HttpResponseRedirect(reverse('home', args=(), kwargs={}))
+			print('Form is valid!')
+	
+	return render(request, "evaluate/evaluateItems.html", context)
 
 def register(request):
     if request.method == 'POST':
@@ -102,3 +126,26 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form' : form})
+
+@student_required
+def reviews(request):
+	user = request.user
+	
+	reviews = Review.objects.filter(username = user)
+	context = {'user' : user,
+			   'reviews' : reviews
+			   }
+	
+	return render(request, 'reviews/reviews.html', context)
+	
+@student_required
+def reviews_edit(request, review_id):
+	user = request.user
+	review = Review.objects.get(id = review_id)
+	criteria = Criteria.objects.filter(review = review)
+	print(criteria)
+	context = {'user' : user,
+			   'review' : review,
+			   'criteria' : criteria
+			   }
+	return render(request, 'reviews/ver_review.html', context)

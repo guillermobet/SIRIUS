@@ -1,0 +1,42 @@
+{% extends 'index/barMenu.html' %}
+{% load static %}
+{% load addcssclass %}
+
+{% block content %}
+
+	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-header">
+				  <h1> {{user.full_name}}'s<small> Reviews</small></h1>
+				</div>
+			</div> <!-- col md 12-->
+			
+    		<div class="col-md-12">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Website</th>
+							<th>URL</th>
+							<th>Browser</th>
+							<th>Version</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for review in reviews %}
+							<tr>
+								<td><a href="{% url 'reviews_edit' review.pk %}">{{review.website.name}}</a></td>
+								<td><a href="{{review.website.url}}">{{review.website.url}}</a></td>
+								<td>{{review.browser}}</td>
+								<td>{{review.browser_version}}</td>
+								<td>{{review.date}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+    		</div>
+		</div>
+	</div>
+
+{% endblock %}
