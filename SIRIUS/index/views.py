@@ -115,11 +115,16 @@ def register(request):
             telephone = userObj['telephone']
             email =  userObj['email']
             password =  userObj['password']
+            password2 =  userObj['password_confirmation']
             if not (User.objects.filter(user=username).exists() or User.objects.filter(email=email).exists()):
-                User.objects.create_user(username, email, full_name, telephone, password)
-                user = authenticate(username = username, password = password)
-                login(request, user)
-                return HttpResponseRedirect('/home')
+                if not (password and password2 and password != password2):
+                    User.objects.create_user(username, email, full_name, telephone, password)
+                    user = authenticate(username = username, password = password)
+                    login(request, user)
+                    return HttpResponseRedirect('/home')
+                else:
+                    messages.error(request,"Passwords don't match")
+                    HttpResponseRedirect('/register')
             else:
                 messages.error(request,'El usuario o correo ya existe, intenta con otro.')
                 HttpResponseRedirect('/login')

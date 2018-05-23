@@ -35,10 +35,24 @@ class UserRegistrationForm(forms.Form):
     )
     password = forms.CharField(
         required = True,
-        label = 'Password',
+        label = 'password',
         max_length = 32,
         widget = forms.PasswordInput({"placeholder": "Password"})
     )
+    password_confirmation = forms.CharField(
+        required = True,
+        label = 'password_confirmation',
+        max_length = 32,
+        widget = forms.PasswordInput({"placeholder": "Password confirmation"})
+    )
+
+    def clean_password_confirmation(self):
+        # Check that the two password entries match
+        password1 = self.cleaned_data['password']
+        password2 = self.cleaned_data['password_confirmation']
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+        return password2
     
     def clean_email(self):
         email = self.cleaned_data['email']

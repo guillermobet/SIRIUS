@@ -38,5 +38,14 @@
     		</div>
 		</div>
 	</div>
+<script type="text/javascript">
+$('#home').removeClass('active');
+$('#reviews').addClass('active');
+$('#setting').click(function(){
+   	$('#s1,#s2,#s3,#s4').toggle();
+	$('#reviews').removeClass('active');
+	$('#setting').addClass('active');
+});
 
+</script>
 {% endblock %}

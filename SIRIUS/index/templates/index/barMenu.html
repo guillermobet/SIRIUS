@@ -39,25 +39,29 @@
     padding-bottom: 4px;
     font-size: 12px;
   }
+  .navbar-collapse{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 </style>
     <!-- Navigation -->
-    <nav class="navbar navbar-white bg-white static-top">
+    <nav class="navbar navbar-white bg-white static-top xs-hidden">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <!--button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
+          </button-->
           <a class="navbar-brand" href="#">
             <img src="{% static 'index/img/logo.png' %}" alt="SIRIUS" width="175" height="50" border="0">
           </a>
         </div>
         
 
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-11">
        <ul class="nav navbar-nav navbar-right">
        {% if user.is_authenticated %}
         <li><a class="navbar-text disabled" href="#">Hi, {{ user.user }}</a></li>
@@ -79,7 +83,7 @@
     <!-- Masthead -->
     <div class="container-fluid">
       <div clas="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-xs-12">
           <div class="row">
               <!-- Sidebar header -->
           <div class="sidebar-header header-cover">
@@ -89,27 +93,39 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <ul class="nav nav-pills nav-stacked">
-              <li id="home" class="active" role="presentation"><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-              <li id="profile" role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
-              <li id="evaluate" role="presentation"><a href="/home/evaluate"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Evaluate</a></li>
-              <li id="reviews" role="presentation"><a href="/home/reviews"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Reviews</a></li>
-              {% if user.is_superuser %}
-              
-              <li id="setting"  role="presentation"><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
-              <li id="s1" role="presentation"><a href="/home/indicator"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Indicator</a></li>
-              <li id="s2" role="presentation"><a href="/home/features"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Features</a></li>
-              <li id="s3" role="presentation"><a href="/home/subfeatures"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-features</a></li>
-              <li  id="s4" role="presentation"><a href="/home/attributes"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Attributes</a></li>
+             
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+              <div >
+                <ul class="nav nav-pills nav-stacked collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <li id="home" class="active" role="presentation"><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+                <li id="profile" role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
+                <li id="evaluate" role="presentation"><a href="/home/evaluate"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Evaluate</a></li>
+                <li id="reviews" role="presentation"><a href="/home/reviews"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Reviews</a></li>
+                {% if user.is_superuser %}
+                
+                <li id="setting"  role="presentation"><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
+                <li id="s1" role="presentation"><a href="/home/indicator"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Indicator</a></li>
+                <li id="s2" role="presentation"><a href="/home/features"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Features</a></li>
+                <li id="s3" role="presentation"><a href="/home/subfeatures"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-features</a></li>
+                <li  id="s4" role="presentation"><a href="/home/attributes"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Attributes</a></li>
 
-              {% endif %}
-            </ul>
+                {% endif %}
+                <li id="logout" role="presentation"><a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
           </div>
         </div>
       </div>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-9 col-xs-12">
           <div class="row">
                   {% block content %}
                   {% endblock %}
