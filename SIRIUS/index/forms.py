@@ -81,6 +81,18 @@ class EvaluationGeneralForm(forms.Form):
 		label = "Website's description",
 		widget = forms.TextInput({"placeholder": 'Ex. Search'})
 	)
+	browser_name = forms.CharField(
+		required = True,
+		label = 'Broser Name',
+		max_length = 20,
+		widget = forms.TextInput({"placeholder": "Ex. Google Chrome"})
+	)
+	browser_version = forms.CharField(
+		required = True,
+		label = 'Broser Version',
+		max_length = 10,
+		widget = forms.TextInput({"placeholder": "Ex. 66"})
+	)
 	
 	
 	

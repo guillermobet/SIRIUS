@@ -4,11 +4,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django import forms
 from .forms import UserRegistrationForm, EvaluationGeneralForm
 from django.contrib import messages
 import datetime
 from .decorators import student_required
+from .models import Website, Review
 # Create your views here.
 
 def index(request):
@@ -35,13 +37,43 @@ def evaluate(request):
 	form = EvaluationGeneralForm({'evaluator' : user.full_name})
 	
 	context = {'form' : form,
-				'today' : datetime.date.today()
-				}
+			   'today' : datetime.date.today()
+			  }
 				
 	if request.method == 'POST':
 		form = EvaluationGeneralForm(request.POST)
 		if form.is_valid():
-			print('Form is valid')
+			# Obtengo datos del formulario
+			evaluator = form.cleaned_data['evaluator']
+			date = form.cleaned_data['date']
+			website_name = form.cleaned_data['website_name']
+			website_url = form.cleaned_data['website_url']
+			website_description = form.cleaned_data['website_description']
+			browser_name = form.cleaned_data['browser_name']
+			browser_version = form.cleaned_data['browser_version']
+			
+			# Busco el website en la DB y lo creo si no existe
+			try:
+				website = Website.objects.get(name = website_name)
+			except Website.DoesNotExist:
+				try:
+					website = Website.objects.get(url = website_url)
+				except Website.DoesNotExist:
+					website = Website.objects.create(
+						url = website_url,
+						name = website_name,
+						description = website_description
+						)
+			
+			# Creo objeto review	
+			Review.objects.create(
+				website = website,
+				username = user,
+				browser = browser_name,
+				browser_version = browser_version,
+				comment = ''
+			)
+			return HttpResponseRedirect(reverse('evaluate1', args=(), kwargs={}))
 	
 	return render(request, "evaluate/evaluate.html", {'form' : form})
 
