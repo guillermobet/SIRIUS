@@ -10,14 +10,14 @@ class UserRegistrationForm(forms.Form):
         required = True,
         label = 'Username',
         max_length = 32,
-        widget = forms.TextInput({"placeholder": "Username"})
+        widget = forms.TextInput({"placeholder": "Username *"})
 
     )
     full_name = forms.CharField(
         required = True,
         label = 'Full name',
         max_length = 60,
-        widget = forms.TextInput({"placeholder": "Full Name"})
+        widget = forms.TextInput({"placeholder": "Full Name *"})
 
     )
     telephone= forms.CharField(
@@ -31,19 +31,19 @@ class UserRegistrationForm(forms.Form):
         required = True,
         label = 'Email',
         max_length = 32,
-        widget = forms.TextInput({"placeholder": "Email"})
+        widget = forms.TextInput({"placeholder": "Email *"})
     )
     password = forms.CharField(
         required = True,
         label = 'password',
         max_length = 32,
-        widget = forms.PasswordInput({"placeholder": "Password"})
+        widget = forms.PasswordInput({"placeholder": "Password *"})
     )
     password_confirmation = forms.CharField(
         required = True,
         label = 'password_confirmation',
         max_length = 32,
-        widget = forms.PasswordInput({"placeholder": "Password confirmation"})
+        widget = forms.PasswordInput({"placeholder": "Password confirmation *"})
     )
 
     def clean_password_confirmation(self):
