@@ -6,6 +6,13 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
+<style type="text/css">
+	.flotanteMenu{
+	-webkit-box-shadow:2px 2px 2px 2px #78c0cf;
+	-moz-box-shadow:2px 2px 2px 2px #78c0cf;
+	 box-shadow:2px 2px 2px 2px #78c0cf;
+	}
+</style>
 <div class="col-md-9">
     <div class="row">
     	<div class="col-md-12">
@@ -17,17 +24,49 @@
     	<div class="col-md-1">
     	</div>
     	<div class="col-md-9">
-    		<h2 class="text-center"><span class="label label-danger">Elementos relacionados con los objetivos del sitio</span></h2>
+    		<h2 class="text-center"><span class="label" style="color:black">Elementos relacionados con los objetivos del sitio</span></h2>
     		<br>
 
-    		<form action = "" method="post" class="form-horizontal">
+    		<form action = "" method="post" >
 				{% csrf_token %}
-				{{ form }}
-				<button type="submit" href="/home/evaluate/1" class="btn azul">  Next  <span class="glyphicon glyphicon-share-alt"></span></button>
+				{% for field in form %}
+					<div class="form-group" >
+						<label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label>
+						<div class="col-sm-12">
+							{% for i in field %}
+								<label class="radio-inline">
+								<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> {{i}}
+								</label>
+							{% endfor%}
+						</div>
+					</div>
+				{% endfor%}
+				<div class="form-group" >
+						<div class="col-sm-8 col-sm-offset-1">
+							<button type="submit" href="/home/evaluate/1" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  Next  <span class="glyphicon glyphicon-share-alt"></span></button>
+						</div>
+						
+					</div>
+				
+				
 			</form>
-    	</div>
-		<div class="col-md-2">
-    	</div>    	
+    </div>
+    <div class="col-md-2">
+		<nav id="myScrollspy">
+	      <ul class="nav nav-pills nav-stacked flotanteMenu" data-spy="affix" style="margin-top: 80px">
+	      	<li><strong><span class="glyphicon glyphicon-question-sign"></span> Leyenda de valores: </strong></li>
+	        <li><strong>(NA) No se cumple en absoluto</strong></li>
+			<li><strong>(NTS) Se cumple totalmente</strong></li>
+			<li><strong>(NEP) Criterio no aplicable en el sitio</strong></li>
+			<li><strong>(NPP) No se cumple en los enlaces principales</strong></li>
+			<li><strong>(NPI) No se cumple en alguna pagina interior</strong></li>
+			<li><strong>(S) Se cumple el criterio</strong></li>
+			<li><strong><span class="glyphicon glyphicon-sound-5-1"></span> Rango numerable: </strong></li>
+			<li><strong>(1) No cumple</strong></li>
+			<li><strong>(10) Cumple totalmente</strong></li>
+	      </ul>
+	    </nav>  
+    </div>	
     </div>
 </div>
 

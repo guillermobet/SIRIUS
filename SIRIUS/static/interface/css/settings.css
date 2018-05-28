@@ -40,3 +40,8 @@
 		text-align: center;
 		padding-left: 20px;
 	}
+	.flotanteMenu{
+	-webkit-box-shadow:2px 2px 2px 2px #78c0cf;
+	-moz-box-shadow:2px 2px 2px 2px #78c0cf;
+	 box-shadow:2px 2px 2px 2px #78c0cf;
+	}
