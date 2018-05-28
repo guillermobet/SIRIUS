@@ -6,13 +6,6 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
-<style type="text/css">
-	.flotanteMenu{
-	-webkit-box-shadow:2px 2px 2px 2px #78c0cf;
-	-moz-box-shadow:2px 2px 2px 2px #78c0cf;
-	 box-shadow:2px 2px 2px 2px #78c0cf;
-	}
-</style>
 <div class="col-md-9">
     <div class="row">
     	<div class="col-md-12">
@@ -21,9 +14,7 @@
 			</div>
 			
 		</div> <!-- col md 12-->
-    	<div class="col-md-1">
-    	</div>
-    	<div class="col-md-9">
+    	<div class="col-md-9" >
     		<h2 class="text-center"><span class="label" style="color:black">Elementos relacionados con los objetivos del sitio</span></h2>
     		<br>
 
@@ -34,8 +25,8 @@
 						<label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label>
 						<div class="col-sm-12">
 							{% for i in field %}
-								<label class="radio-inline">
-								<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> {{i}}
+								<label class="radio-inline " style="margin-right: 8px;">
+								<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" > {{i}}
 								</label>
 							{% endfor%}
 						</div>
@@ -51,9 +42,9 @@
 				
 			</form>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 col-xs-12">
 		<nav id="myScrollspy">
-	      <ul class="nav nav-pills nav-stacked flotanteMenu" data-spy="affix" style="margin-top: 80px">
+	      <ul class="nav nav-pills nav-stacked flotanteMenu " data-spy="affix" >
 	      	<li><strong><span class="glyphicon glyphicon-question-sign"></span> Leyenda de valores: </strong></li>
 	        <li><strong>(NA) No se cumple en absoluto</strong></li>
 			<li><strong>(NTS) Se cumple totalmente</strong></li>

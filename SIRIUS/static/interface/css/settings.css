@@ -44,4 +44,12 @@
 	-webkit-box-shadow:2px 2px 2px 2px #78c0cf;
 	-moz-box-shadow:2px 2px 2px 2px #78c0cf;
 	 box-shadow:2px 2px 2px 2px #78c0cf;
+	 margin-top: 80px;
 	}
+	@media screen and (max-width: 800px) {
+    .affix, .flotanteMenu{
+        position: relative;
+        margin-top: 10px;
+        margin-bottom: 10px;
+	}
+  }
