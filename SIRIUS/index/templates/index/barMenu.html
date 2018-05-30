@@ -64,16 +64,16 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-11">
        <ul class="nav navbar-nav navbar-right">
        {% if user.is_authenticated %}
-        <li><a class="navbar-text disabled" href="#">Hi, {{ user.user }}</a></li>
+        <li><a class="navbar-text disabled" href="#">Hola, {{ user.user }}</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle navbar-text" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle navbar-text" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Menú <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="">Profile</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="">Perfil</a></li>
+            <li><a href="/logout">Desloguearse</a></li>
           </ul>
         </li>
         {% else %}
-        <li><a class="navbar-text active" href="/login">Sign in</a></li>
+        <li><a class="navbar-text active" href="/login">Loguearse</a></li>
         {% endif %}
       </ul>
        </div><!-- /.navbar-collapse -->
@@ -104,22 +104,22 @@
               </div>
               <div >
                 <ul class="nav nav-pills nav-stacked collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <li id="home" class="active" role="presentation"><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-                <li id="profile" role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
-                <li id="evaluate" role="presentation"><a href="/home/evaluate"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Evaluate</a></li>
-                <li id="reviews" role="presentation"><a href="/home/reviews"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Reviews</a></li>
+                <li id="home" class="active" role="presentation"><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio </a></li>
+                <li id="profile" role="presentation"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Perfil </a></li>
+                <li id="evaluate" role="presentation"><a href="/home/evaluate"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Evaluar </a></li>
+                <li id="reviews" role="presentation"><a href="/home/reviews"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Reviews </a></li>
                 {% if user.is_superuser %}
                 
-                <li id="setting"  role="presentation"><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
+                <li id="setting"  role="presentation"><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Configuración <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
                 <!--<li id="s1" role="presentation"><a href="/home/indicator"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Indicator</a></li>
                 <li id="s2" role="presentation"><a href="/home/features"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Features</a></li>
                 <li id="s3" role="presentation"><a href="/home/subfeatures"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-features</a></li>
                 <li  id="s4" role="presentation"><a href="/home/attributes"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Attributes</a></li> -->
-                <li id="s1" role="presentation"><a href="{% url 'meta_heuristics' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Heuristics </a></li>
-                <li id="s2" role="presentation"><a href="{% url 'meta_criteria' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Criteria </a></li>
+                <li id="s1" role="presentation"><a href="{% url 'meta_heuristics' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Heuristicas </a></li>
+                <li id="s2" role="presentation"><a href="{% url 'meta_criteria' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Criterios </a></li>
 
                 {% endif %}
-                <li id="logout" role="presentation"><a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
+                <li id="logout" role="presentation"><a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Desloguearse </a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
           </div>
@@ -143,19 +143,19 @@
           <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
             <ul class="list-inline mb-2" style="margin-bottom: 5px;">
               <li class="list-inline-item">
-                <a href="#">About</a>
+                <a href="#">Sobre Nosotros</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Contact</a>
+                <a href="#">Contacto</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
+                <a href="#">Terminos de Uso</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
+                <a href="#">Política de Privacidad</a>
               </li>
             </ul>
             <p class="text-muted small mb-4 mb-lg-0">&copy; SIRIUS 2018. All Rights Reserved.</p>

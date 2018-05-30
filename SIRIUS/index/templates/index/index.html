@@ -40,9 +40,9 @@
 
         <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
-          <li><a href="/logout" class="btn btn-primary">{{ user.user }}, click here to logout</a></li>
+          <li><a href="/logout" class="btn btn-primary">{{ user.user }}, cliquea aqui para desloguearte</a></li>
         {% else %}
-        <li><a href="/login" class="btn btn-primary"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Sign in </a></li>
+        <li><a href="/login" class="btn btn-primary"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Loguearse </a></li>
         {% endif %}
         </ul>
        
@@ -64,7 +64,7 @@
                 <div class="form-row">
   
                   <div class="col-md-12 col-md-3">
-                    <a class="btn btn-block btn-lg btn-primary" href="/home" >Start now!</a>
+                    <a class="btn btn-block btn-lg btn-primary" href="/home" >Empieza ahora!</a>
                   </div>
                 </div>
               </form>
@@ -79,11 +79,11 @@
               <form>
                 <div class="form-row">
                   <div class="col-md-5 col-md-3">
-                    <a class="btn btn-block btn-lg btn-primary" href="/register" >Sign up</a>
+                    <a class="btn btn-block btn-lg btn-primary" href="/register" >Registrarse</a>
                   </div>
                   </br>
                   <div class="col-md-5 col-md-3 offset-md-2">
-                    <a class="btn btn-block btn-lg btn-primary" href="/login" >Sign in</a>
+                    <a class="btn btn-block btn-lg btn-primary" href="/login" >Loguearse</a>
                   </div>
                 </div>
               </form>
@@ -99,19 +99,19 @@
           <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
             <ul class="list-inline mb-2">
               <li class="list-inline-item">
-                <a href="#">About</a>
+                <a href="#">Sobre Nosotros</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Contact</a>
+                <a href="#">Contacto</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
+                <a href="#">Terminos de Uso</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
+                <a href="#">Política de Privacidad</a>
               </li>
             </ul>
             <p class="text-muted small mb-4 mb-lg-0">&copy; SIRIUS 2018. All Rights Reserved.</p>

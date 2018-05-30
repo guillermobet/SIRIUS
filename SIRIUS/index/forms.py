@@ -15,16 +15,16 @@ class UserRegistrationForm(forms.Form):
     )
     full_name = forms.CharField(
         required = True,
-        label = 'Full name',
+        label = 'Nombre Completo',
         max_length = 60,
-        widget = forms.TextInput({"placeholder": "Full Name *"})
+        widget = forms.TextInput({"placeholder": "Nombre Completo *"})
 
     )
     telephone= forms.CharField(
         required = False,
-        label = 'Telephone',
+        label = 'Teléfono',
         max_length = 11,
-        widget = forms.TextInput({"placeholder": "Telephone"})
+        widget = forms.TextInput({"placeholder": "Teléfono"})
 
     )
     email = forms.EmailField(
@@ -35,15 +35,15 @@ class UserRegistrationForm(forms.Form):
     )
     password = forms.CharField(
         required = True,
-        label = 'password',
+        label = 'Contraseña',
         max_length = 32,
-        widget = forms.PasswordInput({"placeholder": "Password *"})
+        widget = forms.PasswordInput({"placeholder": "Contraseña *"})
     )
     password_confirmation = forms.CharField(
         required = True,
-        label = 'password_confirmation',
+        label = 'Confirmación contraseña',
         max_length = 32,
-        widget = forms.PasswordInput({"placeholder": "Password confirmation *"})
+        widget = forms.PasswordInput({"placeholder": "Confirmación contraseña *"})
     )
 
     def clean_password_confirmation(self):
@@ -69,44 +69,44 @@ class UserRegistrationForm(forms.Form):
 class EvaluationGeneralForm(forms.Form):
 	evaluator = forms.CharField(
 		required = True,
-		label = 'Evaluator',
+		label = 'Evaluador',
 		max_length = 60,
-		widget = forms.TextInput({"placeholder": "Ex. Maigualida Perez",
+		widget = forms.TextInput({"placeholder": "Ej. Maigualida Perez",
 								   "readonly": True
 								   })
 	)
 	date = forms.DateField(
 		required = True,
-		label = 'Evaluation Date',
+		label = 'Fecha de la Evaluación',
 		initial = datetime.date.today,
 	)
 	website_name = forms.CharField(
 		required = True,
-		label = "Website's Name",
+		label = "Nombre del Website",
 		max_length = 100,
-		widget = forms.TextInput({"placeholder": "Ex. Google"})
+		widget = forms.TextInput({"placeholder": "Ej. Google"})
 	)
 	website_url = forms.URLField(
 		required = True,
-		label = "Website's URL",
-		widget = forms.URLInput({'placeholder': 'Ex. https://www.google.com/'})
+		label = "URL del Website",
+		widget = forms.URLInput({'placeholder': 'Ej. https://www.google.com/'})
 	)
 	website_description = forms.CharField(
 		required = True,
-		label = "Website's description",
-		widget = forms.TextInput({"placeholder": 'Ex. Search'})
+		label = "Descripción del Website",
+		widget = forms.TextInput({"placeholder": 'Ej. Búsqueda'})
 	)
 	browser_name = forms.CharField(
 		required = True,
-		label = 'Broser Name',
+		label = 'Explorador Usado',
 		max_length = 20,
-		widget = forms.TextInput({"placeholder": "Ex. Google Chrome"})
+		widget = forms.TextInput({"placeholder": "Ej. Google Chrome"})
 	)
 	browser_version = forms.CharField(
 		required = True,
-		label = 'Broser Version',
+		label = 'Versión del explorador',
 		max_length = 10,
-		widget = forms.TextInput({"placeholder": "Ex. 66"})
+		widget = forms.TextInput({"placeholder": "Ej. 66"})
 	)
 
 class HorizontalRadioRenderer(forms.RadioSelect):
@@ -147,46 +147,52 @@ class ReviewItemsForm(forms.Form):
 class AddMetaHeuristicForm(forms.Form):
 	name = forms.CharField(
 		required = True,
-		label = 'Name',
+		label = 'Nombre',
 		max_length = 100,
-		widget = forms.TextInput({"placeholder": "Ex. Aspectos Generales"})
+		widget = forms.TextInput({"placeholder": "Ej. Aspectos Generales"})
 	)
 	acronym = forms.CharField(
 		required = True,
-		label = 'Acronym',
+		label = 'Acrónimo',
 		max_length = 2,
-		widget = forms.TextInput({"placeholder": "Ex. AG"})
+		widget = forms.TextInput({"placeholder": "Ej. AG"})
 	)
 	
 class AddMetaCriterionForm(forms.Form):
 	heuristic = forms.ModelChoiceField(
 		required = True,
-		label = 'Heuristic',
+		label = 'Heuristica',
 		queryset=MetaHeuristic.objects.all()
 	)
 	name = forms.CharField(
 		required = True,
-		label = 'Name',
+		label = 'Nombre',
 		max_length = 100,
-		widget = forms.TextInput({"placeholder": "Ex. Objetivos bien definidos"})
+		widget = forms.TextInput({"placeholder": "Ej. Objetivos bien definidos"})
 	)
 	acronym = forms.CharField(
 		required = True,
-		label = 'Acronym',
+		label = 'Acrónimo',
 		max_length = 3,
-		widget = forms.TextInput({"placeholder": "Ex. AG1"})
+		widget = forms.TextInput({"placeholder": "Ej. AG1"})
 	)
 	atribute = forms.ChoiceField(
 		required = True,
-		label = 'Attribute',
-		choices = [('qualitative', 'qualitative'), ('quantitative', 'quantitative')],
+		label = 'Atributo',
+		choices = [('qualitative', 'cualitativo'), ('quantitative', 'cuantitativo')],
 		initial = 'qualitative',
 	)
 	metric = forms.CharField(
 		required = True,
-		label = 'Metric',
+		label = 'Métrica',
 		max_length = 12,
-		widget = forms.TextInput({"placeholder": "Ex. - "})
+		widget = forms.TextInput({"placeholder": "Ej. - "})
+	)
+	
+class FilterMetaCriteriaForm(forms.Form):
+	heuristic = forms.ModelChoiceField(
+		label = 'Heuristica',
+		queryset=MetaHeuristic.objects.all()
 	)
 		
 	

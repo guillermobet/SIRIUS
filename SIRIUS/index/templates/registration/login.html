@@ -12,19 +12,19 @@
     </head>
     <div class="container ">
         <div class="log-form">
-          <h2>Login to your account</h2>
+          <h2>Logueate a tu cuenta</h2>
           <form method="POST">
             {% if form.errors %}
               <div class="alert alert-danger alert-dismissible" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <strong>ERROR.</strong> Username or password not correct. Try again.
+                  <strong>ERROR.</strong> Username o contraseña incorrecta. Intenta nuevamente.
                 </div>
             {% endif %}
             {% csrf_token %}
             <input type="text" title="username" name="username" placeholder="Username/Email" required="" />
-            <input type="password" title="password" placeholder="Password" name="password" required="" />
+            <input type="password" title="password" placeholder="Contraseña" name="password" required="" />
             <button type="submit" class="btn">Login</button>
-            <a class="forgot" href="../register">Create an account</a>
+            <a class="forgot" href="../register">Crear una cuenta</a>
 
           </form>
     
