@@ -191,6 +191,7 @@ class AddMetaCriterionForm(forms.Form):
 	
 class FilterMetaCriteriaForm(forms.Form):
 	heuristic = forms.ModelChoiceField(
+		required = False,
 		label = 'Heuristica',
 		queryset=MetaHeuristic.objects.all()
 	)

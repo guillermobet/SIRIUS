@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django import forms
-from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm, AddMetaHeuristicForm, AddMetaCriterionForm
+from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm, AddMetaHeuristicForm, AddMetaCriterionForm, FilterMetaCriteriaForm
 from django.contrib import messages
 import datetime
 from .decorators import student_required
@@ -184,32 +184,51 @@ def delete_meta_heuristics(request, meta_heuristic_id):
 	return HttpResponseRedirect(reverse('meta_heuristics', args=(), kwargs={}))
 	
 def meta_criteria(request):
+	filterCriteria = False
 	
 	if request.method == 'POST':
-		form = AddMetaCriterionForm(request.POST)
-		if form.is_valid():
-			heuristic = form.cleaned_data['heuristic']
-			name = form.cleaned_data['name']
-			acronym = form.cleaned_data['acronym']
-			atribute = form.cleaned_data['atribute']
-			metric = form.cleaned_data['metric']
-			try:
-				MetaCriteria.objects.create(
-					heuristic = heuristic,
-					name = name,
-					acronym = acronym,
-					atribute = atribute,
-					metric = metric
-					)
-			except IntegrityError:
-				print('No lo cree el mio')
-				pass
-				#display message
-			
-	criteria = MetaCriteria.objects.all()
+		if('create_form' in request.POST):
+			form = AddMetaCriterionForm(request.POST)
+			if form.is_valid():
+				heuristic = form.cleaned_data['heuristic']
+				name = form.cleaned_data['name']
+				acronym = form.cleaned_data['acronym']
+				atribute = form.cleaned_data['atribute']
+				metric = form.cleaned_data['metric']
+				try:
+					MetaCriteria.objects.create(
+						heuristic = heuristic,
+						name = name,
+						acronym = acronym,
+						atribute = atribute,
+						metric = metric
+						)
+				except IntegrityError:
+					print('No lo cree el mio')
+					pass
+					#display message
+		elif('filter_form' in request.POST):
+			filterForm = FilterMetaCriteriaForm(request.POST)
+			if filterForm.is_valid():
+				filterHeuristic = filterForm.cleaned_data['heuristic']
+				print(filterHeuristic)
+				if(filterHeuristic != None):
+					filterCriteria = True
+		else:
+			print("I do not know which form was submitted")
+	
 	form = AddMetaCriterionForm()
+	filterForm = FilterMetaCriteriaForm()
+	
+	if(filterCriteria):
+		criteria = 	MetaCriteria.objects.filter(heuristic = filterHeuristic)
+		filterForm = FilterMetaCriteriaForm(initial={'heuristic' : filterHeuristic})
+	else:
+		criteria = MetaCriteria.objects.all()
+	
 	context = {'criteria' : criteria,
-			   'form' : form
+			   'form' : form,
+			   'filter_form' : filterForm
 			   }
 	return render(request, 'settings/criteria.html', context)
 

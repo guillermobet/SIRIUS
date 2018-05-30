@@ -30,7 +30,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-9">
 							<button type="button" class="btn rojo espacio-der">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
-							<button type="submit" class="btn azul espacio-izq">Guardar <span class="glyphicon glyphicon-ok"></span></button>
+							<button type="submit" class="btn azul espacio-izq" name="create_form">Guardar <span class="glyphicon glyphicon-ok"></span></button>
 						</div>
 					</div>
 				</form>
@@ -43,6 +43,16 @@
 		<div class="col-md-2">
 		</div><!-- col-->
 		<div class="col-md-8">
+			<div class="row">
+			<form class="form-horizontal" action="" method="post">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="{{filter_form.heuristic.name}}" class="col-sm-3 control-label">{{filter_form.heuristic.label}}</label>
+					<div class="col-sm-4">{{filter_form.heuristic|addcssclass:"form-control"}}</div>
+					<div class="col-sm-3"><button type="submit" class="btn azul" name="filter_form">Filtrar <span class="glyphicon glyphicon-ok"></span></button></div>
+				</div>
+			</form>
+			</div>
 			<table class="table table-hover">
 			    <thead>
 			      <tr>
