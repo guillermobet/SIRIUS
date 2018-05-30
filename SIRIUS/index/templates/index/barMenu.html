@@ -111,10 +111,12 @@
                 {% if user.is_superuser %}
                 
                 <li id="setting"  role="presentation"><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Settings <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
-                <li id="s1" role="presentation"><a href="/home/indicator"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Indicator</a></li>
+                <!--<li id="s1" role="presentation"><a href="/home/indicator"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Indicator</a></li>
                 <li id="s2" role="presentation"><a href="/home/features"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Features</a></li>
                 <li id="s3" role="presentation"><a href="/home/subfeatures"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-features</a></li>
-                <li  id="s4" role="presentation"><a href="/home/attributes"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Attributes</a></li>
+                <li  id="s4" role="presentation"><a href="/home/attributes"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Attributes</a></li> -->
+                <li id="s1" role="presentation"><a href="{% url 'meta_heuristics' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Heuristics </a></li>
+                <li id="s2" role="presentation"><a href="{% url 'meta_criteria' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Criteria </a></li>
 
                 {% endif %}
                 <li id="logout" role="presentation"><a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>

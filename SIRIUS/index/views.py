@@ -6,11 +6,12 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django import forms
-from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm
+from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm, AddMetaHeuristicForm, AddMetaCriterionForm
 from django.contrib import messages
 import datetime
 from .decorators import student_required
-from .models import Website, Review, Criteria, MetaCriteria
+from .models import Website, Review, Criteria, MetaCriteria, MetaHeuristic
+from django.db import IntegrityError
 # Create your views here.
 
 def index(request):
@@ -18,7 +19,7 @@ def index(request):
 
 def home(request):
     return render(request, "index/home.html", {})
-
+"""
 def indicator(request):
     return render(request, "settings/indicator.html", {})
 
@@ -30,7 +31,7 @@ def subfeatures(request):
 
 def attributes(request):
     return render(request, "settings/attributes.html", {})
-
+"""
 @student_required
 def evaluate(request):
 	user = request.user
@@ -84,7 +85,10 @@ def evaluate_items(request, review_id):
 	
 	user = request.user
 	form = ReviewItemsForm()
-	context = {'form' : form }
+	heuristics = MetaHeuristic.objects.all()
+	context = {'form' : form,
+			   'heuristics' : heuristics
+			  }
 	
 	if request.method == 'POST':
 		form = ReviewItemsForm(request.POST)
@@ -154,3 +158,61 @@ def reviews_edit(request, review_id):
 			   'criteria' : criteria
 			   }
 	return render(request, 'reviews/ver_review.html', context)
+	
+def meta_heuristics(request):
+	
+	if request.method == 'POST':
+		form = AddMetaHeuristicForm(request.POST)
+		if form.is_valid():
+			name = form.cleaned_data['name']
+			acronym = form.cleaned_data['acronym']
+			try:
+				MetaHeuristic.objects.create(name = name, acronym = acronym)
+			except IntegrityError:
+				pass
+				#display message
+			
+	heuristics = MetaHeuristic.objects.all()
+	form = AddMetaHeuristicForm()
+	context = {'heuristics' : heuristics,
+			   'form' : form
+			   }
+	return render(request, 'settings/heuristics.html', context)
+	
+def delete_meta_heuristics(request, meta_heuristic_id):
+	MetaHeuristic.objects.get(pk = meta_heuristic_id).delete()
+	return HttpResponseRedirect(reverse('meta_heuristics', args=(), kwargs={}))
+	
+def meta_criteria(request):
+	
+	if request.method == 'POST':
+		form = AddMetaCriterionForm(request.POST)
+		if form.is_valid():
+			heuristic = form.cleaned_data['heuristic']
+			name = form.cleaned_data['name']
+			acronym = form.cleaned_data['acronym']
+			atribute = form.cleaned_data['atribute']
+			metric = form.cleaned_data['metric']
+			try:
+				MetaCriteria.objects.create(
+					heuristic = heuristic,
+					name = name,
+					acronym = acronym,
+					atribute = atribute,
+					metric = metric
+					)
+			except IntegrityError:
+				print('No lo cree el mio')
+				pass
+				#display message
+			
+	criteria = MetaCriteria.objects.all()
+	form = AddMetaCriterionForm()
+	context = {'criteria' : criteria,
+			   'form' : form
+			   }
+	return render(request, 'settings/criteria.html', context)
+
+def delete_meta_criterion(request, meta_criterion_id):
+	MetaCriteria.objects.get(pk = meta_criterion_id).delete()
+	return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))

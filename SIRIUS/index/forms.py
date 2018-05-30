@@ -121,11 +121,6 @@ class ReviewItemsForm(forms.Form):
 								('7', '7'), ('8', '8'), ('9', '9'), 
 								('10', '10')
 								]
-		"""
-		qualitative_chices = [('1', 'NA'), ('2', 'NTS'), ('3', 'NEP'),
-							  ('4', 'NPP'), ('5', 'NPI'), ('6', 'S')
-							  ]
-		"""
 		qualitative_chices = [('NA', 'NA'), ('NTS', 'NTS'), ('NEP', 'NEP'),
 							  ('NPP', 'NPP'), ('NPI', 'NPI'), ('S', 'S')
 							  ]
@@ -136,18 +131,65 @@ class ReviewItemsForm(forms.Form):
 			for j in range(0, len(criteria)):
 				if(criteria[j].atribute == 'qualitative'):
 					choices = qualitative_chices
+					initial_value = 'NA'
 				else:
 					choices = quantitative_choices
-				#self.fields['H'+str(i)+'C'+str(j)] = forms.ChoiceField(
+					initial_value = '1'
+					
 				self.fields['H_'+str(heuristics[i].pk)+'_C_'+str(criteria[j].pk)] = forms.ChoiceField(
+					required = True,
 					label = criteria[j].name,
 					choices = choices,
-					initial = '1',
-					widget = forms.RadioSelect()
-					#widget = HorizontalRadioRenderer()
+					initial = initial_value,
+					widget = forms.RadioSelect(attrs = {'heuristic' : heuristics[i].pk}),
 				)
-		# do the logic and add the fields here
-		# self.fields['field_name'] = FieldType()
+				
+class AddMetaHeuristicForm(forms.Form):
+	name = forms.CharField(
+		required = True,
+		label = 'Name',
+		max_length = 100,
+		widget = forms.TextInput({"placeholder": "Ex. Aspectos Generales"})
+	)
+	acronym = forms.CharField(
+		required = True,
+		label = 'Acronym',
+		max_length = 2,
+		widget = forms.TextInput({"placeholder": "Ex. AG"})
+	)
+	
+class AddMetaCriterionForm(forms.Form):
+	heuristic = forms.ModelChoiceField(
+		required = True,
+		label = 'Heuristic',
+		queryset=MetaHeuristic.objects.all()
+	)
+	name = forms.CharField(
+		required = True,
+		label = 'Name',
+		max_length = 100,
+		widget = forms.TextInput({"placeholder": "Ex. Objetivos bien definidos"})
+	)
+	acronym = forms.CharField(
+		required = True,
+		label = 'Acronym',
+		max_length = 3,
+		widget = forms.TextInput({"placeholder": "Ex. AG1"})
+	)
+	atribute = forms.ChoiceField(
+		required = True,
+		label = 'Attribute',
+		choices = [('qualitative', 'qualitative'), ('quantitative', 'quantitative')],
+		initial = 'qualitative',
+	)
+	metric = forms.CharField(
+		required = True,
+		label = 'Metric',
+		max_length = 12,
+		widget = forms.TextInput({"placeholder": "Ex. - "})
+	)
+		
+	
 	
 	
 	

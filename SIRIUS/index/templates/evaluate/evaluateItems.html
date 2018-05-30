@@ -15,33 +15,33 @@
 			
 		</div> <!-- col md 12-->
     	<div class="col-md-9" >
-    		<h2 class="text-center"><span class="label" style="color:black">Elementos relacionados con los objetivos del sitio</span></h2>
-    		<br>
-
-    		<form action = "" method="post" >
+			<form action = "" method="post" >
 				{% csrf_token %}
-				{% for field in form %}
+				{% for heuristic in heuristics %}
+					<h2 class="text-center"><span class="label" style="color:black">{{heuristic.name}}</span></h2>
+					{% for field in form %}
+						{% if field.field.widget.attrs.heuristic == heuristic.pk %}
+							<div class="form-group" >
+								<label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label>
+								<div class="col-sm-12">
+									{% for i in field %}
+										<label class="radio-inline " style="margin-right: 8px;">
+										<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" > {{i}}
+										</label>
+									{% endfor%}
+								</div>
+							</div>
+						{% endif %}
+					{% endfor%}
+				{% endfor %}
 					<div class="form-group" >
-						<label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label>
-						<div class="col-sm-12">
-							{% for i in field %}
-								<label class="radio-inline " style="margin-right: 8px;">
-								<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" > {{i}}
-								</label>
-							{% endfor%}
-						</div>
-					</div>
-				{% endfor%}
-				<div class="form-group" >
 						<div class="col-sm-8 col-sm-offset-1">
 							<button type="submit" href="/home/evaluate/1" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  Next  <span class="glyphicon glyphicon-share-alt"></span></button>
 						</div>
-						
 					</div>
-				
-				
+					
 			</form>
-    </div>
+    	</div>
     <div class="col-md-2 col-xs-12">
 		<nav id="myScrollspy">
 	      <ul class="nav nav-pills nav-stacked flotanteMenu " data-spy="affix" >
