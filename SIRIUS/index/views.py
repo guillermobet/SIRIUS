@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django import forms
@@ -168,9 +169,9 @@ def meta_heuristics(request):
 			acronym = form.cleaned_data['acronym']
 			try:
 				MetaHeuristic.objects.create(name = name, acronym = acronym)
+				messages.success(request, 'Heuristica creada exitosamente')
 			except IntegrityError:
-				pass
-				#display message
+				messages.error(request, 'Una Heuristica con estas caracteristicas ya esta registrada en el sistema')
 			
 	heuristics = MetaHeuristic.objects.all()
 	form = AddMetaHeuristicForm()
@@ -181,6 +182,7 @@ def meta_heuristics(request):
 	
 def delete_meta_heuristics(request, meta_heuristic_id):
 	MetaHeuristic.objects.get(pk = meta_heuristic_id).delete()
+	messages.success(request, 'Heuristica eliminada exitosamente')
 	return HttpResponseRedirect(reverse('meta_heuristics', args=(), kwargs={}))
 	
 def meta_criteria(request):
@@ -203,10 +205,10 @@ def meta_criteria(request):
 						atribute = atribute,
 						metric = metric
 						)
+					messages.success(request, 'Criterio creado exitosamente!')
 				except IntegrityError:
-					print('No lo cree el mio')
-					pass
-					#display message
+					messages.error(request, 'Un Criterio con estas caracteristicas ya esta registrado en el sistema')
+					
 		elif('filter_form' in request.POST):
 			filterForm = FilterMetaCriteriaForm(request.POST)
 			if filterForm.is_valid():
@@ -234,4 +236,5 @@ def meta_criteria(request):
 
 def delete_meta_criterion(request, meta_criterion_id):
 	MetaCriteria.objects.get(pk = meta_criterion_id).delete()
+	messages.success(request, 'Criterio eliminado exitosamente')
 	return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))

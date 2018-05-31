@@ -44,6 +44,14 @@
     padding-right: 0px;
   }
 </style>
+	<!-- Show messages trough a modal -->
+	{% if messages %}
+			{% for message in messages %}
+				{% include 'modals/modal.html' %}
+			{% endfor %}
+			<script>$('#myModal').modal('show')</script>
+	{% endif %}
+	
     <!-- Navigation -->
     <nav class="navbar navbar-white bg-white static-top xs-hidden">
       <div class="container">
@@ -186,6 +194,12 @@
   <!-- Bootstrap core JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.js"></script>
+  <!-- Helper functions -->
+  <script>
+  	function clearForm(formID) {
+		document.getElementById(formID).reset()
+	}
+  </script>
 
 
 </body>
