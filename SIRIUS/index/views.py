@@ -4,15 +4,16 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django import forms
-from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm, AddMetaHeuristicForm, AddMetaCriterionForm, FilterMetaCriteriaForm
+from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm, AddMetaHeuristicForm, AddMetaCriterionForm, FilterMetaCriteriaForm, MetaHeuristicForm
 from django.contrib import messages
 import datetime
 from .decorators import student_required
 from .models import Website, Review, Criteria, MetaCriteria, MetaHeuristic
 from django.db import IntegrityError
+from django.template.loader import render_to_string
 # Create your views here.
 
 def index(request):
@@ -160,35 +161,103 @@ def reviews_edit(request, review_id):
 			   }
 	return render(request, 'reviews/ver_review.html', context)
 	
-def meta_heuristics(request):
+def meta_heuristics(request, meta_heuristic_id = None):
 	
 	if request.method == 'POST':
-		form = AddMetaHeuristicForm(request.POST)
+		form = MetaHeuristicForm(request.POST)
 		if form.is_valid():
-			name = form.cleaned_data['name']
-			acronym = form.cleaned_data['acronym']
-			try:
-				MetaHeuristic.objects.create(name = name, acronym = acronym)
-				messages.success(request, 'Heuristica creada exitosamente')
-			except IntegrityError:
-				messages.error(request, 'Una Heuristica con estas caracteristicas ya esta registrada en el sistema')
 			
+			# Creating new MetaHeuristic
+			if(meta_heuristic_id == None):
+				name = form.cleaned_data['name']
+				acronym = form.cleaned_data['acronym']
+				try:
+					MetaHeuristic.objects.create(name = name, acronym = acronym)
+					messages.success(request, 'Heuristica creada exitosamente')
+				except IntegrityError:
+					messages.error(request, 'Una Heuristica con estas caracteristicas ya esta registrada en el sistema')
+			
+			# Editing existing MetaHeuristic
+			else:
+				heuristic = MetaHeuristic.objects.get(pk = meta_heuristic_id)
+				heuristic.name = form.cleaned_data['name']
+				heuristic.acronym = form.cleaned_data['acronym']
+				try:
+					heuristic.save()
+					messages.success(request, 'Heuristica editada exitosamente')
+				except IntegrityError:
+					messages.error(request, 'Una Heuristica con estas caracteristicas ya esta registrada en el sistema')
+	
+	# Heuristics for showing
 	heuristics = MetaHeuristic.objects.all()
-	form = AddMetaHeuristicForm()
+	
+	# Edit MetaHeuristic form
+	if(meta_heuristic_id != None):
+		try:
+			heuristic = MetaHeuristic.objects.get(pk = meta_heuristic_id)
+		except MetaHeuristic.DoesNotExist:
+			messages.error(request, 'La Heuristica que esta tratando de editar no existe')
+			return HttpResponseRedirect(reverse('meta_heuristics', args=(), kwargs={}))
+			
+		data = {'id' : heuristic.pk,
+				'name' : heuristic.name,
+				'acronym' : heuristic.acronym
+				}
+		form = MetaHeuristicForm(data)
+		
+	# Create MetaHeuristic form
+	else:
+		form = MetaHeuristicForm()
+	
 	context = {'heuristics' : heuristics,
 			   'form' : form
 			   }
+				   
 	return render(request, 'settings/heuristics.html', context)
 	
 def delete_meta_heuristics(request, meta_heuristic_id):
-	MetaHeuristic.objects.get(pk = meta_heuristic_id).delete()
-	messages.success(request, 'Heuristica eliminada exitosamente')
+	try:
+		MetaHeuristic.objects.get(pk = meta_heuristic_id).delete()
+		messages.success(request, 'Heuristica eliminada exitosamente')
+	except MetaHeuristic.DoesNotExist:
+		messages.error(request, 'La Heuristica que esta tratando de eliminar no existe')
+	
 	return HttpResponseRedirect(reverse('meta_heuristics', args=(), kwargs={}))
+	
+def edit_meta_heuristics(request, meta_heuristic_id):
+	"""
+	heuristic = MetaHeuristic.objects.get(pk = meta_heuristic_id)
+	data = {'id' : heuristic.pk,
+			'name' : heuristic.name,
+			'acronym' : heuristic.acronym
+			}
+	form = AddMetaHeuristicForm(data)
+	context = {'form' : form,
+			   'object_name' : heuristic.name
+			   }
+	html_form = render_to_string(
+		'modals/edit_modal.html',
+		context,
+		request=request,
+	)
+	"""
+	heuristic = MetaHeuristic.objects.get(pk = meta_heuristic_id)
+	data = {'id' : heuristic.pk,
+			'name' : heuristic.name,
+			'acronym' : heuristic.acronym,
+			'editing' : True
+			}
+	
+	return JsonResponse({'html_form' : html_form})
 	
 def meta_criteria(request):
 	filterCriteria = False
 	
 	if request.method == 'POST':
+		form1 = AddMetaCriterionForm(request.POST)
+		print(form1)
+		form2 = FilterMetaCriteriaForm(request.POST)
+		print(form2)
 		if('create_form' in request.POST):
 			form = AddMetaCriterionForm(request.POST)
 			if form.is_valid():

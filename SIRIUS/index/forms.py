@@ -157,6 +157,19 @@ class AddMetaHeuristicForm(forms.Form):
 		max_length = 2,
 		widget = forms.TextInput({"placeholder": "Ej. AG"})
 	)
+class MetaHeuristicForm(forms.Form):
+	name = forms.CharField(
+		required = True,
+		label = 'Nombre',
+		max_length = 100,
+		widget = forms.TextInput({"placeholder": "Ej. Aspectos Generales"})
+	)
+	acronym = forms.CharField(
+		required = True,
+		label = 'Acrónimo',
+		max_length = 2,
+		widget = forms.TextInput({"placeholder": "Ej. AG"})
+	)
 	
 class AddMetaCriterionForm(forms.Form):
 	heuristic = forms.ModelChoiceField(

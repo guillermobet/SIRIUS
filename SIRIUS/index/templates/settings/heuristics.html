@@ -4,6 +4,13 @@
 
 
 {% block content %}
+<div id="modal_container"></div>
+<div class="modal fade" id="editModal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
         		<div class="col-md-12">
         			<div class="page-header">
@@ -17,9 +24,9 @@
 		        		</div>	
 		        		<div class="col-md-6">
 							    <div class="well well-lg">
-			        				<form class="form-horizontal" action="" method="post" id="add_heuristic_form">
+			        				<form class="form-horizontal" action="" method="post" id="heuristic_form">
 										{% csrf_token %}
-										{% for field in form %}
+										{% for field in form.visible_fields %}
 											<div class="form-group">
 												<label for="{{field.name}}" class="col-sm-3 control-label">{{field.label}}</label>
 												<div class="col-sm-9">
@@ -29,8 +36,8 @@
 										{% endfor %}
 										<div class="form-group">
 											<div class="col-sm-offset-3 col-sm-9">
-												<button type="button" class="btn rojo espacio-der" onclick="clearForm('add_heuristic_form')">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
-												<button type="submit" class="btn azul espacio-izq">Guardar <span class="glyphicon glyphicon-ok"></span></button>
+												<button type="button" class="btn rojo espacio-der" onclick="clearForm('heuristic_form')">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+												<button type="submit" class="btn azul espacio-izq" name="create_form">Guardar <span class="glyphicon glyphicon-ok"></span></button>
 											</div>
 										</div>
 									</form>
@@ -58,7 +65,8 @@
 							      <tr class="warning">
 							        <td>{{heuristic.name}}</td>
 							        <td>{{heuristic.acronym}}</td>
-							        <td><span class="glyphicon glyphicon-edit centro"></span></td>
+							        <!-- <td><a href="#" class="js-edit-heuristic" data-url="{% url 'edit_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-edit centro"></span></a></td> -->
+							        <td><a href="{% url 'edit_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-edit centro"></span></button></td>
 							        <td><a href="{% url 'delete_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-remove centro"></span></a></td>
 							        <td><span class="glyphicon glyphicon-link centro"></span></td>
 							      </tr>
@@ -82,6 +90,25 @@ $('#setting').click(function(){
     $('#s1,#s2,#s3,#s4').toggle();
     $('#s1').removeClass('active');
 	$('#setting').addClass('active');
+});
+
+$(function () {
+  $(".js-edit-heuristic").click(function () {
+	var btn = $(this);
+    $.ajax({
+      url: btn.attr('data-url'),
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+       $("#editModal").modal("show");
+      },
+      success: function (data) {
+        $("#editModal .modal-content").html(data.html_form);
+        //$("#editModal").modal("show");
+      }
+    });
+  });
+
 });
 </script>
 {% endblock %}

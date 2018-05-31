@@ -47,7 +47,7 @@
 	<!-- Show messages trough a modal -->
 	{% if messages %}
 			{% for message in messages %}
-				{% include 'modals/modal.html' %}
+				{% include 'modals/message_modal.html' %}
 			{% endfor %}
 			<script>$('#myModal').modal('show')</script>
 	{% endif %}
