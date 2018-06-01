@@ -16,11 +16,12 @@ urlpatterns = [
 	
 	# MetaHeuristics
 	path("home/metaheuristics", views.meta_heuristics, name="meta_heuristics"),
-	path("home/delete-metaheuristic/<int:meta_heuristic_id>/", views.delete_meta_heuristics, name="delete_meta_heuristic"),
 	path("home/metaheuristics/<int:meta_heuristic_id>/", views.meta_heuristics, name="edit_meta_heuristic"),
+	path("home/delete-metaheuristic/<int:meta_heuristic_id>/", views.delete_meta_heuristics, name="delete_meta_heuristic"),
 	
 	# MetaCriteria
 	path("home/metacriteria", views.meta_criteria, name="meta_criteria"),
+	path("home/metacriteria/<int:meta_criterion_id>/", views.meta_criteria, name="edit_meta_criterion"),
 	path("home/delete-metacriterion/<int:meta_criterion_id>/", views.delete_meta_criterion, name="delete_meta_criterion"),
 	
 	# Evaluate

@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django import forms
-from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm, AddMetaHeuristicForm, AddMetaCriterionForm, FilterMetaCriteriaForm, MetaHeuristicForm
+from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm, FilterMetaCriteriaForm, MetaHeuristicForm, MetaCriterionForm
 from django.contrib import messages
 import datetime
 from .decorators import student_required
@@ -199,8 +199,7 @@ def meta_heuristics(request, meta_heuristic_id = None):
 			messages.error(request, 'La Heuristica que esta tratando de editar no existe')
 			return HttpResponseRedirect(reverse('meta_heuristics', args=(), kwargs={}))
 			
-		data = {'id' : heuristic.pk,
-				'name' : heuristic.name,
+		data = {'name' : heuristic.name,
 				'acronym' : heuristic.acronym
 				}
 		form = MetaHeuristicForm(data)
@@ -224,86 +223,98 @@ def delete_meta_heuristics(request, meta_heuristic_id):
 	
 	return HttpResponseRedirect(reverse('meta_heuristics', args=(), kwargs={}))
 	
-def edit_meta_heuristics(request, meta_heuristic_id):
-	"""
-	heuristic = MetaHeuristic.objects.get(pk = meta_heuristic_id)
-	data = {'id' : heuristic.pk,
-			'name' : heuristic.name,
-			'acronym' : heuristic.acronym
-			}
-	form = AddMetaHeuristicForm(data)
-	context = {'form' : form,
-			   'object_name' : heuristic.name
-			   }
-	html_form = render_to_string(
-		'modals/edit_modal.html',
-		context,
-		request=request,
-	)
-	"""
-	heuristic = MetaHeuristic.objects.get(pk = meta_heuristic_id)
-	data = {'id' : heuristic.pk,
-			'name' : heuristic.name,
-			'acronym' : heuristic.acronym,
-			'editing' : True
-			}
-	
-	return JsonResponse({'html_form' : html_form})
-	
-def meta_criteria(request):
+def meta_criteria(request, meta_criterion_id=None):
 	filterCriteria = False
 	
 	if request.method == 'POST':
-		form1 = AddMetaCriterionForm(request.POST)
-		print(form1)
-		form2 = FilterMetaCriteriaForm(request.POST)
-		print(form2)
-		if('create_form' in request.POST):
-			form = AddMetaCriterionForm(request.POST)
+		if('criterion_form' in request.POST):
+			form = MetaCriterionForm(request.POST)
 			if form.is_valid():
-				heuristic = form.cleaned_data['heuristic']
-				name = form.cleaned_data['name']
-				acronym = form.cleaned_data['acronym']
-				atribute = form.cleaned_data['atribute']
-				metric = form.cleaned_data['metric']
-				try:
-					MetaCriteria.objects.create(
-						heuristic = heuristic,
-						name = name,
-						acronym = acronym,
-						atribute = atribute,
-						metric = metric
-						)
-					messages.success(request, 'Criterio creado exitosamente!')
-				except IntegrityError:
-					messages.error(request, 'Un Criterio con estas caracteristicas ya esta registrado en el sistema')
+				
+			# Creating new MetaCriteria
+				if(meta_criterion_id == None):
+					heuristic = form.cleaned_data['heuristic']
+					name = form.cleaned_data['name']
+					acronym = form.cleaned_data['acronym']
+					atribute = form.cleaned_data['atribute']
+					metric = form.cleaned_data['metric']
+					try:
+						MetaCriteria.objects.create(
+							heuristic = heuristic,
+							name = name,
+							acronym = acronym,
+							atribute = atribute,
+							metric = metric
+							)
+						messages.success(request, 'Criterio creado exitosamente!')
+					except IntegrityError:
+						messages.error(request, 'Un Criterio con estas caracteristicas ya esta registrado en el sistema')
+						
+				# Editing existing MetaCriteria
+				else:
+					criterion = MetaCriteria.objects.get(pk = meta_criterion_id)
+					criterion.heuristic = form.cleaned_data['heuristic']
+					criterion.name = form.cleaned_data['name']
+					criterion.acronym = form.cleaned_data['acronym']
+					criterion.metric = form.cleaned_data['metric']
+					criterion.atribute = form.cleaned_data['atribute']
+					try:
+						criterion.save()
+						messages.success(request, 'Criterio editado exitosamente')
+					except IntegrityError:
+						messages.error(request, 'Un Criterio con estas caracteristicas ya esta registrada en el sistema')
 					
-		elif('filter_form' in request.POST):
-			filterForm = FilterMetaCriteriaForm(request.POST)
-			if filterForm.is_valid():
-				filterHeuristic = filterForm.cleaned_data['heuristic']
-				print(filterHeuristic)
-				if(filterHeuristic != None):
-					filterCriteria = True
-		else:
-			print("I do not know which form was submitted")
+		
+		# Getting data from filtering form		
+		filterForm = FilterMetaCriteriaForm(request.POST)
+		if filterForm.is_valid():
+			filterHeuristic = filterForm.cleaned_data['heuristic']
+			if(filterHeuristic != None):
+				filterCriteria = True
 	
-	form = AddMetaCriterionForm()
+	form = MetaCriterionForm()
 	filterForm = FilterMetaCriteriaForm()
 	
+	# Filtering criteria for showing
 	if(filterCriteria):
 		criteria = 	MetaCriteria.objects.filter(heuristic = filterHeuristic)
 		filterForm = FilterMetaCriteriaForm(initial={'heuristic' : filterHeuristic})
 	else:
 		criteria = MetaCriteria.objects.all()
+		
 	
+	# Edit MetaCriteria form
+	if(meta_criterion_id != None):
+		try:
+			criterion = MetaCriteria.objects.get(pk = meta_criterion_id)
+		except MetaCriteria.DoesNotExist:
+			messages.error(request, 'El Criterio que esta tratando de editar no existe')
+			return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
+			
+		data = {'heuristic' : criterion.heuristic,
+				'name' : criterion.name,
+				'acronym' : criterion.acronym,
+				'metric' : criterion.metric,
+				'atribute' : criterion.atribute
+				}
+		form = MetaCriterionForm(data)
+		
+	# Create MetaCriteria form	
+	else:
+		form = MetaCriterionForm()
+		
 	context = {'criteria' : criteria,
 			   'form' : form,
 			   'filter_form' : filterForm
 			   }
+			   
 	return render(request, 'settings/criteria.html', context)
 
 def delete_meta_criterion(request, meta_criterion_id):
-	MetaCriteria.objects.get(pk = meta_criterion_id).delete()
-	messages.success(request, 'Criterio eliminado exitosamente')
+	try:
+		MetaCriteria.objects.get(pk = meta_criterion_id).delete()
+		messages.success(request, 'Criterio eliminado exitosamente')
+	except MetaCriteria.DoesNotExist:
+		messages.error(request, 'El Criterio que esta tratando de eliminar no existe')
+		
 	return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))

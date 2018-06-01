@@ -144,19 +144,6 @@ class ReviewItemsForm(forms.Form):
 					widget = forms.RadioSelect(attrs = {'heuristic' : heuristics[i].pk}),
 				)
 				
-class AddMetaHeuristicForm(forms.Form):
-	name = forms.CharField(
-		required = True,
-		label = 'Nombre',
-		max_length = 100,
-		widget = forms.TextInput({"placeholder": "Ej. Aspectos Generales"})
-	)
-	acronym = forms.CharField(
-		required = True,
-		label = 'Acrónimo',
-		max_length = 2,
-		widget = forms.TextInput({"placeholder": "Ej. AG"})
-	)
 class MetaHeuristicForm(forms.Form):
 	name = forms.CharField(
 		required = True,
@@ -171,7 +158,7 @@ class MetaHeuristicForm(forms.Form):
 		widget = forms.TextInput({"placeholder": "Ej. AG"})
 	)
 	
-class AddMetaCriterionForm(forms.Form):
+class MetaCriterionForm(forms.Form):
 	heuristic = forms.ModelChoiceField(
 		required = True,
 		label = 'Heuristica',
