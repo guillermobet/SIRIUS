@@ -41,35 +41,49 @@
 		</div>	
 	</div> <!-- row-->
 	<div class="row">
-		<div class="col-md-2">
-		</div><!-- col-->
-		<div class="col-md-8">
-			<div class="row">
+		<div class="col-md-12" style="margin-top: 70px;">
 			<form class="form-horizontal" action="" method="post">
 				{% csrf_token %}
 				<div class="form-group">
 					<label for="{{filter_form.heuristic.name}}" class="col-sm-3 control-label">{{filter_form.heuristic.label}}</label>
-					<div class="col-sm-4">{{filter_form.heuristic|addcssclass:"form-control"}}</div>
-					<div class="col-sm-3"><button type="submit" class="btn azul" name="filter_form">Filtrar <span class="glyphicon glyphicon-ok"></span></button></div>
+					<div class="col-sm-6">
+						<select name="heuristic" class="form-control" id="id_heuristic">
+							<option selected>
+								Seleccione uno
+							</option>
+							{%for i in filter_form.heuristic %}
+							{{i}}
+							{%endfor%}
+						</select>
+					</div>
+					<div class="col-sm-3">
+							<button type="submit" class="btn azul" name="filter_form">Filtrar <span class="glyphicon glyphicon-search"></span></button>
+					</div>
+				</div>
+				<div class="form-group">
+						
 				</div>
 			</form>
-			</div>
-			<table class="table table-hover">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover ">
 			    <thead>
-			      <tr>
-			        <th>Heuristica</th>
-			        <th>Nombre</th>
-			        <th>Acrónimo</th>
-			        <th>Metrica</th>
-			        <th>Atributo</th>
-			        <th>Modificar</th>
-			        <th>Eliminar</th>
+			      <tr class="" style="background-color: #3f9db6;color:white;">
+			        <th style="text-align: center;">Heuristica</th>
+			        <th style="text-align: center;">Nombre</th>
+			        <th style="text-align: center;">Acrónimo</th>
+			        <th style="text-align: center;">Metrica</th>
+			        <th style="text-align: center;">Atributo</th>
+			        <th style="text-align: center;">Modificar</th>
+			        <th style="text-align: center;">Eliminar</th>
 			        <!-- <th>Manita</th> -->
 			      </tr>
 			    </thead>
 			    <tbody>
 			    {% for criterion in criteria %}
-			      <tr class="warning">
+			      <tr align="center">
 			        <td>{{criterion.heuristic}}</td>
 			        <td>{{criterion.name}}</td>
 			        <td>{{criterion.acronym}}</td>
@@ -82,8 +96,6 @@
 			    {% endfor %}
 			    </tbody>
 			  </table>
-		</div><!-- col-->
-		<div class="col-md-2">
 		</div><!-- col-->
 		
 	</div> <!--  row -->

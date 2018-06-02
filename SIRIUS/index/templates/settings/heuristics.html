@@ -47,22 +47,22 @@
 		        		</div>	
 					</div> <!-- row-->
 					<div class="row">
-						<div class="col-md-2">
+						<div class="col-md-1">
 						</div><!-- col-->
-						<div class="col-md-8">
+						<div class="col-md-10">
 							<table class="table table-hover">
 							    <thead>
-							      <tr>
-							        <th>Nombre</th>
-							        <th>Acrónimo</th>
-							        <th>Modificar</th>
-							        <th>Eliminar</th>
+							      <tr style="background-color: #3f9db6;color:white;text-align: center;">
+							        <th style="text-align: center;">Nombre</th>
+							        <th style="text-align: center;">Acrónimo</th>
+							        <th style="text-align: center;">Modificar</th>
+							        <th style="text-align: center;">Eliminar</th>
 							        <!-- <th>Manita</th> -->
 							      </tr>
 							    </thead>
 							    <tbody>
 							    {% for heuristic in heuristics %}
-							      <tr class="warning">
+							      <tr align="center">
 							        <td>{{heuristic.name}}</td>
 							        <td>{{heuristic.acronym}}</td>
 							        <!-- <td><a href="#" class="js-edit-heuristic" data-url="{% url 'edit_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-edit centro"></span></a></td> -->
@@ -74,7 +74,7 @@
 							    </tbody>
 							  </table>
 						</div><!-- col-->
-						<div class="col-md-2">
+						<div class="col-md-1">
 						</div><!-- col-->
 						
 					</div> <!--  row -->

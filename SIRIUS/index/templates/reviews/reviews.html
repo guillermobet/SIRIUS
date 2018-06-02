@@ -14,23 +14,25 @@
 			
     		<div class="col-md-12">
 				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>Website</th>
-							<th>URL</th>
-							<th>Navegador</th>
-							<th>Versión</th>
-							<th>Fecha</th>
+					<thead> 
+						<tr style="background-color: #3f9db6;color:white;" >
+							<th style="text-align: center;">Website</th>
+							<th style="text-align: center;">URL</th>
+							<th style="text-align: center;">Navegador</th>
+							<th style="text-align: center;">Versión</th>
+							<th style="text-align: center;">Fecha</th>
+							<th style="text-align: center;">Editar</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for review in reviews %}
-							<tr>
-								<td><a href="{% url 'see_review' review.pk %}">{{review.website.name}}</a></td>
-								<td><a href="{{review.website.url}}">{{review.website.url}}</a></td>
+							<tr align="center">
+								<td>{{review.website.name}}</a></td>
+								<td><a href="{{review.website.url}}">{{review.website.url}}</td>
 								<td>{{review.browser}}</td>
 								<td>{{review.browser_version}}</td>
 								<td>{{review.date}}</td>
+								<td><a href="{% url 'see_review' review.pk %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 							</tr>
 						{% endfor %}
 					</tbody>

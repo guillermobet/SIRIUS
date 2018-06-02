@@ -12,31 +12,63 @@
 			<div class="col-md-12">
 				<div class="page-header">
 				  <h1><small> Review de</small> {{review.website.name}}</h1>
-				  <a href="{% url 'edit_review' review.pk %}"><button type="submit" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  Editar  <span class="glyphicon glyphicon-edit centro"></span></button></a>
 				</div>
 			</div> <!-- col md 12-->
 			
-			<div class="col-md-12">
+			<div class="col-md-10">
 				
 				<div id="tabber">
-					<div id="tabber_buttons"></div>
+					<!--div id="tabber_buttons"></div-->
 						{% for heuristic, criteria in review_items.items %}
 							<div id='tabber_tab{{forloop.counter0}}'> 
 								<!-- Este es el nombre de la heuristica en cada pagina -->
-								<h3 class="text-center" id="tabName"><label class="control-label col-sm-12" style="margin-top: 20px;">{{heuristic}}:</label></h3>
+								<h3 class="text-center" id="tabName"><label class="control-label">{{heuristic}}:</label></h3>
+							<ul class="list-group">
+							 <li class="list-group-item" style="background-color: #3f9db6;color:white;">
+								    <span class="badge">VALOR</span>
+								     <div style="font-weight: bold;" >CRITERIO</div>
+								  </li>
 							{% for criterion in criteria %}
 								<!-- Estos son los valores que se muestran en la pagina -->
-								<h4> {{criterion.meta_criterion.name}} </h4>
-								<h3> {{criterion.criterion_value}} </h3>
+								
+								  <li class="list-group-item">
+								    <span class="badge">{{criterion.criterion_value}}</span>
+								     {{criterion.meta_criterion.name}}
+								  </li>
+								
+							
 							{% endfor %}
+							</ul>
 							</div>
 						{% endfor %}
+				<div class="col-md-3">
+    		</div>
+    		<div class="col-md-6">
+    			<a href="{% url 'edit_review' review.pk %}"><button type="submit" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  Editar  <span class="glyphicon glyphicon-edit centro"></span></button></a>
+    		</div>
+    		<div class="col-md-3">
+    		</div>
 				</div><!-- tabber -->
+				 
 					
 			</div>
-			
-    		<div class="col-md-12">
-    		</div>
+			<div class="col-md-2 col-xs-12">
+		<nav id="myScrollspy">
+	      <ul class="nav nav-pills nav-stacked flotanteMenu " data-spy="affix" >
+	      	<li><strong><span class="glyphicon glyphicon-question-sign"></span> Leyenda de valores: </strong></li>
+	        <li><strong>(NA) No se cumple en absoluto</strong></li>
+			<li><strong>(NTS) Se cumple totalmente</strong></li>
+			<li><strong>(NEP) Criterio no aplicable en el sitio</strong></li>
+			<li><strong>(NPP) No se cumple en los enlaces principales</strong></li>
+			<li><strong>(NPI) No se cumple en alguna pagina interior</strong></li>
+			<li><strong>(S) Se cumple el criterio</strong></li>
+			<li><strong><span class="glyphicon glyphicon-sound-5-1"></span> Rango numerable: </strong></li>
+			<li><strong>(1) No cumple</strong></li>
+			<li><strong>(10) Cumple totalmente</strong></li>
+	      </ul>
+	    </nav>  
+    </div>	
+    		
 		</div>
 	</div>
 
