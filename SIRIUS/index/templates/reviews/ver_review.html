@@ -20,6 +20,7 @@
 					<div id="tabber_buttons"></div>
 						{% for heuristic, criteria in review_items.items %}
 							<div id='tabber_tab{{forloop.counter0}}'> 
+								<!-- Este es el nombre de la heuristica en cada pagina -->
 								<h3 class="text-center" id="tabName"><label class="control-label col-sm-12" style="margin-top: 20px;">{{heuristic}}:</label></h3>
 							{% for criterion in criteria %}
 								<!-- Estos son los valores que se muestran en la pagina -->
