@@ -15,3 +15,5 @@
 	* Hacer editar review
 
 	* Hacer vista de perfil (maybe?)
+
+	* LLenar populateDB.py
