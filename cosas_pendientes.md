@@ -1,19 +1,19 @@
-##Cosas Pendientes:	
+## Cosas Pendientes:	
 
-	* Poner pantalla inicial como pidio el profesor
+* Poner pantalla inicial como pidio el profesor
 
-	* Quitarle el amarillo a las tablas
+* Quitarle el amarillo a las tablas
 
-	* Cambiar color de los botones
+* Cambiar color de los botones
 
-	* Acomodar filtrador de criterios para que encaje mejor en la interfaz
+* Acomodar filtrador de criterios para que encaje mejor en la interfaz
 
-	* Acomodar formulario de reviews para que se vea bien con la tabulacion
+* Acomodar formulario de reviews para que se vea bien con la tabulacion
 
-	* Acomodar vista de ver review
+* Acomodar vista de ver review
 
-	* Hacer editar review
+* ~~Hacer editar review~~
 
-	* Hacer vista de perfil (maybe?)
+* Hacer vista de perfil (maybe?)
 
-	* LLenar populateDB.py
+* LLenar populateDB.py

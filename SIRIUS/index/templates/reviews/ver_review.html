@@ -3,6 +3,7 @@
 {% load addcssclass %}
 
 {% block content %}
+	<link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'interface/css/tabber.css' %}">
 	<script src="{% static 'js/tabber.js' %}"></script>
 
@@ -11,6 +12,7 @@
 			<div class="col-md-12">
 				<div class="page-header">
 				  <h1><small> Review de</small> {{review.website.name}}</h1>
+				  <a href="{% url 'edit_review' review.pk %}"><button type="submit" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  Editar  <span class="glyphicon glyphicon-edit centro"></span></button></a>
 				</div>
 			</div> <!-- col md 12-->
 			

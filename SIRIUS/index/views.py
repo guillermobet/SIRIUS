@@ -94,8 +94,9 @@ def evaluate_items(request, review_id):
 					meta_criteria = meta_criteria,
 					value = form.cleaned_data[value]
 				)
+				
+			messages.success(request, 'Review registrado con exito')
 			return HttpResponseRedirect(reverse('home', args=(), kwargs={}))
-			print('Form is valid!')
 	
 	return render(request, "evaluate/evaluateItems.html", context)
 
@@ -141,7 +142,13 @@ def reviews(request):
 @student_required
 def see_review(request, review_id):
 	user = request.user
-	review = Review.objects.get(id = review_id)
+	try:
+		review = Review.objects.get(id = review_id)
+	except Review.DoesNotExist:
+		messages.error(request, 'La review que tratas de acceder no existe')
+		return HttpResponseRedirect(reverse('reviews', args=(), kwargs={}))
+	
+		
 	review_items = {}
 	
 	# Armo diccionario con el meta modelo y sus valores asignados
@@ -166,6 +173,54 @@ def see_review(request, review_id):
 			   'review_items' : review_items
 			   }
 	return render(request, 'reviews/ver_review.html', context)
+	
+def edit_review(request, review_id):
+	
+	# Process inputed data and save results
+	if request.method == 'POST':
+		form = ReviewItemsForm(request.POST)
+		if form.is_valid():
+			review = Review.objects.get(pk = review_id)
+			for value in form.cleaned_data:
+				split = value.split('_')
+				if(len(split) != 4):
+					continue
+				criteria_id = int(split[3])
+				meta_criteria = MetaCriteria.objects.get(pk = criteria_id)
+				criterion = Criteria.objects.get(review = review, meta_criteria = meta_criteria)
+				criterion.value = form.cleaned_data[value]
+				criterion.save()
+			messages.success(request, 'Review editada de manera exitosa')
+			return HttpResponseRedirect(reverse('reviews', args=(), kwargs={}))
+	
+	# Search for the requested review and redirect if it doesnt exist
+	try:
+		review = Review.objects.get(pk = review_id)
+	except Review.DoesNotExist:
+		messages.error(request, 'La Review que tratas de editar no existe')
+		return HttpResponseRedirect(reverse('reviews', args=(), kwargs={}))
+	
+	# Setting up data dict with the data from the review for the form
+	data = {}
+	heuristics = MetaHeuristic.objects.all()
+	for heuristic in heuristics:
+		data['H_'+str(heuristic.pk)] = None
+		meta_criteria = MetaCriteria.objects.filter(heuristic = heuristic)
+		for meta_criterion in meta_criteria:
+			try:
+				criterion = Criteria.objects.get(meta_criteria = meta_criterion, review = review)
+				criterion_value = criterion.value
+			except Criteria.DoesNotExist:
+				criterion_value = None
+			data['H_'+str(heuristic.pk)+'_C_'+str(meta_criterion.pk)] = criterion_value
+		data['H_'+str(heuristic.pk)+'_END'] = None
+		
+	form = ReviewItemsForm(data)
+	context = {'form' : form,
+			   'review' : review
+			   }
+	
+	return render(request, 'reviews/edit_review.html', context)
 
 @admin_required
 def meta_heuristics(request, meta_heuristic_id = None):
@@ -329,16 +384,3 @@ def delete_meta_criterion(request, meta_criterion_id):
 		
 	return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
 
-def pagination(request):
-	
-	if(request.method == 'POST'):
-		form = ReviewItemsForm(request.POST)
-		if(form.is_valid()):
-			for key, value in form.cleaned_data.items():
-				print("%s: %s"%(key, value))
-			print('EVERYTHING GOOD')
-	
-	form = ReviewItemsForm()
-	context = { 'form' : form }
-	
-	return render(request, 'pagination.html', context)
