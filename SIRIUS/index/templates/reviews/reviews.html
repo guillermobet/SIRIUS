@@ -26,7 +26,7 @@
 					<tbody>
 						{% for review in reviews %}
 							<tr>
-								<td><a href="{% url 'reviews_edit' review.pk %}">{{review.website.name}}</a></td>
+								<td><a href="{% url 'see_review' review.pk %}">{{review.website.name}}</a></td>
 								<td><a href="{{review.website.url}}">{{review.website.url}}</a></td>
 								<td>{{review.browser}}</td>
 								<td>{{review.browser_version}}</td>

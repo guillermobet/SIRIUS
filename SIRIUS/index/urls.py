@@ -30,8 +30,5 @@ urlpatterns = [
 	
 	# Reviews
 	path("home/reviews", views.reviews, name="reviews"),
-	path("home/reviews/<int:review_id>/", views.reviews_edit, name="reviews_edit"),
-	
-	# Pagination Test
-	path("home/pagination", views.pagination, name = "pagination"),
+	path("home/reviews/<int:review_id>/", views.see_review, name="see_review"),
 ]

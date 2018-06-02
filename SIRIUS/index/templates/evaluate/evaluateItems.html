@@ -6,8 +6,8 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'interface/css/evaluate.css' %}">
-<script src="{% static 'js/evaluateTabber.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'interface/css/tabber.css' %}">
+<script src="{% static 'js/tabber.js' %}"></script>
 
 <div class="col-md-9">
     <div class="row">
@@ -25,7 +25,7 @@
 					{% for field in form %}
 						{% if field.field.widget.attrs.heuristic %}
 							<div id='tabber_tab{{field.field.widget.attrs.number}}'> 
-								<h3 class="text-center"><label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label></h3>
+								<h3 class="text-center" id="tabName"><label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label></h3>
 						{% elif field.field.widget.attrs.heuristic_end %}
 							</div>
 						{% else %}

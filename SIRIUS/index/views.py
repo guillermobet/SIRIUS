@@ -139,13 +139,31 @@ def reviews(request):
 	return render(request, 'reviews/reviews.html', context)
 	
 @student_required
-def reviews_edit(request, review_id):
+def see_review(request, review_id):
 	user = request.user
 	review = Review.objects.get(id = review_id)
-	criteria = Criteria.objects.filter(review = review)
+	review_items = {}
+	
+	# Armo diccionario con el meta modelo y sus valores asignados
+	heuristics = MetaHeuristic.objects.all()
+	for heuristic in heuristics:
+		review_items[heuristic.name] = []
+		meta_criteria = MetaCriteria.objects.filter(heuristic = heuristic)
+		
+		# Para cada meta criterio busco su valor en el review, si no existe pongo un guion
+		for meta_criterion in meta_criteria:
+			try:
+				criterion_value = Criteria.objects.get(review = review, meta_criteria = meta_criterion).value
+			except Criteria.DoesNotExist:
+				criterion_value = '-'
+			
+			review_items[heuristic.name].append({'meta_criterion' : meta_criterion,
+												 'criterion_value' : criterion_value
+												 })
+		
 	context = {'user' : user,
 			   'review' : review,
-			   'criteria' : criteria
+			   'review_items' : review_items
 			   }
 	return render(request, 'reviews/ver_review.html', context)
 

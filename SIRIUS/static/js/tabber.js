@@ -21,7 +21,7 @@ $(document).ready(function(){
 	var tabButtons = $('div#tabber_buttons');
 	var i = 0;
 	for(i = 0; i < nTabs; i++){
-		var tabName = $('div#tabber_tab'+i+' h3').text();
+		var tabName = $('div#tabber_tab'+i+' #tabName').text();
 		tabName = tabName.slice(0, tabName.length-1);
 		tabButtons.append(
 			'<button id="tabber_button_'+i+'"\

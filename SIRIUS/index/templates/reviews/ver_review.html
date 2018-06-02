@@ -3,6 +3,8 @@
 {% load addcssclass %}
 
 {% block content %}
+	<link rel="stylesheet" type="text/css" href="{% static 'interface/css/tabber.css' %}">
+	<script src="{% static 'js/tabber.js' %}"></script>
 
 	<div class="col-md-9">
 		<div class="row">
@@ -13,11 +15,20 @@
 			</div> <!-- col md 12-->
 			
 			<div class="col-md-12">
-				{% for crit in criteria %}
-					<h3> {{crit.meta_criteria.name}}</h3>
-					<h2> {{crit.value}}</h2>
-					<br>
-				{% endfor %}			
+				
+				<div id="tabber">
+					<div id="tabber_buttons"></div>
+						{% for heuristic, criteria in review_items.items %}
+							<div id='tabber_tab{{forloop.counter0}}'> 
+								<h3 class="text-center" id="tabName"><label class="control-label col-sm-12" style="margin-top: 20px;">{{heuristic}}:</label></h3>
+							{% for criterion in criteria %}
+								<h4> {{criterion.meta_criterion.name}} </h4>
+								<h3> {{criterion.criterion_value}} </h3>
+							{% endfor %}
+							</div>
+						{% endfor %}
+				</div><!-- tabber -->
+					
 			</div>
 			
     		<div class="col-md-12">
