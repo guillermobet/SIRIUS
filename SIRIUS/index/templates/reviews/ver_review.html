@@ -22,6 +22,7 @@
 							<div id='tabber_tab{{forloop.counter0}}'> 
 								<h3 class="text-center" id="tabName"><label class="control-label col-sm-12" style="margin-top: 20px;">{{heuristic}}:</label></h3>
 							{% for criterion in criteria %}
+								<!-- Estos son los valores que se muestran en la pagina -->
 								<h4> {{criterion.meta_criterion.name}} </h4>
 								<h3> {{criterion.criterion_value}} </h3>
 							{% endfor %}
