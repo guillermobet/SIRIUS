@@ -1,0 +1,17 @@
+.azulito{
+		background-color: #98c3ce;
+		color: white;
+		font-weight: bold;
+	}
+
+.azulito:hover, .azulito:focus{
+	background-color: #3f9db6;
+	border-color: #78c0cf;
+	color:white;
+}
+
+.activeTab {
+	background-color: #3f9db6;
+	border-color: #78c0cf;
+	color:white;
+}

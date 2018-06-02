@@ -10,30 +10,17 @@ from django import forms
 from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm, FilterMetaCriteriaForm, MetaHeuristicForm, MetaCriterionForm
 from django.contrib import messages
 import datetime
-from .decorators import student_required
+from .decorators import student_required, admin_required
 from .models import Website, Review, Criteria, MetaCriteria, MetaHeuristic
 from django.db import IntegrityError
 from django.template.loader import render_to_string
-# Create your views here.
 
 def index(request):
 	return render(request, "index/index.html", {})
 
 def home(request):
     return render(request, "index/home.html", {})
-"""
-def indicator(request):
-    return render(request, "settings/indicator.html", {})
 
-def features(request):
-    return render(request, "settings/features.html", {})
-
-def subfeatures(request):
-    return render(request, "settings/subfeatures.html", {})
-
-def attributes(request):
-    return render(request, "settings/attributes.html", {})
-"""
 @student_required
 def evaluate(request):
 	user = request.user
@@ -98,6 +85,8 @@ def evaluate_items(request, review_id):
 			review = Review.objects.get(pk = review_id)
 			for value in form.cleaned_data:
 				split = value.split('_')
+				if(len(split) != 4):
+					continue
 				criteria_id = int(split[3])
 				meta_criteria = MetaCriteria.objects.get(pk = criteria_id)
 				Criteria.objects.create(
@@ -154,13 +143,13 @@ def reviews_edit(request, review_id):
 	user = request.user
 	review = Review.objects.get(id = review_id)
 	criteria = Criteria.objects.filter(review = review)
-	print(criteria)
 	context = {'user' : user,
 			   'review' : review,
 			   'criteria' : criteria
 			   }
 	return render(request, 'reviews/ver_review.html', context)
-	
+
+@admin_required
 def meta_heuristics(request, meta_heuristic_id = None):
 	
 	if request.method == 'POST':
@@ -213,7 +202,8 @@ def meta_heuristics(request, meta_heuristic_id = None):
 			   }
 				   
 	return render(request, 'settings/heuristics.html', context)
-	
+
+@admin_required	
 def delete_meta_heuristics(request, meta_heuristic_id):
 	try:
 		MetaHeuristic.objects.get(pk = meta_heuristic_id).delete()
@@ -222,7 +212,8 @@ def delete_meta_heuristics(request, meta_heuristic_id):
 		messages.error(request, 'La Heuristica que esta tratando de eliminar no existe')
 	
 	return HttpResponseRedirect(reverse('meta_heuristics', args=(), kwargs={}))
-	
+
+@admin_required
 def meta_criteria(request, meta_criterion_id=None):
 	filterCriteria = False
 	
@@ -310,6 +301,7 @@ def meta_criteria(request, meta_criterion_id=None):
 			   
 	return render(request, 'settings/criteria.html', context)
 
+@admin_required
 def delete_meta_criterion(request, meta_criterion_id):
 	try:
 		MetaCriteria.objects.get(pk = meta_criterion_id).delete()
@@ -318,3 +310,17 @@ def delete_meta_criterion(request, meta_criterion_id):
 		messages.error(request, 'El Criterio que esta tratando de eliminar no existe')
 		
 	return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
+
+def pagination(request):
+	
+	if(request.method == 'POST'):
+		form = ReviewItemsForm(request.POST)
+		if(form.is_valid()):
+			for key, value in form.cleaned_data.items():
+				print("%s: %s"%(key, value))
+			print('EVERYTHING GOOD')
+	
+	form = ReviewItemsForm()
+	context = { 'form' : form }
+	
+	return render(request, 'pagination.html', context)

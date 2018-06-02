@@ -95,16 +95,6 @@ class MetaCriteria(models.Model):
 	atribute = models.CharField(max_length=12)
 	comment = models.TextField()
 
-"""
-class Heuristic(models.Model):
-
-	id = models.AutoField(primary_key=True)
-	review = models.ForeignKey("Review", to_field="id", on_delete=models.CASCADE)
-	name = models.CharField(max_length=100, unique=True)
-	acronym = models.CharField(max_length=2, unique=True)
-	comment = models.TextField()
-"""
-
 class Criteria(models.Model):
 
 	id = models.AutoField(primary_key=True)

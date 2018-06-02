@@ -57,7 +57,7 @@
 							        <th>Acrónimo</th>
 							        <th>Modificar</th>
 							        <th>Eliminar</th>
-							        <th>Manita</th>
+							        <!-- <th>Manita</th> -->
 							      </tr>
 							    </thead>
 							    <tbody>
@@ -68,7 +68,7 @@
 							        <!-- <td><a href="#" class="js-edit-heuristic" data-url="{% url 'edit_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-edit centro"></span></a></td> -->
 							        <td><a href="{% url 'edit_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-edit centro"></span></button></td>
 							        <td><a href="{% url 'delete_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-remove centro"></span></a></td>
-							        <td><span class="glyphicon glyphicon-link centro"></span></td>
+							       <!--  <td><span class="glyphicon glyphicon-link centro"></span></td> -->
 							      </tr>
 							    {% endfor %}
 							    </tbody>
@@ -92,6 +92,7 @@ $('#setting').click(function(){
 	$('#setting').addClass('active');
 });
 
+/*
 $(function () {
   $(".js-edit-heuristic").click(function () {
 	var btn = $(this);
@@ -110,5 +111,6 @@ $(function () {
   });
 
 });
+*/
 </script>
 {% endblock %}

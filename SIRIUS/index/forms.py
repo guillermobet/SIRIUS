@@ -124,25 +124,45 @@ class ReviewItemsForm(forms.Form):
 		qualitative_chices = [('NA', 'NA'), ('NTS', 'NTS'), ('NEP', 'NEP'),
 							  ('NPP', 'NPP'), ('NPI', 'NPI'), ('S', 'S')
 							  ]
-		
+							  
 		heuristics = MetaHeuristic.objects.all()
 		for i in range(0, len(heuristics)):
+			
+			# Hidden field with heuristic information
+			attrs = {'heuristic' : True,
+					 'number' : i
+					}
+			self.fields['H_'+str(heuristics[i].pk)] = forms.CharField(
+				required = False,
+				label = heuristics[i].name,
+				widget = forms.HiddenInput(attrs=attrs)
+			)
 			criteria = MetaCriteria.objects.filter(heuristic = heuristics[i])
 			for j in range(0, len(criteria)):
+				
+				# Field for each criteria
 				if(criteria[j].atribute == 'qualitative'):
 					choices = qualitative_chices
 					initial_value = 'NA'
 				else:
 					choices = quantitative_choices
 					initial_value = '1'
-					
+
 				self.fields['H_'+str(heuristics[i].pk)+'_C_'+str(criteria[j].pk)] = forms.ChoiceField(
 					required = True,
 					label = criteria[j].name,
 					choices = choices,
 					initial = initial_value,
-					widget = forms.RadioSelect(attrs = {'heuristic' : heuristics[i].pk}),
+					#widget = forms.RadioSelect(attrs = {'heuristic' : heuristics[i].pk}),
+					widget = forms.RadioSelect(),
 				)
+			
+			# Hidden field to identify the ending of an heuristic's criteria
+			self.fields['H_'+str(heuristics[i].pk)+'_END'] = forms.CharField(
+				required = False,
+				label = heuristics[i].name,
+				widget = forms.HiddenInput(attrs={'heuristic_end' : True})
+			)
 				
 class MetaHeuristicForm(forms.Form):
 	name = forms.CharField(
