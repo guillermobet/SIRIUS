@@ -154,7 +154,8 @@ def see_review(request, review_id):
 	# Armo diccionario con el meta modelo y sus valores asignados
 	heuristics = MetaHeuristic.objects.all()
 	for heuristic in heuristics:
-		review_items[heuristic.name] = []
+		review_items[(heuristic.name, str(heuristic.pk))] = []
+		#review_items[heuristic.name] = []
 		meta_criteria = MetaCriteria.objects.filter(heuristic = heuristic)
 		
 		# Para cada meta criterio busco su valor en el review, si no existe pongo un guion
@@ -163,8 +164,12 @@ def see_review(request, review_id):
 				criterion_value = Criteria.objects.get(review = review, meta_criteria = meta_criterion).value
 			except Criteria.DoesNotExist:
 				criterion_value = '-'
-			
+			"""
 			review_items[heuristic.name].append({'meta_criterion' : meta_criterion,
+												 'criterion_value' : criterion_value
+												 })
+			"""
+			review_items[(heuristic.name, str(heuristic.pk))].append({'meta_criterion' : meta_criterion,
 												 'criterion_value' : criterion_value
 												 })
 		
@@ -187,9 +192,17 @@ def edit_review(request, review_id):
 					continue
 				criteria_id = int(split[3])
 				meta_criteria = MetaCriteria.objects.get(pk = criteria_id)
-				criterion = Criteria.objects.get(review = review, meta_criteria = meta_criteria)
-				criterion.value = form.cleaned_data[value]
-				criterion.save()
+				
+				# Look for the criterion and create it does not exist
+				try:
+					criterion = Criteria.objects.get(review = review, meta_criteria = meta_criteria)
+					criterion.value = form.cleaned_data[value]
+					criterion.save()
+				except Criteria.DoesNotExist:
+					Criteria.objects.create(review = review,
+											meta_criteria = meta_criteria,
+											value = form.cleaned_data[value])
+				
 			messages.success(request, 'Review editada de manera exitosa')
 			return HttpResponseRedirect(reverse('reviews', args=(), kwargs={}))
 	

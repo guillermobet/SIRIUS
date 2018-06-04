@@ -130,7 +130,8 @@ class ReviewItemsForm(forms.Form):
 			
 			# Hidden field with heuristic information
 			attrs = {'heuristic' : True,
-					 'number' : i
+					 'number' : i,
+					 'pk' : heuristics[i].pk
 					}
 			self.fields['H_'+str(heuristics[i].pk)] = forms.CharField(
 				required = False,
@@ -213,6 +214,7 @@ class FilterMetaCriteriaForm(forms.Form):
 	heuristic = forms.ModelChoiceField(
 		required = False,
 		label = 'Heuristica',
+		empty_label = 'Seleccione uno',
 		queryset=MetaHeuristic.objects.all()
 	)
 		

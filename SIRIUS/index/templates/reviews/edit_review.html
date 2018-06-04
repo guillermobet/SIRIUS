@@ -17,17 +17,17 @@
 			<form action = "" method="post" >
 				{% csrf_token %}
 				<div id="tabber">
-					<!--div id="tabber_buttons"></div-->
+					<div id="tabber_buttons"></div>
 					{% for field in form %}
 						{% if field.field.widget.attrs.heuristic %}
-							<div id='tabber_tab{{field.field.widget.attrs.number}}'> 
+							<div id='tabber_tab_{{field.field.widget.attrs.pk}}'> 
 								<h3 class="text-center" id="tabName"><label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label></h3>
 						{% elif field.field.widget.attrs.heuristic_end %}
 							</div>
 						{% else %}
 							<div class="form-group" >
 								<label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label>
-								<div class="col-sm-12">
+								<div id="input_group"class="col-sm-12">
 									{% for i in field %}
 										<label class="radio-inline " style="margin-right: 8px;">
 										<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" > {{i}}
@@ -43,7 +43,7 @@
 						<button href="{% url 'see_review' review.pk %}" type="submit" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  <span class="glyphicon glyphicon-arrow-left"></span>  Regresar  </button>
 					</div>
 					<div class="col-sm-6">
-						<button type="submit" href="/home/evaluate/1" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  Guardar  <span class="glyphicon glyphicon-saved"></span></button>
+						<button type="submit" href="/home/evaluate/1" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;" onclick="validateForm()">  Guardar  <span class="glyphicon glyphicon-saved"></span></button>
 					</div>
 				</div>
 					
