@@ -47,6 +47,7 @@
 				<div class="form-group">
 					<label for="{{filter_form.heuristic.name}}" class="col-sm-3 control-label">{{filter_form.heuristic.label}}</label>
 					<div class="col-sm-6">
+						<!--
 						<select name="heuristic" class="form-control" id="id_heuristic">
 							<option selected>
 								Seleccione uno
@@ -55,6 +56,8 @@
 							{{i}}
 							{%endfor%}
 						</select>
+						-->
+						{{filter_form.heuristic|addcssclass:"form-control"}}
 					</div>
 					<div class="col-sm-3">
 							<button type="submit" class="btn azul" name="filter_form">Filtrar <span class="glyphicon glyphicon-search"></span></button>

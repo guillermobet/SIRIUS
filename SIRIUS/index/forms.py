@@ -170,12 +170,14 @@ class MetaHeuristicForm(forms.Form):
 		required = True,
 		label = 'Nombre',
 		max_length = 100,
+		min_length = 10,
 		widget = forms.TextInput({"placeholder": "Ej. Aspectos Generales"})
 	)
 	acronym = forms.CharField(
 		required = True,
 		label = 'Acrónimo',
 		max_length = 2,
+		min_length = 1,
 		widget = forms.TextInput({"placeholder": "Ej. AG"})
 	)
 	
@@ -183,18 +185,21 @@ class MetaCriterionForm(forms.Form):
 	heuristic = forms.ModelChoiceField(
 		required = True,
 		label = 'Heuristica',
+		empty_label = 'Seleccione uno',
 		queryset=MetaHeuristic.objects.all()
 	)
 	name = forms.CharField(
 		required = True,
 		label = 'Nombre',
 		max_length = 100,
+		min_length = 10,
 		widget = forms.TextInput({"placeholder": "Ej. Objetivos bien definidos"})
 	)
 	acronym = forms.CharField(
 		required = True,
 		label = 'Acrónimo',
 		max_length = 3,
+		min_length = 1,
 		widget = forms.TextInput({"placeholder": "Ej. AG1"})
 	)
 	atribute = forms.ChoiceField(
