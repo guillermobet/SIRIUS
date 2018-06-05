@@ -1,0 +1,299 @@
+Aspectos Generales
+AG
+4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4
+
+AG1: Objetivos concretos y bien definidos
+MA MA MO MA ME MA ME MA MA MO ME ME MA MA MA ME
+cuantitativo
+AG2: Contenidos o servicios precisos y completos
+CR CR MO CR CR MA MA CR MA MO ME ME MA MA MA MA
+cuantitativo
+AG3: Estructura general del orientada al usuario
+MA MA ME MA MA MA MA MA MA MA ME ME MA ME MA MA
+cuantitativo
+AG4: Look & Feel general se corresponde con los objetivos del sitio
+MA MA MO ME MA ME MO ME ME ME ME ME ME ME ME MA
+cuantitativo
+AG5: Diseño general del sitio web reconocible
+MA MA ME MA ME ME ME ME ME ME ME ME MA MO ME MA
+cunatitativo
+AG6: Diseño general del sitio web coherente
+CR MA ME MA MA ME ME MA ME ME ME ME MA MA ME MA
+cuantitativo
+AG7: Se utiliza el idioma del usuario
+MA MA MA MA MA MA MO MA MA MA ME MO MA ME ME ME
+cualitativo
+AG8: Soporte a otro/s idioma/s
+MA MA MO MA MA MA MO ME MO MO MO MO ME MO ME ME
+cualitativo
+AG9: Traducción completa y correcta
+MA MA ME MA MA ME MO ME ME ME MO ME ME MO ME ME
+cualitativo
+AG10: Actualizado periódicamente
+MA ME CR MA CR ME MA ME MA MA MA ME MA MA MA CR
+cualitativo
+
+Identidad e Información
+II
+3_3_3_2_4_2_4_3_3_1_3_2_4_4_3_2_1
+
+II1: Identidad o Logotipo significativo
+MA ME MO ME ME ME ME MO MO MO MO MO ME MO MO ME
+cuantiativo
+II2: Identidad del sitio en todas las páginas
+MA MA ME MA ME MA MO ME ME ME MO MO ME ME ME ME
+cualitativo
+II3: Eslogan adecuado al objetivo del sitio
+ME ME MO ME MO ME MO ME MO MO MO ME ME MO ME MO
+cuantitativo
+II4: Se ofrece información sobre el sitio web
+MA MA ME ME ME ME ME ME ME ME ME MO ME MO ME ME
+cualitativo
+II5: Existen mecanismos de contacto
+MA MA ME MA ME MA MO ME ME ME MO ME ME ME ME MO
+cualitativo
+II6: Se ofrece información sobre la protección de datos o derechos de autor
+MA MA ME MA ME ME MO ME ME ME MO MO MO MO ME ME
+cualitativo
+II7: Se ofrece información sobre el autor, fuentes y fechas artículos, noticias.
+ME ME ME ME MA ME MO MA MA MO ME ME ME MO ME ME
+cualitativo
+
+Estructura y Navegacion
+EN
+3_3_4_4_4_3_4_4_4_3_4_4_3_3_2_3_4
+
+EN1: Se ha evitado pantalla de bienvenida
+MO MO MO MO MO MO MO MO MO MO MO MO MO MO MO MO
+cualitativo
+EN2: Organización y navegación adecuadas
+MA ME MA MA ME MA ME MA ME ME MO ME MA ME MA MA
+cuantitativo
+EN3: Organización acorde con las convenciones
+MA MO MA MA ME ME MO ME ME ME ME MO ME MA MA ME
+cuantitativo
+EN4: Control de elementos en navegación
+MA MO MA MA ME ME ME MA MA ME ME ME MA ME ME ME
+cuantitativo
+EN5: Equilibrio en estructura jerárquica
+MA MO MA MA ME ME ME MA ME ME MO MO MA MO ME ME
+cualitativo
+EN6: Enlaces fácilmente reconocibles
+MA MA MA MA MA MA MA MA MA ME ME ME MA MA MA MA
+cualitativo
+EN7: Los enlaces indican su estado
+MA ME MA MA MA ME ME MA ME ME ME ME MA MA MA ME
+cualitativo
+EN8: No hay redundancia de enlaces
+MA ME MA MA ME MA ME MA ME ME MO ME MA MO ME ME
+cualitativo
+EN9: No hay enlaces rotos
+CR ME MA CR ME MA MA MA MA ME ME ME MA MO MA MA
+cualitativo
+EN10: No hay enlaces a la página actual
+MO ME MO ME MO MO ME MO MO MO MO MO MO ME MO ME
+cualitativo
+EN11: En imágenes de enlace se indica el contenido
+ME MA ME MA ME ME MA ME ME ME MA ME MA MA ME MA
+cualitativo
+EN12: Enlace para volver al inicio en cada página
+ME ME ME ME ME ME MO ME ME ME ME ME ME MA ME ME
+cualitativo
+EN13: Elementos de navegación que orienten al usuario
+CR MO MA CR MA MA MA MA ME ME ME ME ME ME MA MA
+cualitativo
+EN14: Existe mapa del sitio
+MA ME MA ME ME MO MO ME ME MO MO MO ME ME ME ME
+cualitativo
+
+Rotulado
+RO
+3_2_4_3_2_2_2_2_3_2_4_2_2_2_2_3_2
+
+RO1: Rótulos significativos
+MA ME MA MA ME ME ME ME ME ME MO ME ME MA ME ME
+cualitativo
+RO2: Rotulado preciso
+ME MO MA MA ME ME ME ME ME MO MO MO MA ME MA ME
+cualitativo
+RO3: Título páginas correcto
+MA ME MA MA ME ME ME ME ME MO MO ME MA MO ME MO
+cualitativo
+RO4: URL página principal correcta
+ME ME ME ME MO ME MO MO MO MO MO ME ME ME ME ME
+cuantitativo
+RO5: URL de páginas internas claras
+ME MO ME ME ME ME ME ME ME ME ME ME ME ME ME ME
+cualitativo
+RO6: URL de páginas internas permanentes
+ME MO MA MA MO ME MO ME ME ME ME MO ME ME MO ME
+cualitativo
+
+Layout de la página
+LA
+4_2_3_2_2_4_3_3_2_1_2_3_3_2_2_4_4
+
+LA1: Zonas alta jerarquía, contenidos de mayor relevancia
+MA MO MA MA MA ME MO ME ME MO MO ME ME MO ME ME
+cualitativo
+LA2: Se ha evitado la sobrecarga informativa
+ME ME ME ME ME ME MO ME ME MO MO ME ME MA ME ME
+cualitativo
+LA3: Interfaz limpia, sin ruido visual
+MA ME MA MA MA MA MO ME ME ME MO ME MA MA ME ME
+cualitativo
+LA4: Existen zonas en "blanco" para poder descansar la vista
+MA ME ME ME MA ME MO ME ME ME MO ME ME ME ME ME
+cualitativo
+LA5: Uso correcto del espacio visual de la página
+ME ME MA MA MA MA MO ME ME ME ME ME MA ME MA ME
+cualitativo
+LA6: Jerarquía visual para expresar relaciones "parte de"
+MA ME MA MA MA ME MO ME MA MA MO ME MA ME ME ME
+cuantitativo
+LA7: Se ha controlado la longitud de página
+ME MO ME ME ME ME MO ME ME MO MO ME ME ME ME MO
+cualitativo
+LA8: Versión impresa de la página correcta
+MA ME MA MA ME ME MO MA ME MO MO ME MO MA MO MA
+cualitativo
+LA9: El texto se lee sin dificultad
+CR ME MA CR CR MA ME MA MA MA ME MA MA MA MA MA
+cualitativo
+LA10: No hay texto parpadeante/deslizante
+MA MA MO ME MA MO ME ME ME MO MO MO MO ME ME ME
+cualitativo
+
+Entendenbilidad y Facilidad en la Interacción
+EF
+4_4_4_3_3_4_2_2_4_4_2_2_4_3_4_4_2
+
+EF1: Lenguaje claro y conciso
+CR CR MA MA MA ME MO MA MA MO MO ME ME MA ME ME
+cualitativo
+EF2: Lenguaje amigable, familiar y cercano
+ME ME ME ME ME ME MO ME ME ME ME ME ME MO ME MO
+cualitativo
+EF3: Cada párrafo expresa una idea
+ME MO MA ME MA ME MO ME MA ME MO ME ME MO ME MO
+cualitativo
+EF4: Uso consistente de los controles
+MA MA ME MA ME ME MO ME ME ME MO ME ME MA MA MA
+cualitativo
+EF5: Metáforas visuales comprensibles
+MA MA MA MA ME ME MO ME ME ME ME ME MA MA MA MA
+cualitativo
+EF6: Orden coherente en menús desplegables
+MA ME MA MA MA ME ME ME ME MO MO MO MA MO MA ME
+cualitativo
+EF7: Opciones disponibles para selección
+MA ME MA MA ME ME MO ME ME MO ME ME ME ME MA MA
+cualitativo
+
+Control y Retroalimentación
+CR
+2_4_2_2_4_1_1_1_3_2_2_2_1_2_2_4_4
+
+CR1: El usuario tiene todo el control
+ME MO MA MA MO MO MO ME ME ME ME ME ME MA MA MA
+cualitativo
+CR2: Se informa al usuario de lo pasa
+ME MO MA MA ME MO MO MO MO ME MO MO ME MA MA ME
+cualitativo
+CR3: Se informa al usuario de lo que ha pasado
+MA ME MA CR ME MO ME ME ME MO MO MO ME MA ME ME
+cualitativo
+CR4: Sistemas de validación para evitar errores
+CR ME MA CR MO MA ME ME ME MO MO ME MA ME MA MA
+cualitativo
+CR5: Ante error, se informa de forma clara y no alarmista
+MA MO MO MA MO MA MO MO ME MO MO ME ME ME ME MA
+cualitativo
+CR6: Se ha controlado el tiempo de respuesta
+MA CR MO CR ME MA CR MO ME MA MA MO MA CR CR MA
+cualitativo
+CR7: Se ha evitado ventanas que anulan o se superponen
+MA ME MA CR ME MO ME ME MA ME ME ME ME MA MA MA
+cualitativo
+CR8: Se evita proliferación de ventanas
+MA ME MA MA ME ME MO ME MA ME ME MO ME MA ME MA
+cualitativo
+CR9: Se evita descarga de plugins
+MA MO ME CR ME ME MO ME ME MO MO ME ME MA MO ME
+cualitativo
+CR10: En tareas de varios pasos, indicación al usuario
+MA ME MO MA MO ME MO MO ME MO MO MO ME MO ME ME
+cualitativo
+
+Elementos Multimedia
+EM
+1_2_2_1_3_2_2_2_2_3_2_4_3_1_4_1_2
+
+EM1: Fotografías bien recortadas
+ME MO MO MO MA MA MO ME MO MO MA MO MA MA ME MO
+cualitativo
+EM2: Fotografías comprensibles
+ME MO MO CR MA ME MA MA MA MO MA MO MA CR MA ME
+cualitativo
+EM3: Fotografías con correcta resolución
+MO MO MA MA MA ME MO ME ME MO MA MO MA MA MA ME
+cualitativo
+EM4: El uso de imágenes o animaciones proporciona valor añadido
+ME ME MO ME ME ME ME ME ME MO ME ME ME MA ME ME
+cualitativo
+EM5: Se ha evitado el uso de animaciones cíclicas
+MA MO MA MA ME MA ME ME MA MO MO ME ME MA MA MA
+cualitativo
+EM6: El uso de sonido proporciona algún tipo de valor añadido
+MO MO MO MO MA MO MO MO MO MO MO MO MO MO MO MO
+cualitativo
+
+Búsqueda
+BU
+4_2_2_4_3_3_2_4_4_4_4_3_2_4_3_2_3
+
+BU1: Si es necesaria, se encuentra accesible desde todas las páginas del sitio
+CR MA MO CR MA MO ME MA MA MO ME MO MO MA MA MA
+cualitativo
+BU2: Es fácilmente reconocible como tal
+MA MO MA MA ME MA ME ME ME ME ME ME MA MA MA MA
+cuantitativo
+BU3: Se encuentra fácilmente accesible
+MA ME MA MA MA ME MA ME ME MO ME MO MA ME ME ME
+cuantitativo
+BU4: La caja de texto es lo suficientemente ancha
+MA MO ME MA ME ME ME MA ME MA MO MO MA MA MA MA
+cuantitativo
+BU5: Sistema de búsqueda simple y claro
+CR CR MO CR CR MO MA CR MA MO MA ME MO MA MA MA
+cuantitativo
+BU6: Permite la búsqueda avanzada
+MA MO ME MA MA ME MA ME ME MA ME MO MA ME ME ME
+cuantitativo
+BU7: Muestra los resultados de forma comprensible
+MA ME MA MA MA ME MA MA MA ME ME ME MA MA MA MA
+cuantitativo
+BU8: Asiste al usuario en caso de no poder ofrecer resultados
+ME MO MA MA ME ME ME MA ME ME MO MO ME ME ME ME
+cuantitativo
+
+Ayuda
+AY
+2_4_1_1_2_1_1_1_3_2_2_2_2_2_2_2_3
+
+AY1: Enlace a la Ayuda, en una zona visible
+MA MO MA MA MO MO MO ME ME ME MO MO MO MA MA ME
+cualitativo
+AY2: Fácil acceso y retorno
+ME MO MA ME MO MO MO ME ME MO MO MO MO ME ME ME
+cuantitativo
+AY3: Ayuda contextual en tareas complejas
+MA MO CR MA MO ME ME ME ME MO MO MO ME ME ME ME
+cualitativo
+AY4: FAQs: correctas las preguntas
+MA MO MA MA MO ME ME ME ME ME MO MO ME MA ME ME
+cuantitativo
+AY5: FAQs: correctas las respuestas
+MA MO MA MA MO ME ME ME ME ME MO MO ME MA ME ME
+cuantitativo
+--EOF--
