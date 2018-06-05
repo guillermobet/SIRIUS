@@ -108,8 +108,6 @@ class MetaCriteria(models.Model):
 
 	def get_relevance_list(self):
 		relevance_list = self.relevance.split()
-		#for i in range(0, len(relevance_list)):
-		#	relevance_list[i] = int(relevance_list[i])
 			
 		return relevance_list
 		
