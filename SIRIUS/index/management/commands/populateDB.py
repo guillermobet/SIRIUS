@@ -48,7 +48,6 @@ class Command(BaseCommand):
 			line = f.readline()
 			while(line != '' and line != '--EOF--'):
 				# Read MetaCriterion
-				line = line[:-1]
 				line = line.split(': ')
 				criterion_name = line[1]
 				criterion_acronym = line[0]

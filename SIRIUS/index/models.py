@@ -69,6 +69,7 @@ class Review(models.Model):
 	browser = models.CharField(max_length=20)
 	browser_version = models.CharField(max_length=10)
 	date = models.DateField(default = datetime.date.today)
+	UP = models.DecimalField(max_digits = 5, decimal_places = 2, default = 0.0)
 	comment = models.TextField()
 
 	class Meta:
@@ -80,6 +81,7 @@ class MetaHeuristic(models.Model):
 	#review = models.ForeignKey("Review", to_field="id", on_delete=models.CASCADE)
 	name = models.CharField(max_length=100, unique=True)
 	acronym = models.CharField(max_length=2, unique=True)
+	relevance = models.CharField(max_length = 35, default = '4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4')
 	comment = models.TextField()
 	
 	def __str__(self):
@@ -94,6 +96,7 @@ class MetaCriteria(models.Model):
 	acronym = models.CharField(max_length=4, unique=True)
 	metric = models.CharField(max_length=12)
 	atribute = models.CharField(max_length=12)
+	relevance = models.CharField(max_length = 55, default = 'CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR')
 	comment = models.TextField()
 
 class Criteria(models.Model):
