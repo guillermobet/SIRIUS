@@ -96,6 +96,30 @@ class EvaluationGeneralForm(forms.Form):
 		label = "Descripción del Website",
 		widget = forms.TextInput({"placeholder": 'Ej. Búsqueda'})
 	)
+	website_type_choices = [
+		(1, 'Administración Pública/Institucional'),
+		(2, 'Banca Electronica'),
+		(3, 'Blog'),
+		(4, 'Buscador'),
+		(5, 'Comercio electrónico'),
+		(6, 'Comunicación/Noticias'),
+		(7, 'Corporativo/Empresa'),
+		(8, 'Descargas'),
+		(9, 'Educativo/Formativo'),
+		(10, 'Entornos colaborativos/Wikis'),
+		(11, 'Foros/Chat'),
+		(12, 'Ocio/Entretenimiento'),
+		(13, 'Personal'),
+		(14, 'Portal de Servicios'),
+		(15, 'Servicios interactivos basados en imágenes'),
+		(16, 'Servicios interactivos no basados en imágenes'),
+		(17, 'Webmail/Correo')
+	]
+	website_type = forms.ChoiceField(
+		required = True,
+		label = 'Tipo de sitio web',
+		choices = website_type_choices
+	)
 	browser_name = forms.CharField(
 		required = True,
 		label = 'Explorador Usado',
@@ -119,7 +143,7 @@ class ReviewItemsForm(forms.Form):
 		quantitative_choices = [('1', '1'), ('2', '2'), ('3', '3'),
 								('4', '4'), ('5', '5'), ('6', '6'),
 								('7', '7'), ('8', '8'), ('9', '9'), 
-								('10', '10')
+								('10', '10'), ('NA', 'NA')
 								]
 		qualitative_chices = [('NA', 'NA'), ('NTS', 'NTS'), ('NEP', 'NEP'),
 							  ('NPP', 'NPP'), ('NPI', 'NPI'), ('S', 'S')

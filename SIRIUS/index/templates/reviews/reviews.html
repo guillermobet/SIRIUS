@@ -21,6 +21,7 @@
 							<th style="text-align: center;">Navegador</th>
 							<th style="text-align: center;">Versión</th>
 							<th style="text-align: center;">Fecha</th>
+							<th style="text-align: center;">Porcentaje de Usabilidad</th>
 							<th style="text-align: center;">Editar</th>
 						</tr>
 					</thead>
@@ -32,6 +33,7 @@
 								<td>{{review.browser}}</td>
 								<td>{{review.browser_version}}</td>
 								<td>{{review.date}}</td>
+								<td>{{review.UP}}%</td>
 								<td><a href="{% url 'see_review' review.pk %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 							</tr>
 						{% endfor %}

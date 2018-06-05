@@ -59,6 +59,7 @@ class Website(models.Model):
 	url = models.URLField(unique=True)
 	name = models.CharField(max_length=100, unique=True)
 	description = models.TextField()
+	type = models.IntegerField(default = 1)
 
 class Review(models.Model):
 
@@ -68,6 +69,7 @@ class Review(models.Model):
 	browser = models.CharField(max_length=20)
 	browser_version = models.CharField(max_length=10)
 	date = models.DateField(default = datetime.date.today)
+	UP = models.DecimalField(max_digits = 5, decimal_places = 2, default = 0.0)
 	comment = models.TextField()
 
 	class Meta:
@@ -79,7 +81,15 @@ class MetaHeuristic(models.Model):
 	#review = models.ForeignKey("Review", to_field="id", on_delete=models.CASCADE)
 	name = models.CharField(max_length=100, unique=True)
 	acronym = models.CharField(max_length=2, unique=True)
+	relevance = models.CharField(max_length = 35, default = '4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4')
 	comment = models.TextField()
+	
+	def get_relevance_list(self):
+		relevance_list = self.relevance.split('_')
+		for i in range(0, len(relevance_list)):
+			relevance_list[i] = int(relevance_list[i])
+			
+		return relevance_list
 	
 	def __str__(self):
 		return self.name
@@ -91,14 +101,37 @@ class MetaCriteria(models.Model):
 	heuristic = models.ForeignKey("MetaHeuristic", to_field="id", on_delete=models.CASCADE)
 	name = models.CharField(max_length=100)
 	acronym = models.CharField(max_length=4, unique=True)
+	relevance = models.CharField(max_length = 55, default = 'CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR')
 	metric = models.CharField(max_length=12)
 	atribute = models.CharField(max_length=12)
 	comment = models.TextField()
 
-class Criteria(models.Model):
+	def get_relevance_list(self):
+		relevance_list = self.relevance.split()
+		#for i in range(0, len(relevance_list)):
+		#	relevance_list[i] = int(relevance_list[i])
+			
+		return relevance_list
+		
 
+class Criteria(models.Model):
 	id = models.AutoField(primary_key=True)
 	#heuristic = models.ForeignKey("Heuristic", to_field="id", on_delete=models.CASCADE)
 	review = models.ForeignKey("Review", to_field="id", on_delete=models.CASCADE)
 	meta_criteria = models.ForeignKey("MetaCriteria", to_field="id", on_delete=models.CASCADE)
 	value = models.CharField(max_length=12)
+	
+	def get_numeric_value(self):
+		qualitative_mapping = {
+			'NTS' : 0,
+			'NEP' : 2.5,
+			'NPP' : 5,
+			'NPI' : 7.5,
+			'S' : 10,
+			}
+		if(self.meta_criteria.atribute == 'cualitativo'):
+			value = qualitative_mapping[self.value]
+		else:
+			value = float(self.value)
+			
+		return value
