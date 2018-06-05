@@ -34,7 +34,7 @@ def evaluate(request):
 	if request.method == 'POST':
 		form = EvaluationGeneralForm(request.POST)
 		if form.is_valid():
-			# Obtengo datos del formulario
+			# Getting form data
 			evaluator = form.cleaned_data['evaluator']
 			date = form.cleaned_data['date']
 			website_name = form.cleaned_data['website_name']
@@ -44,7 +44,7 @@ def evaluate(request):
 			browser_name = form.cleaned_data['browser_name']
 			browser_version = form.cleaned_data['browser_version']
 			
-			# Busco el website en la DB y lo creo si no existe
+			# Search for website in DB or create it if doesnt exist
 			try:
 				website = Website.objects.get(name = website_name)
 			except Website.DoesNotExist:
@@ -58,16 +58,25 @@ def evaluate(request):
 						type = website_type
 						)
 			
-			# Creo objeto review	
-			review = Review.objects.create(
-				website = website,
-				username = user,
-				browser = browser_name,
-				browser_version = browser_version,
-				date = date,
-				UP = 0.0,
-				comment = ''
-			)
+			# Create Review object
+			try:
+				review = Review.objects.create(
+					website = website,
+					username = user,
+					browser = browser_name,
+					browser_version = browser_version,
+					date = date,
+					UP = 0.0,
+					comment = ''
+				)
+			# In case the user has already reviewed this site, it will raise an error and redirect to the review
+			except IntegrityError:
+				messages.error(request, 'Usted ya hizo un review de este website')
+				review = Review.objects.get(website = website, username = user)
+				kwargs = {'review_id' : review.pk}
+				return HttpResponseRedirect(reverse('see_review', args=(), kwargs=kwargs))
+				
+				
 			kwargs = {'review_id' : review.pk}
 			return HttpResponseRedirect(reverse('evaluate_items', args=(), kwargs=kwargs))
 	
