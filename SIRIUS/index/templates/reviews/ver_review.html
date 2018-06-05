@@ -17,12 +17,14 @@
 			
 			<div class="col-md-10">
 				
+				<h2 style="text-align: center;">Porcentaje de Usabilidad: {{review.UP}}%</h2>
+				<br/>
 				<div id="tabber">
 					<div id="tabber_buttons"></div>
 						{% for heuristic, criteria in review_items.items %}
 							<div id='tabber_tab_{{heuristic.1}}'> 
 								<!-- Este es el nombre de la heuristica en cada pagina -->
-								<h3 class="text-center" id="tabName"><label class="control-label">{{heuristic.0}}:</label></h3>
+								<h3 class="text-center" id="tabName" hidden><label class="control-label">{{heuristic.0}}:</label></h3>
 							<ul class="list-group">
 							 <li class="list-group-item" style="background-color: #3f9db6;color:white;">
 								    <span class="badge">VALOR</span>

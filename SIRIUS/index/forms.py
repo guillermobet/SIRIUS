@@ -168,16 +168,16 @@ class ReviewItemsForm(forms.Form):
 				# Field for each criteria
 				if(criteria[j].atribute == 'cualitativo'):
 					choices = qualitative_chices
-					#initial_value = 'NA'
+					initial_value = 'S'
 				else:
 					choices = quantitative_choices
-					#initial_value = '1'
+					initial_value = '1'
 
 				self.fields['H_'+str(heuristics[i].pk)+'_C_'+str(criteria[j].pk)] = forms.ChoiceField(
 					required = True,
 					label = criteria[j].name,
 					choices = choices,
-					#initial = initial_value,
+					initial = initial_value,
 					#widget = forms.RadioSelect(attrs = {'heuristic' : heuristics[i].pk}),
 					widget = forms.RadioSelect(),
 				)

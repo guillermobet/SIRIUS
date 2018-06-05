@@ -1,7 +1,19 @@
 from django.core.management.base import BaseCommand
 from index.models import MetaHeuristic, MetaCriteria
 
-# THIS STILL NEED WORK
+# THIS STILL NEEDS WORK
+def add_search_relevance(relevance_string):
+	aux = relevance_string.split()
+	output = []
+	
+	for i in range(0, len(aux)):
+		if(i == 4):
+			output.append('CR')
+		output.append(aux[i])
+		
+	output = " ".join(output)
+	return output
+	
 class Command(BaseCommand):
 	args = 'foo bar..'
 	help = 'help string'
@@ -9,8 +21,55 @@ class Command(BaseCommand):
 	def _clean_db(self):
 		MetaCriteria.objects.all().delete()
 		MetaHeuristic.objects.all().delete()
+		
+	
 	
 	def _populate_db(self):
+		try:
+			f = open('static/baseMetaScheme.txt', 'r')
+		except FileNotFound:
+			print('File baseMetaScheme.txt not in static folder')
+			exit()
+			
+		# read from file and create evrything
+		line = None
+		while(line != '--EOF--'):
+			
+			# Read MetaHeuristic
+			heuristic_name = f.readline()[:-1]
+			heuristic_acronym = f.readline()[:-1]
+			heuristic_relevance = f.readline()[:-1]
+			# Create MetaHeuristic
+			heuristic = MetaHeuristic.objects.create(
+				name = heuristic_name,
+				acronym = heuristic_acronym,
+				relevance = heuristic_relevance,
+				comment = ''
+			)
+			line = f.readline()
+			line = f.readline()
+			while(line != '' and line != '--EOF--'):
+				# Read MetaCriterion
+				line = line[:-1]
+				line = line.split(': ')
+				criterion_name = line[1]
+				criterion_acronym = line[0]
+				criterion_relevance = f.readline()[:-1]
+				criterion_attribute = f.readline()[:-1]
+				
+				# Create MetaCriterion
+				MetaCriteria.objects.create(
+					heuristic = heuristic,
+					name = criterion_name,
+					acronym = criterion_acronym,
+					relevance = add_search_relevance(criterion_relevance),
+					metric = '',
+					atribute = criterion_attribute,
+					comment = ''
+				)
+				
+				line = f.readline()[:-1]
+		"""
 		heuritic_aspectos_generales = MetaHeuristic.objects.create(
 			name = 'Aspectos Generales',
 			acronym = 'AG',
@@ -109,7 +168,7 @@ class Command(BaseCommand):
 			comment = ''
 		)
 		
-		"""
+		
 		heuritic_identidad_e_informacion = MetaHeuristic.objects.create(
 			name = 'Identidad e Información',
 			acronym = 'II',
