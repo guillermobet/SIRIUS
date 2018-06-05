@@ -142,19 +142,18 @@ class ReviewItemsForm(forms.Form):
 			for j in range(0, len(criteria)):
 				
 				# Field for each criteria
-				#if(criteria[j].atribute == 'qualitative'):
 				if(criteria[j].atribute == 'cualitativo'):
 					choices = qualitative_chices
-					initial_value = 'NA'
+					#initial_value = 'NA'
 				else:
 					choices = quantitative_choices
-					initial_value = '1'
+					#initial_value = '1'
 
 				self.fields['H_'+str(heuristics[i].pk)+'_C_'+str(criteria[j].pk)] = forms.ChoiceField(
 					required = True,
 					label = criteria[j].name,
 					choices = choices,
-					initial = initial_value,
+					#initial = initial_value,
 					#widget = forms.RadioSelect(attrs = {'heuristic' : heuristics[i].pk}),
 					widget = forms.RadioSelect(),
 				)
@@ -206,9 +205,7 @@ class MetaCriterionForm(forms.Form):
 	atribute = forms.ChoiceField(
 		required = True,
 		label = 'Atributo',
-		#choices = [('qualitative', 'cualitativo'), ('quantitative', 'cuantitativo')],
 		choices = [('cualitativo', 'cualitativo'), ('cuantitativo', 'cuantitativo')],
-		#initial = 'qualitative',
 		initial = 'cualitativo',
 	)
 	metric = forms.CharField(
@@ -222,7 +219,7 @@ class FilterMetaCriteriaForm(forms.Form):
 	heuristic = forms.ModelChoiceField(
 		required = False,
 		label = 'Heuristica',
-		empty_label = 'Seleccione uno',
+		empty_label = 'Todos',
 		queryset=MetaHeuristic.objects.all()
 	)
 		
