@@ -59,6 +59,7 @@ class Website(models.Model):
 	url = models.URLField(unique=True)
 	name = models.CharField(max_length=100, unique=True)
 	description = models.TextField()
+	type = models.IntegerField(default = 1)
 
 class Review(models.Model):
 
