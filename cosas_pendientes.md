@@ -15,3 +15,5 @@
 * ~~Para filtrar desde backend sale una opcion "---" Eliminar en todos los select.~~
 
 * ~~Desde el backed hay que decir cuantitativo, sale en ingles en las tablas~~
+
+* Enmarcar las pestañas para que parezca que es todo una misma entidad
