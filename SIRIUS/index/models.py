@@ -90,7 +90,7 @@ class MetaCriteria(models.Model):
 	#heuristic = models.ForeignKey("Heuristic", to_field="id", on_delete=models.CASCADE)
 	heuristic = models.ForeignKey("MetaHeuristic", to_field="id", on_delete=models.CASCADE)
 	name = models.CharField(max_length=100)
-	acronym = models.CharField(max_length=3, unique=True)
+	acronym = models.CharField(max_length=4, unique=True)
 	metric = models.CharField(max_length=12)
 	atribute = models.CharField(max_length=12)
 	comment = models.TextField()
