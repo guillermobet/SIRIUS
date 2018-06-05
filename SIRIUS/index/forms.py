@@ -142,7 +142,8 @@ class ReviewItemsForm(forms.Form):
 			for j in range(0, len(criteria)):
 				
 				# Field for each criteria
-				if(criteria[j].atribute == 'qualitative'):
+				#if(criteria[j].atribute == 'qualitative'):
+				if(criteria[j].atribute == 'cualitativo'):
 					choices = qualitative_chices
 					initial_value = 'NA'
 				else:
@@ -205,8 +206,10 @@ class MetaCriterionForm(forms.Form):
 	atribute = forms.ChoiceField(
 		required = True,
 		label = 'Atributo',
-		choices = [('qualitative', 'cualitativo'), ('quantitative', 'cuantitativo')],
-		initial = 'qualitative',
+		#choices = [('qualitative', 'cualitativo'), ('quantitative', 'cuantitativo')],
+		choices = [('cualitativo', 'cualitativo'), ('cuantitativo', 'cuantitativo')],
+		#initial = 'qualitative',
+		initial = 'cualitativo',
 	)
 	metric = forms.CharField(
 		required = True,

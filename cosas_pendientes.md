@@ -12,6 +12,6 @@
 
 * ~~En los inputs hay que colocar un minimo de caracteres en Criterios y Heuristicas (Nombres)~~
 
-* ~~Para filtrar desde backend sale una opcion "---" Eliminar en todos los select. ~~
+* ~~Para filtrar desde backend sale una opcion "---" Eliminar en todos los select.~~
 
-* Desde el backed hay que decir cuantitativo, sale en ingles en las tablas
+* ~~Desde el backed hay que decir cuantitativo, sale en ingles en las tablas~~
