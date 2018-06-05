@@ -21,69 +21,13 @@
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'interface/css/home.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'interface/css/leftMenu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'interface/css/paginaPrincipal.css' %}">
     <!-- Custom styles for this template -->
 
   </head>
 
   <body>
-<style type="text/css">
-  body{
-    background-color: ;
-    
-  }
-  .imagen{
-      width: 100%;
 
-  }
-  .jumbotron{
-    margin-bottom: 0px;
-
-    background-color: white;
-  }
-  .jumbotron p{
-    font-size: 15px;
-  }
-  .azul{
-    background-color: #3f9db6;
-    color:white;
-    font-weight: bold;
-    width: 100%;
-  }
-  .azul:hover, .azul:active{
-    background-color: #3f9db6;
-    border-color: #78c0cf;
-    color:white;
-    -webkit-box-shadow:2px 2px 2px 2px #78c0cf;
-    -moz-box-shadow:2px 2px 2px 2px #78c0cf;
-    box-shadow:2px 2px 2px 2px #78c0cf;
-  }
-  .title{
-    color: #78c0cf;
-  }
-  strong{
-    color: #78c0cf;
-  }
-</style>
-    <!-- Navigation >'background-color: #dae3e7;'
-    <nav class="navbar navbar-white bg-white static-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="{% static 'index/img/logo.png' %}" alt="SIRIUS" width="175" height="50" border="0">
-        </a>
-
-
-        <ul class="nav navbar-nav navbar-right">
-        {% if user.is_authenticated %}
-          <li><a href="/logout" class="btn btn-primary">{{ user.user }}, cliquea aqui para desloguearte</a></li>
-        {% else %}
-        <li><a href="/login" class="btn btn-primary"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Loguearse </a></li>
-        {% endif %}
-        </ul>
-       
-
-      </div>
-    </nav-->
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-6 hidden-xs">
@@ -129,48 +73,7 @@
       </div>
 
     </div>
-    <!-- Masthead -->
-    <!--header class="masthead text-white text-center">
-      <div class="overlay"></div>
-      <div class="container">
-      {% if user.is_authenticated %}
-        <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5">User experience in websites,<br/>taken SIRIUSly</h1>
-          </div>
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-              <form>
-                <div class="form-row">
-  
-                  <div class="col-md-12 col-md-3">
-                    <a class="btn btn-block btn-lg btn-primary" href="/home" >Empieza ahora!</a>
-                  </div>
-                </div>
-              </form>
-            </div>
-        </div>
-       {% else %}
-          <div class="row">
-            <div class="col-xl-9 mx-auto">
-              <h1 class="mb-5">User experience in websites,<br/>taken SIRIUSly</h1>
-            </div>
-            <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-              <form>
-                <div class="form-row">
-                  <div class="col-md-5 col-md-3">
-                    <a class="btn btn-block btn-lg btn-primary" href="/register" >Registrarse</a>
-                  </div>
-                  </br>
-                  <div class="col-md-5 col-md-3 offset-md-2">
-                    <a class="btn btn-block btn-lg btn-primary" href="/login" >Loguearse</a>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        {% endif %}
-      </div>
-    </header-->
+    
     <!-- Footer -->
     <footer class="footer bg-white">
       <div class="container-fluid text-center">

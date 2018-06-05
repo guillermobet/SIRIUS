@@ -1,0 +1,32 @@
+.imagen{
+      width: 100%;
+
+  }
+  .jumbotron{
+    margin-bottom: 0px;
+
+    background-color: white;
+  }
+  .jumbotron p{
+    font-size: 15px;
+  }
+  .azul{
+    background-color: #3f9db6;
+    color:white;
+    font-weight: bold;
+    width: 100%;
+  }
+  .azul:hover, .azul:active{
+    background-color: #3f9db6;
+    border-color: #78c0cf;
+    color:white;
+    -webkit-box-shadow:2px 2px 2px 2px #78c0cf;
+    -moz-box-shadow:2px 2px 2px 2px #78c0cf;
+    box-shadow:2px 2px 2px 2px #78c0cf;
+  }
+  .title{
+    color: #78c0cf;
+  }
+  strong{
+    color: #78c0cf;
+  }
