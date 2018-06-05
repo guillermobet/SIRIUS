@@ -12,7 +12,7 @@
     </head>
     <div class="container ">
         <div class="log-form">
-          <h2>Logueate a tu cuenta</h2>
+          <h2>Iniciar sesion</h2>
           <form method="POST">
             {% if form.errors %}
               <div class="alert alert-danger alert-dismissible" role="alert">
@@ -21,9 +21,10 @@
                 </div>
             {% endif %}
             {% csrf_token %}
-            <input type="text" title="username" name="username" placeholder="Username/Email" required="" />
-            <input type="password" title="password" placeholder="Contraseña" name="password" required="" />
-            <button type="submit" class="btn">Login</button>
+            <input type="text" title="username" name="username" placeholder="Username *" required="" />
+            <input type="password" title="password" placeholder="Contraseña *" name="password" required="" />
+            <p class="col-xs-4 col-xs-offset-8" style="color:red; font-size: 12px; font-weight:bold; padding-left:50px; padding-right: 0px "> (*) Obligatorio </p>
+            <button type="submit" class="btn">Ingresar</button>
             <a class="forgot" href="../register">Crear una cuenta</a>
 
           </form>

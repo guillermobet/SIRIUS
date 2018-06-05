@@ -2,18 +2,16 @@
 
 * Poner pantalla inicial como pidio el profesor
 
-* Quitarle el amarillo a las tablas
-
-* Cambiar color de los botones
-
-* Acomodar filtrador de criterios para que encaje mejor en la interfaz
-
-* Acomodar formulario de reviews para que se vea bien con la tabulacion
-
-* Acomodar vista de ver review
-
 * ~~Hacer editar review~~
 
-* Hacer vista de perfil (maybe?)
+* Hacer vista de perfil (maybe?)NAHH naguara que fastidio u.u
 
 * LLenar populateDB.py
+
+*Cuando el usuario regresa porque NO edito el review, vuelve a decir editado exitosamente en un modal. hay que eliminarlo
+
+*En los inputs hay que colocar un minimo de caracteres en Criterios y Heuristicas (Nombres)
+
+*Para filtrar desde backend sale una opcion "---" Eliminar en todos los select. 
+
+*Desde el backed hay que decir cuantitativo, sale en ingles en las tablas

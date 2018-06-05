@@ -15,22 +15,57 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="{% static 'index/img/favicon.png' %}"/>
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
     <!-- Custom styles for this template -->
-    <link href="{% static 'index/css/landing-page.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap3/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap3/bootstrap-theme.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'interface/css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'interface/css/leftMenu.css' %}">
+    <!-- Custom styles for this template -->
 
   </head>
 
   <body>
+<style type="text/css">
+  body{
+    background-color: ;
+    
+  }
+  .imagen{
+      width: 100%;
 
-    <!-- Navigation -->
+  }
+  .jumbotron{
+    margin-bottom: 0px;
+
+    background-color: white;
+  }
+  .jumbotron p{
+    font-size: 15px;
+  }
+  .azul{
+    background-color: #3f9db6;
+    color:white;
+    font-weight: bold;
+    width: 100%;
+  }
+  .azul:hover, .azul:active{
+    background-color: #3f9db6;
+    border-color: #78c0cf;
+    color:white;
+    -webkit-box-shadow:2px 2px 2px 2px #78c0cf;
+    -moz-box-shadow:2px 2px 2px 2px #78c0cf;
+    box-shadow:2px 2px 2px 2px #78c0cf;
+  }
+  .title{
+    color: #78c0cf;
+  }
+  strong{
+    color: #78c0cf;
+  }
+</style>
+    <!-- Navigation >'background-color: #dae3e7;'
     <nav class="navbar navbar-white bg-white static-top">
       <div class="container">
         <a class="navbar-brand" href="#">
@@ -48,10 +83,54 @@
        
 
       </div>
-    </nav>
+    </nav-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 hidden-xs">
+          <img class="imagen img-responsive" src="/static/index/img/main1.png">
+        </div>
+        <div class="col-md-6 col-xs-12">
+          <div class="jumbotron" style="margin-bottom: 0px;">
+          <h1> <img src="{% static 'index/img/logo.png' %}" alt="SIRIUS" height="100" border="0"></h1>
+              <h2 ><small> Nuevo sistema para la evaluación de la usabilidad web </small></h2>
+              <blockquote class="blockquote">
+                <p class="mb-0"><strong>SIRIUS</strong> es un sistema de evaluación de la usabilidad web que parte de la evaluación heurística pero que aúna una serie de características que la diferencia de otras propuestas:</p>
+                <p><span class="glyphicon glyphicon-ok"></span>   Se aplica a cualquier tipo de sitio web</p>
+                <p><span class="glyphicon glyphicon-ok"></span>   Es aplicable durante todo el ciclo de vida del sitio</p>
+                <p><span class="glyphicon glyphicon-ok"></span>   Da como resultado un valor porcentual del nivel de usabilidad del sitio evaluado</p>
+              </blockquote>
+              {% if user.is_authenticated %}
+              <div class="row">
+                <div class="col-md-6">
+                  <p><a class="btn azul btn-lg" href="/home" role="button"><span class="glyphicon glyphicon-home"></span> IR A INICIO</a></p>
+                    
+                </div>
+                <div class="col-md-6">
+                  <p><a class="btn azul btn-lg" href="/logout" role="button"><span class="glyphicon glyphicon-log-out"></span> CERRAR SESION</a></p>
+                </div>
+                  
+                </div>
+              </div>
+              {% else %}
+              <div class="row">
+                <div class="col-md-6">
+                  <p><a class="btn azul btn-lg" href="/login" role="button">INGRESA</a></p>
+                    
+                </div>
+                <div class="col-md-6">
+                  <p><a class="btn azul btn-lg" href="/register" role="button">REGISTRATE</a></p>
+                </div>
+                  
+                </div>
+                {% endif %}
+              </div>
+          </div>
+        
+      </div>
 
+    </div>
     <!-- Masthead -->
-    <header class="masthead text-white text-center">
+    <!--header class="masthead text-white text-center">
       <div class="overlay"></div>
       <div class="container">
       {% if user.is_authenticated %}
@@ -91,13 +170,13 @@
           </div>
         {% endif %}
       </div>
-    </header>
+    </header-->
     <!-- Footer -->
     <footer class="footer bg-white">
-      <div class="container">
+      <div class="container-fluid text-center">
         <div class="row">
-          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-            <ul class="list-inline mb-2">
+          <div class="col-lg-126 h-100 text-center text-lg-left my-auto">
+            <ul class="list-inline mb-2" style="margin-bottom: 5px;">
               <li class="list-inline-item">
                 <a href="#">Sobre Nosotros</a>
               </li>
@@ -115,25 +194,6 @@
               </li>
             </ul>
             <p class="text-muted small mb-4 mb-lg-0">&copy; SIRIUS 2018. All Rights Reserved.</p>
-          </div>
-          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item mr-3">
-                <a href="#">
-                  <i class="fa fa-facebook fa-2x fa-fw"></i>
-                </a>
-              </li>
-              <li class="list-inline-item mr-3">
-                <a href="#">
-                  <i class="fa fa-twitter fa-2x fa-fw"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-instagram fa-2x fa-fw"></i>
-                </a>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
