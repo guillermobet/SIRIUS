@@ -193,7 +193,7 @@ def edit_review(request, review_id):
 				criteria_id = int(split[3])
 				meta_criteria = MetaCriteria.objects.get(pk = criteria_id)
 				
-				# Look for the criterion and create it does not exist
+				# Look for the criterion and create it if does not exist
 				try:
 					criterion = Criteria.objects.get(review = review, meta_criteria = meta_criteria)
 					criterion.value = form.cleaned_data[value]

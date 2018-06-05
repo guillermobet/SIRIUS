@@ -40,7 +40,7 @@
 				</div>
 				<div class="form-group" >
 					<div class="col-sm-6">
-						<button href="{% url 'see_review' review.pk %}" type="submit" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  <span class="glyphicon glyphicon-arrow-left"></span>  Regresar  </button>
+						<button onclick="location.href='{% url 'see_review' review.pk %}'" type="button" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  <span class="glyphicon glyphicon-arrow-left"></span>  Regresar  </button>
 					</div>
 					<div class="col-sm-6">
 						<button type="submit" href="/home/evaluate/1" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;" onclick="validateForm()">  Guardar  <span class="glyphicon glyphicon-saved"></span></button>
