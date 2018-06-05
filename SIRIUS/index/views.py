@@ -56,16 +56,26 @@ def evaluate(request):
 						)
 			
 			# Creo objeto review	
-			review = Review.objects.create(
-				website = website,
-				username = user,
-				browser = browser_name,
-				browser_version = browser_version,
-				date = date,
-				comment = ''
-			)
-			kwargs = {'review_id' : review.pk}
-			return HttpResponseRedirect(reverse('evaluate_items', args=(), kwargs=kwargs))
+			# Create Review object
+			try:
+				review = Review.objects.create(
+					website = website,
+					username = user,
+					browser = browser_name,
+					browser_version = browser_version,
+					date = date,
+					comment = ''
+				)
+				kwargs = {'review_id' : review.pk}
+				return HttpResponseRedirect(reverse('evaluate_items', args=(), kwargs=kwargs))
+			
+			# In case the user has already reviewed this site, it will raise an error and redirect to the review
+			except IntegrityError:
+				messages.error(request, 'Usted ya hizo un review de este website')
+				review = Review.objects.get(website = website, username = user)
+				kwargs = {'review_id' : review.pk}
+				return HttpResponseRedirect(reverse('see_review', args=(), kwargs=kwargs))
+			
 	
 	return render(request, "evaluate/evaluate.html", {'form' : form})
 
