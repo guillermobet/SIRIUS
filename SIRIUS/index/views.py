@@ -333,9 +333,9 @@ def meta_criteria(request, meta_criterion_id=None):
 							atribute = atribute,
 							metric = metric
 							)
-						messages.success(request, 'Criterio creado exitosamente!')
+						messages.success(request, 'Sub-Heuristica creada exitosamente!')
 					except IntegrityError:
-						messages.error(request, 'Un Criterio con estas caracteristicas ya esta registrado en el sistema')
+						messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
 						
 				# Editing existing MetaCriteria
 				else:
@@ -347,9 +347,9 @@ def meta_criteria(request, meta_criterion_id=None):
 					criterion.atribute = form.cleaned_data['atribute']
 					try:
 						criterion.save()
-						messages.success(request, 'Criterio editado exitosamente')
+						messages.success(request, 'Sub-Heuristica editada exitosamente')
 					except IntegrityError:
-						messages.error(request, 'Un Criterio con estas caracteristicas ya esta registrada en el sistema')
+						messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
 					
 		
 		# Getting data from filtering form		
