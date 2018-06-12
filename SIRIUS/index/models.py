@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,Permissi
 from django.utils.translation import ugettext_lazy as _
 import datetime
 
-class UserManager(BaseUserManager):
+class UserManager(BaseUserManager): 
 
 	use_in_migrations = True
 	def create_user(self,user,email,full_name,telephone,password):
@@ -28,7 +28,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
 
 	user = models.CharField(_('Usuario'),max_length=40,unique=True)
-	email = models.EmailField(_('Correo electronico'),blank=True)
+	email = models.EmailField(_('Correo electronico'),blank=True,unique=True)
 	full_name = models.CharField(_('Nombre completo'), max_length=100, blank=True)
 	telephone = models.CharField(_('Telefono'),max_length=11, blank = True)
 	is_staff = models.BooleanField(_('staff'),default=False)
@@ -84,6 +84,13 @@ class MetaHeuristic(models.Model):
 	relevance = models.CharField(max_length = 35, default = '4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4')
 	comment = models.TextField()
 	
+	def get_relevance_list(self):
+		relevance_list = self.relevance.split('_')
+		for i in range(0, len(relevance_list)):
+			relevance_list[i] = int(relevance_list[i])
+			
+		return relevance_list
+	
 	def __str__(self):
 		return self.name
 	
@@ -94,15 +101,36 @@ class MetaCriteria(models.Model):
 	heuristic = models.ForeignKey("MetaHeuristic", to_field="id", on_delete=models.CASCADE)
 	name = models.CharField(max_length=100)
 	acronym = models.CharField(max_length=4, unique=True)
+	relevance = models.CharField(max_length = 55, default = 'CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR')
 	metric = models.CharField(max_length=12)
 	atribute = models.CharField(max_length=12)
 	relevance = models.CharField(max_length = 55, default = 'CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR')
 	comment = models.TextField()
 
-class Criteria(models.Model):
+	def get_relevance_list(self):
+		relevance_list = self.relevance.split()
+			
+		return relevance_list
+		
 
+class Criteria(models.Model):
 	id = models.AutoField(primary_key=True)
 	#heuristic = models.ForeignKey("Heuristic", to_field="id", on_delete=models.CASCADE)
 	review = models.ForeignKey("Review", to_field="id", on_delete=models.CASCADE)
 	meta_criteria = models.ForeignKey("MetaCriteria", to_field="id", on_delete=models.CASCADE)
 	value = models.CharField(max_length=12)
+	
+	def get_numeric_value(self):
+		qualitative_mapping = {
+			'NTS' : 0,
+			'NEP' : 2.5,
+			'NPP' : 5,
+			'NPI' : 7.5,
+			'S' : 10,
+			}
+		if(self.meta_criteria.atribute == 'cualitativo'):
+			value = qualitative_mapping[self.value]
+		else:
+			value = float(self.value)
+			
+		return value
