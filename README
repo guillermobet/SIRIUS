@@ -22,6 +22,7 @@ Setup database:
 
 2. Create 'sirius' user with password 'black' and configure with djangs settings
 	> CREATE USER sirius WITH PASSWORD 'black';
+	> ALTER USER sirius CREATEDB;
 	> ALTER ROLE sirius SET client_encoding TO 'utf8';
 	> ALTER ROLE sirius SET default_transaction_isolation TO 'read committed';
 	> ALTER ROLE sirius SET timezone TO 'America/Caracas';
