@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,Permissi
 from django.utils.translation import ugettext_lazy as _
 import datetime
 
-class UserManager(BaseUserManager):
+class UserManager(BaseUserManager): 
 
 	use_in_migrations = True
 	def create_user(self,user,email,full_name,telephone,password):
@@ -28,7 +28,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
 
 	user = models.CharField(_('Usuario'),max_length=40,unique=True)
-	email = models.EmailField(_('Correo electronico'),blank=True)
+	email = models.EmailField(_('Correo electronico'),blank=True,unique=True)
 	full_name = models.CharField(_('Nombre completo'), max_length=100, blank=True)
 	telephone = models.CharField(_('Telefono'),max_length=11, blank = True)
 	is_staff = models.BooleanField(_('staff'),default=False)
