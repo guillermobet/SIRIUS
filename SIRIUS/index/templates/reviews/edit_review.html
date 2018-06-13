@@ -7,17 +7,24 @@
 <script src="{% static 'js/tabber.js' %}"></script>
 
 <div class="col-md-9">
-    <div class="row">
     	<div class="col-md-12">
 			<div class="page-header">
 			  <h1> <small> Editando Review del sitio </small> {{review.website.name}}</h1>
 			</div>
 		</div> <!-- col md 12-->
-    	<div class="col-md-9" >
+    	<div class="col-md-10" >
 			<form action = "" method="post" >
 				{% csrf_token %}
-				<div id="tabber">
-					<div id="tabber_buttons"></div>
+				<label for="tabber_buttons" >HEURISTICA:</label>
+				<select  class="form-control" id='tabber_buttons'> 
+					{% for field in form %}
+						{% if field.field.widget.attrs.heuristic %}
+							<option id='tab_button_{{field.field.widget.attrs.pk}}'> 
+								{{field.label}}
+							</option>
+						{% endif %}
+					{% endfor %}
+				</select>
 					{% for field in form %}
 						{% if field.field.widget.attrs.heuristic %}
 							<div id='tabber_tab_{{field.field.widget.attrs.pk}}'> 
@@ -27,9 +34,9 @@
 						{% else %}
 							<div class="form-group" >
 								<label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label>
-								<div id="input_group"class="col-sm-12">
+								<div id="input_group" class=" col-sm-12">
 									{% for i in field %}
-										<label class="radio-inline " style="margin-right: 8px;">
+										<label class="radio-inline " style="margin-right: 5px;">
 										<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" > {{i}}
 										</label>
 									{% endfor%}
@@ -37,7 +44,7 @@
 							</div>
 						{% endif %}
 					{% endfor %}
-				</div>
+				
 				<div class="form-group" >
 					<div class="col-sm-6">
 						<button onclick="location.href='{% url 'see_review' review.pk %}'" type="button" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  <span class="glyphicon glyphicon-arrow-left"></span>  Regresar  </button>
@@ -66,7 +73,6 @@
 		      </ul>
 		    </nav>  
 	    </div>	
-    </div>
 </div>
 
 
