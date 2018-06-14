@@ -21,10 +21,10 @@
 				{% csrf_token %}
 				<div id="tabber">
 				<label for="tabber_buttons" >HEURISTICA:</label>
-					<select  class="form-control" id="tabber_buttons" required>
+					<select  class="form-control" id="tabber_buttons" onchange="refreshTabs()" required>
 				      	{% for field in form %}
 				      		{% if field.field.widget.attrs.heuristic %}
-					    	<option id="tabber_button_{{field.field.widget.attrs.pk}}" onChange="refreshTabs({{field.field.widget.attrs.pk}})" >{{field.label}}</option>
+					    	<option id="tabber_button_{{field.field.widget.attrs.pk}}" value='{{field.field.widget.attrs.pk}}'>{{field.label}}</option>
 					    	{% endif %}
 					    {% endfor %}
 					</select>	
@@ -86,6 +86,25 @@ $('#setting').click(function(){
 	$('#setting').addClass('active');
 });
 
+</script>
+<script type="text/javascript">
+function refreshTabs(){
+			var activeTab = document.getElementById("tabber_buttons").value;
+			console.log("Numero de tab: "+ activeTab);
+			var tabButtons = $('div#tabber_buttons').children();
+			var heuristicID;
+			$('div[id^=tabber_tab_]').each(function(index, tab){
+				heuristicID = $(this).attr('id').split('_');
+				heuristicID = heuristicID[heuristicID.length-1]
+				if(heuristicID == activeTab){
+					$(tab).show();
+					$(tabButtons[index]).addClass('activeTab');
+				}else{
+					$(tab).hide();
+					$(tabButtons[index]).removeClass('activeTab');
+				}
+			});
+		}
 </script>
 
 {% endblock %}

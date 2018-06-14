@@ -21,9 +21,9 @@
 				<br/>
 				<div id="tabber">
 				<label for="tabber_buttons" >HEURISTICA:</label>
-					<select  class="form-control" id='tabber_buttons'> 
+					<select  class="form-control" id='tabber_buttons' onchange="refreshTabs()" > 
 						{% for heuristic in review_items.items%}
-					    	<option id="tabber_button_{{heuristic.0.1}}" onChange="refreshTabs({{heuristic.0.1}})" >{{heuristic.0.0}}</option>
+					    	<option id="tabber_button_{{heuristic.0.1}}" value="{{heuristic.0.1}}">{{heuristic.0.0}}</option>
 					    {% endfor %}
 					</select>
 					<br>
@@ -74,5 +74,23 @@
     		
 		</div>
 	</div>
-
+<script type="text/javascript">
+function refreshTabs(){
+			var activeTab = document.getElementById("tabber_buttons").value;
+			console.log("Numero de tab: "+ activeTab);
+			var tabButtons = $('div#tabber_buttons').children();
+			var heuristicID;
+			$('div[id^=tabber_tab_]').each(function(index, tab){
+				heuristicID = $(this).attr('id').split('_');
+				heuristicID = heuristicID[heuristicID.length-1]
+				if(heuristicID == activeTab){
+					$(tab).show();
+					$(tabButtons[index]).addClass('activeTab');
+				}else{
+					$(tab).hide();
+					$(tabButtons[index]).removeClass('activeTab');
+				}
+			});
+		}
+</script>
 {% endblock %}
