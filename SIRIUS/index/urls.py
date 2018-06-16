@@ -10,6 +10,7 @@ urlpatterns = [
 	path("register/", views.register, name="register"),
 	path("home/", views.home, name="home"),
 	path("home/perfil", views.perfil, name="perfil"),
+	
 	# MetaHeuristics
 	path("home/metaheuristics", views.meta_heuristics, name="meta_heuristics"),
 	path("home/metaheuristics/<int:meta_heuristic_id>/", views.meta_heuristics, name="edit_meta_heuristic"),

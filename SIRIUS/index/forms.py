@@ -247,9 +247,44 @@ class FilterMetaCriteriaForm(forms.Form):
 		queryset=MetaHeuristic.objects.all()
 	)
 	
-class UserUpdateForm(forms.ModelForm):
-	
-	class Meta:
-			model = User
-			fields = ['user', 'full_name', 'telephone' ,'email', 'password']
+class UserUpdateForm(forms.Form):
+	full_name = forms.CharField(
+		required = True,
+		label = 'Nombre Completo',
+		max_length = 60,
+		widget = forms.TextInput({"placeholder": "Nombre Completo *",
+								  "readonly": True})
+	)
+	email = forms.EmailField(
+		required = True,
+		label = 'Email',
+		max_length = 32,
+		widget = forms.TextInput({"placeholder": "Email *"})
+	)
+	telephone= forms.CharField(
+		required = False,
+		label = 'Teléfono',
+		max_length = 11,
+		widget = forms.TextInput({"placeholder": "Teléfono"})
+	)
+	user = forms.CharField(
+		required = True,
+		label = 'Username',
+		max_length = 32,
+		widget = forms.TextInput({"placeholder": "Username *",
+								  "readonly": True})
+
+	)
+	password = forms.CharField(
+		required = False,
+		label = 'Contraseña',
+		max_length = 32,
+		widget = forms.PasswordInput({"placeholder": "Contraseña *"})
+	)
+	password_confirmation = forms.CharField(
+		required = False,
+		label = 'Confirmación contraseña',
+		max_length = 32,
+		widget = forms.PasswordInput({"placeholder": "Confirmación contraseña *"})
+	)
 	

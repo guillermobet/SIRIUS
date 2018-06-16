@@ -23,27 +23,50 @@ def home(request):
 	return render(request, "index/home.html", {})
 
 def perfil(request):
-	user1=request.user
+	#user1=request.user
 	error=False
 	if request.method == 'POST':
-		user = User.objects.get(user=user1)
-		user.telephone=request.POST.get('telephone')                    
-		user.email=request.POST.get('email') 
-		password=request.POST.get('password')
-		password2=request.POST.get('password_confirmation')
-		if (User.objects.filter(email=user.email).exists() and user.email!= user1.email):
-			messages.error(request,"El email ya existe")
-			error=True
-		if (password and password2 and password != password2):
-			messages.error(request,"Contraseña no coincide")
-			error=True
-		else:
-			if not (password == ''):
-				user.password=password
-		if not error: user.save()
+		form = UserUpdateForm(request.POST)
+		if form.is_valid():
+			#user = User.objects.get(user=user1)
+			user = request.user
+			#user.telephone=request.POST.get('telephone')                    
+			user.telephone = form.cleaned_data['telephone']
+			#user.email=request.POST.get('email') 
+			new_email = form.cleaned_data['email']
+			#password=request.POST.get('password')
+			password = form.cleaned_data['password']
+			#password2=request.POST.get('password_confirmation')
+			password2 = form.cleaned_data['password_confirmation']
+			#if (User.objects.filter(email=user.email).exists() and user.email != user1.email):
+			if (User.objects.exclude(pk = user.pk).filter(email = new_email).exists()):
+				messages.error(request,"El email ya existe")
+				error=True
+			if (password and password2 and password != password2):
+				messages.error(request,"Contraseña no coincide")
+				error=True
+			if(password != ''):
+				#user.password = password
+				# v--- Con esto se guarda la contrasena encriptada
+				user.set_password(password)
+					
+			if not error:
+				user.email = new_email
+				user.save()
+				messages.success(request, 'Usuario editdado de manera exitosa')
+				user = authenticate(username = user.user, password = user.password)
+				login(request, user)
 
-		return redirect("/home/perfil")
-	return render(request, "index/perfil.html", {})
+		return HttpResponseRedirect(reverse('perfil', args=(), kwargs=kwargs))
+	
+	data = {'full_name' : request.user.full_name,
+			'email' : request.user.email,
+			'telephone' : request.user.telephone,
+			'user' : request.user.user
+			}
+	form = UserUpdateForm(data)
+	context = { 'form': form}
+	return render(request, "index/perfil.html", context)
 
 
 @student_required
