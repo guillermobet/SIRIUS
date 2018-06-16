@@ -451,3 +451,65 @@ def delete_meta_criterion(request, meta_criterion_id):
 		
 	return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
 
+
+def websites(request, website_id = None):
+	
+	if request.method == 'POST':
+		form = WebsiteForm(request.POST)
+		if form.is_valid():
+			
+			# Creating new Website
+			if(website_id == None):
+				name = form.cleaned_data['website_name']
+				url = form.cleaned_data['website_url']
+				type = form.clenaed_data['website_type']
+				description = form.cleaned_data['website_description']
+				try:
+					Website.objects.create(
+						name = name,
+						url = url,
+						type = type,
+						description = description
+					)
+					messages.success(request, 'Website creado exitosamente')
+				except IntegrityError:
+					messages.error(request, 'Un Website con estas caracteristicas ya esta registrado en el sistema')
+			
+			# Editing existing Website
+			else:
+				website = Website.objects.get(pk = website_id)
+				website.name = form.cleaned_data['website_name']
+				website.url = form.cleaned_data['website_url']
+				website.type = form.cleaned_data['website_type']
+				website.description = form.cleaned_data['website_description']
+				try:
+					website.save()
+					messages.success(request, 'Website editado exitosamente')
+				except IntegrityError:
+					messages.error(request, 'Un Website con estas caracteristicas ya esta registrado en el sistema')
+	
+	# Websites for showing
+	websites = Website.objects.all()
+	
+	# Edit Website form
+	if(website_id != None):
+		try:
+			website = Website.objects.get(pk = website_id)
+		except Website.DoesNotExist:
+			messages.error(request, 'El Website que esta tratando de editar no existe')
+			return HttpResponseRedirect(reverse('websites', args=(), kwargs={}))
+			
+		data = {'website_name' : website.name,
+				'website_url' : website.url,
+				'website_type' : website.type,
+				'website_description' : website.description
+				}
+		form = WebsiteForm(data)
+	# Create Website form
+	else:
+		form = WebsiteForm()
+	
+	
+	context = {'form' : form,
+			   'websites' : websites}
+	return render(request, 'websites/websites.html', context)

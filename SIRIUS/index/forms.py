@@ -92,48 +92,6 @@ class EvaluationGeneralForm(forms.Form):
 		label = 'Fecha de la Evaluación',
 		initial = datetime.date.today,
 	)
-	"""
-	website_name = forms.CharField(
-		required = True,
-		label = "Nombre del Website",
-		max_length = 100,
-		widget = forms.TextInput({"placeholder": "Ej. Google"})
-	)
-	website_url = forms.URLField(
-		required = True,
-		label = "URL del Website",
-		widget = forms.URLInput({'placeholder': 'Ej. https://www.google.com/'})
-	)
-	website_description = forms.CharField(
-		required = True,
-		label = "Descripción del Website",
-		widget = forms.TextInput({"placeholder": 'Ej. Búsqueda'})
-	)
-	website_type_choices = [
-		(1, 'Administración Pública/Institucional'),
-		(2, 'Banca Electronica'),
-		(3, 'Blog'),
-		(4, 'Buscador'),
-		(5, 'Comercio electrónico'),
-		(6, 'Comunicación/Noticias'),
-		(7, 'Corporativo/Empresa'),
-		(8, 'Descargas'),
-		(9, 'Educativo/Formativo'),
-		(10, 'Entornos colaborativos/Wikis'),
-		(11, 'Foros/Chat'),
-		(12, 'Ocio/Entretenimiento'),
-		(13, 'Personal'),
-		(14, 'Portal de Servicios'),
-		(15, 'Servicios interactivos basados en imágenes'),
-		(16, 'Servicios interactivos no basados en imágenes'),
-		(17, 'Webmail/Correo')
-	]
-	website_type = forms.ChoiceField(
-		required = True,
-		label = 'Tipo de sitio web',
-		choices = website_type_choices
-	)
-	"""
 	browser_name = forms.CharField(
 		required = True,
 		label = 'Explorador Usado',
@@ -300,3 +258,44 @@ class UserUpdateForm(forms.Form):
 		widget = forms.PasswordInput({"placeholder": "Confirmación contraseña *"})
 	)
 	
+class WebsiteForm(forms.Form):
+	website_name = forms.CharField(
+		required = True,
+		label = "Nombre del Website",
+		max_length = 100,
+		widget = forms.TextInput({"placeholder": "Ej. Google"})
+	)
+	website_url = forms.URLField(
+		required = True,
+		label = "URL del Website",
+		widget = forms.URLInput({'placeholder': 'Ej. https://www.google.com/'})
+	)
+	website_type_choices = [
+		(1, 'Administración Pública/Institucional'),
+		(2, 'Banca Electronica'),
+		(3, 'Blog'),
+		(4, 'Buscador'),
+		(5, 'Comercio electrónico'),
+		(6, 'Comunicación/Noticias'),
+		(7, 'Corporativo/Empresa'),
+		(8, 'Descargas'),
+		(9, 'Educativo/Formativo'),
+		(10, 'Entornos colaborativos/Wikis'),
+		(11, 'Foros/Chat'),
+		(12, 'Ocio/Entretenimiento'),
+		(13, 'Personal'),
+		(14, 'Portal de Servicios'),
+		(15, 'Servicios interactivos basados en imágenes'),
+		(16, 'Servicios interactivos no basados en imágenes'),
+		(17, 'Webmail/Correo')
+	]
+	website_type = forms.ChoiceField(
+		required = True,
+		label = 'Tipo de sitio web',
+		choices = website_type_choices
+	)
+	website_description = forms.CharField(
+		required = True,
+		label = "Descripción del Website",
+		widget = forms.TextInput({"placeholder": 'Ej. Búsqueda'})
+	)

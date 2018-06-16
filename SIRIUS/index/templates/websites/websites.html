@@ -1,0 +1,79 @@
+{% extends 'index/barMenu.html' %}
+{% load static %}
+{% load addcssclass %}
+
+{% block content %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
+	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-header">
+				  <h1>Websites</h1>
+				</div>
+			</div> <!-- col md 12-->
+			
+    		<div class="col-md-12">
+				
+				<div class="row">
+		        		<div class="col-md-2">
+		        		</div>	
+		        		<div class="col-md-9">
+							    <div class="well well-lg">
+			        				<form class="form-horizontal" action="" method="post" id="website_form">
+										{% csrf_token %}
+										{% for field in form.visible_fields %}
+											<div class="form-group">
+												<label for="{{field.name}}" class="col-sm-3 control-label">{{field.label}}</label>
+												<div class="col-sm-9">
+													{{field|addcssclass:"form-control"}}
+												</div>
+											</div>
+										{% endfor %}
+										<div class="form-group">
+											<div class="col-sm-offset-3 col-sm-9">
+												<button type="button" class="btn rojo espacio-der" onclick="clearForm('website_form')">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+												<button type="submit" class="btn azul espacio-izq" name="create_form">Guardar <span class="glyphicon glyphicon-ok"></span></button>
+											</div>
+										</div>
+									</form>
+			        			</div> <!-- well  -->		        			
+		        		</div><!-- col-md-8 -->	
+		        		<div class="col-md-1">
+		        		</div>	
+					</div> <!-- row-->
+				
+				<table class="table table-hover">
+					<thead> 
+						<tr style="background-color: #3f9db6;color:white;" >
+							<th style="text-align: center;">Nombre del Website</th>
+							<th style="text-align: center;">URL</th>
+							<th style="text-align: center;">Descripción</th>
+							<th style="text-align: center;">Editar</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for website in websites %}
+							<tr align="center">
+								<td>{{website.name}}</a></td>
+								<td><a href="{{review.website.url}}">{{website.url}}</td>
+								<td>{{website.description}}</td>
+								<td><a href="{% url 'edit_website' website.pk %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+    		</div>
+		</div>
+	</div>
+<script type="text/javascript">
+$('#home').removeClass('active');
+$('#websites').addClass('active');
+$('#setting').click(function(){
+   	$('#s1,#s2,#s3,#s4').toggle();
+	$('#reviews').removeClass('active');
+	$('#setting').addClass('active');
+});
+
+</script>
+{% endblock %}

@@ -29,4 +29,8 @@ urlpatterns = [
 	path("home/reviews", views.reviews, name="reviews"),
 	path("home/reviews/<int:review_id>/", views.see_review, name="see_review"),
 	path("home/edit_review/<int:review_id>/", views.edit_review, name="edit_review"),
+	
+	# Websites
+	path("home/websites", views.websites, name="websites"),
+	path("home/websites/<int:website_id>/", views.websites, name="edit_website"),
 ]
