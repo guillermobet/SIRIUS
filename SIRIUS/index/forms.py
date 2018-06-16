@@ -6,66 +6,66 @@ import datetime
 
 
 class UserRegistrationForm(forms.Form):
-    user = forms.CharField(
-        required = True,
-        label = 'Username',
-        max_length = 32,
-        widget = forms.TextInput({"placeholder": "Username *"})
+	user = forms.CharField(
+		required = True,
+		label = 'Username',
+		max_length = 32,
+		widget = forms.TextInput({"placeholder": "Username *"})
 
-    )
-    full_name = forms.CharField(
-        required = True,
-        label = 'Nombre Completo',
-        max_length = 60,
-        widget = forms.TextInput({"placeholder": "Nombre Completo *"})
+	)
+	full_name = forms.CharField(
+		required = True,
+		label = 'Nombre Completo',
+		max_length = 60,
+		widget = forms.TextInput({"placeholder": "Nombre Completo *"})
 
-    )
-    telephone= forms.CharField(
-        required = False,
-        label = 'Teléfono',
-        max_length = 11,
-        widget = forms.TextInput({"placeholder": "Teléfono"})
+	)
+	telephone= forms.CharField(
+		required = False,
+		label = 'Teléfono',
+		max_length = 11,
+		widget = forms.TextInput({"placeholder": "Teléfono"})
 
-    )
-    email = forms.EmailField(
-        required = True,
-        label = 'Email',
-        max_length = 32,
-        widget = forms.TextInput({"placeholder": "Email *"})
-    )
-    password = forms.CharField(
-        required = True,
-        label = 'Contraseña',
-        max_length = 32,
-        widget = forms.PasswordInput({"placeholder": "Contraseña *"})
-    )
-    password_confirmation = forms.CharField(
-        required = True,
-        label = 'Confirmación contraseña',
-        max_length = 32,
-        widget = forms.PasswordInput({"placeholder": "Confirmación contraseña *"})
-    )
+	)
+	email = forms.EmailField(
+		required = True,
+		label = 'Email',
+		max_length = 32,
+		widget = forms.TextInput({"placeholder": "Email *"})
+	)
+	password = forms.CharField(
+		required = True,
+		label = 'Contraseña',
+		max_length = 32,
+		widget = forms.PasswordInput({"placeholder": "Contraseña *"})
+	)
+	password_confirmation = forms.CharField(
+		required = True,
+		label = 'Confirmación contraseña',
+		max_length = 32,
+		widget = forms.PasswordInput({"placeholder": "Confirmación contraseña *"})
+	)
 
-    def clean_password_confirmation(self):
-        # Check that the two password entries match
-        password1 = self.cleaned_data['password']
-        password2 = self.cleaned_data['password_confirmation']
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
-        return password2
-    
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if User.objects.filter(email = email).exists():
-            raise forms.ValidationError("Email already exists.")
-        return email
-    
-    def clean_user(self):
-        users = self.cleaned_data['user']
-        if User.objects.filter(user = users).exists():
-            raise forms.ValidationError("Username already exists.")
-        return users
-        
+	def clean_password_confirmation(self):
+		# Check that the two password entries match
+		password1 = self.cleaned_data['password']
+		password2 = self.cleaned_data['password_confirmation']
+		if password1 and password2 and password1 != password2:
+			raise forms.ValidationError("Contraseñas no coinciden")
+		return password2
+	
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		if User.objects.filter(email = email).exists():
+			raise forms.ValidationError("Email ya existe, intenta con otro")
+		return email
+	
+	def clean_user(self):
+		users = self.cleaned_data['user']
+		if User.objects.filter(user = users).exists():
+			raise forms.ValidationError("Username ya existe, intenta con otro")
+		return users
+		
 class EvaluationGeneralForm(forms.Form):
 	evaluator = forms.CharField(
 		required = True,
@@ -134,8 +134,8 @@ class EvaluationGeneralForm(forms.Form):
 	)
 
 class HorizontalRadioRenderer(forms.RadioSelect):
-   def render(self):
-     return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
+	def render(self):
+		return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
 	
 class ReviewItemsForm(forms.Form):
 	def __init__(self, *args, **kwargs):
@@ -246,8 +246,10 @@ class FilterMetaCriteriaForm(forms.Form):
 		empty_label = 'Todos',
 		queryset=MetaHeuristic.objects.all()
 	)
-		
 	
+class UserUpdateForm(forms.ModelForm):
 	
-	
+	class Meta:
+			model = User
+			fields = ['user', 'full_name', 'telephone' ,'email', 'password']
 	

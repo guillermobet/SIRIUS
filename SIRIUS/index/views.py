@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django import forms
-from .forms import UserRegistrationForm, EvaluationGeneralForm, ReviewItemsForm, FilterMetaCriteriaForm, MetaHeuristicForm, MetaCriterionForm
+from .forms import *
 from django.contrib import messages
 import datetime
 from .decorators import student_required, admin_required
@@ -20,7 +20,31 @@ def index(request):
 	return render(request, "index/index.html", {})
 
 def home(request):
-    return render(request, "index/home.html", {})
+	return render(request, "index/home.html", {})
+
+def perfil(request):
+	user1=request.user
+	error=False
+	if request.method == 'POST':
+		user = User.objects.get(user=user1)
+		user.telephone=request.POST.get('telephone')                    
+		user.email=request.POST.get('email') 
+		password=request.POST.get('password')
+		password2=request.POST.get('password_confirmation')
+		if (User.objects.filter(email=user.email).exists() and user.email!= user1.email):
+			messages.error(request,"El email ya existe")
+			error=True
+		if (password and password2 and password != password2):
+			messages.error(request,"Contraseña no coincide")
+			error=True
+		else:
+			if not (password == ''):
+				user.password=password
+		if not error: user.save()
+
+		return redirect("/home/perfil")
+	return render(request, "index/perfil.html", {})
+
 
 @student_required
 def evaluate(request):
@@ -57,7 +81,7 @@ def evaluate(request):
 						description = website_description,
 						type = website_type
 						)
-                        
+						
 			# Create Review object
 			try:
 				review = Review.objects.create(
@@ -66,7 +90,7 @@ def evaluate(request):
 					browser = browser_name,
 					browser_version = browser_version,
 					date = date,
-                    UP = 0.0,
+					UP = 0.0,
 					comment = ''
 				)
 			
@@ -120,32 +144,32 @@ def evaluate_items(request, review_id):
 	return render(request, "evaluate/evaluateItems.html", context)
 
 def register(request):
-    if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
-        User = get_user_model()
-        if form.is_valid():
-            userObj = form.cleaned_data
-            username = userObj['user']
-            full_name = userObj['full_name']
-            telephone = userObj['telephone']
-            email =  userObj['email']
-            password =  userObj['password']
-            password2 =  userObj['password_confirmation']
-            if not (User.objects.filter(user=username).exists() or User.objects.filter(email=email).exists()):
-                if not (password and password2 and password != password2):
-                    User.objects.create_user(username, email, full_name, telephone, password)
-                    user = authenticate(username = username, password = password)
-                    login(request, user)
-                    return HttpResponseRedirect('/home')
-                else:
-                    messages.error(request,"Passwords don't match")
-                    HttpResponseRedirect('/register')
-            else:
-                messages.error(request,'El usuario o correo ya existe, intenta con otro.')
-                HttpResponseRedirect('/login')
-    else:
-        form = UserRegistrationForm()
-    return render(request, 'registration/register.html', {'form' : form})
+	if request.method == 'POST':
+		form = UserRegistrationForm(request.POST)
+		User = get_user_model()
+		if form.is_valid():
+			userObj = form.cleaned_data
+			username = userObj['user']
+			full_name = userObj['full_name']
+			telephone = userObj['telephone']
+			email =  userObj['email']
+			password =  userObj['password']
+			password2 =  userObj['password_confirmation']
+			if not (User.objects.filter(user=username).exists() or User.objects.filter(email=email).exists()):
+				if not (password and password2 and password != password2):
+					User.objects.create_user(username, email, full_name, telephone, password)
+					user = authenticate(username = username, password = password)
+					login(request, user)
+					return HttpResponseRedirect('/home')
+				else:
+					messages.error(request,"Las contraseñas no coinciden")
+					HttpResponseRedirect('/register')
+			else:
+				messages.error(request,'El usuario o correo ya existe, intenta con otro.')
+				HttpResponseRedirect('/register')
+	else:
+		form = UserRegistrationForm()
+	return render(request, 'registration/register.html', {'form' : form})
 
 @student_required
 def reviews(request):

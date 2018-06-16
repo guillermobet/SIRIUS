@@ -1,0 +1,78 @@
+{% extends 'index/barMenu.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<style type="text/css">
+	.glyphicon.glyphicon-triangle-bottom{
+		float: right;
+		padding-top: 4px;
+		padding-bottom: 4px;
+		font-size: 12px;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
+<div class="col-md-9 personal-info">
+        <legend><h3>Informacion Personal</h3></legend>
+        
+        <form action="" enctype="multipart/form-data"  class="form-horizontal"  method="POST" id="submit">
+        	{% csrf_token %}
+	          <div class="form-group">
+	            <label class="col-lg-3 control-label">Nombre completo:</label>
+	            <div class="col-lg-8">
+	              <input class="form-control" name="nombre" type="text" value="{{ user.full_name }}" disabled="">
+	            </div>
+	          </div>
+	           <div class="form-group">
+	            <label class="col-lg-3 control-label">Email:</label>
+	            <div class="col-lg-8">
+	              <input class="form-control" name="email" type="text" value="{{ user.email }}">
+	            </div>
+	          </div>
+	          <div class="form-group">
+	            <label class="col-lg-3 control-label">Telefono:</label>
+	            <div class="col-lg-8">
+	              <input class="form-control" name="telephone" type="number" value="{{ user.telephone }}">
+	            </div>
+	          </div>
+	          <div class="form-group">
+	            <label class="col-md-3 control-label">Username:</label>
+	            <div class="col-md-8">
+	              <input class="form-control" name="user" type="text" value="{{ user.user }}" disabled >
+	            </div>
+	          </div>
+	          <div class="form-group">
+	            <label class="col-md-3 control-label">Password:</label>
+	            <div class="col-md-8">
+	              <input class="form-control" name="password" type="password">
+	            </div>
+	          </div>
+	          <div class="form-group">
+	            <label class="col-md-3 control-label">Confirm password:</label>
+	            <div class="col-md-8">
+	              <input class="form-control"  name="password_confirmation" type="password">
+	            </div>
+	          </div>
+	          <div class="form-group">
+	            <label class="col-md-3 control-label"></label>
+	            <div class="col-md-8">
+	             	<button type="button" class="btn rojo espacio-der" onclick="clearForm('submit')">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+					<button type="submit" name="submit" value="Upload" id="submit" class="btn azul espacio-izq" >Guardar <span class="glyphicon glyphicon-ok"></span></button>
+	            </div>
+	          </div>
+        </form>
+      </div>
+<script type="text/javascript">
+$('#home').removeClass('active');
+$('#profile').addClass('active');
+
+$('#setting').click(function(){
+   	$('#s1,#s2,#s3,#s4').toggle();
+	$('#profile').removeClass('active');
+	$('#setting').addClass('active');
+});
+
+</script>
+{% endblock %}
+
