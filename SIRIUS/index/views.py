@@ -53,11 +53,11 @@ def perfil(request):
 			if not error:
 				user.email = new_email
 				user.save()
-				messages.success(request, 'Usuario editdado de manera exitosa')
+				messages.success(request, 'Usuario editado de manera exitosa')
 				user = authenticate(username = user.user, password = user.password)
 				login(request, user)
 
-		return HttpResponseRedirect(reverse('perfil', args=(), kwargs=kwargs))
+		return HttpResponseRedirect(reverse('perfil', args=(), kwargs={}))
 	
 	data = {'full_name' : request.user.full_name,
 			'email' : request.user.email,
