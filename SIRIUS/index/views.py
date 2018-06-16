@@ -138,7 +138,7 @@ def register(request):
                     login(request, user)
                     return HttpResponseRedirect('/home')
                 else:
-                    messages.error(request,"Passwords don't match")
+                    messages.error(request,"Las contraseñas no coinciden!")
                     HttpResponseRedirect('/register')
             else:
                 messages.error(request,'El usuario o correo ya existe, intenta con otro.')
