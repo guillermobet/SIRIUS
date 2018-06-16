@@ -72,38 +72,21 @@ def perfil(request):
 @student_required
 def evaluate(request):
 	user = request.user
-	form = EvaluationGeneralForm({'evaluator' : user.full_name})
+	form = EvaluationGeneralForm(user, {'evaluator' : user.full_name})
 	
 	context = {'form' : form,
 			   'today' : datetime.date.today()
 			  }
 				
 	if request.method == 'POST':
-		form = EvaluationGeneralForm(request.POST)
+		form = EvaluationGeneralForm(user, request.POST)
 		if form.is_valid():
 			# Getting form data
 			evaluator = form.cleaned_data['evaluator']
 			date = form.cleaned_data['date']
-			website_name = form.cleaned_data['website_name']
-			website_url = form.cleaned_data['website_url']
-			website_description = form.cleaned_data['website_description']
-			website_type = form.cleaned_data['website_type']
+			website = form.cleaned_data['website']
 			browser_name = form.cleaned_data['browser_name']
 			browser_version = form.cleaned_data['browser_version']
-			
-			# Search for website in DB or create it if doesnt exist
-			try:
-				website = Website.objects.get(name = website_name)
-			except Website.DoesNotExist:
-				try:
-					website = Website.objects.get(url = website_url)
-				except Website.DoesNotExist:
-					website = Website.objects.create(
-						url = website_url,
-						name = website_name,
-						description = website_description,
-						type = website_type
-						)
 						
 			# Create Review object
 			try:

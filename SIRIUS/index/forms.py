@@ -1,6 +1,6 @@
 from django.contrib.admin.widgets import AdminDateWidget
 from django import forms
-from .models import User, MetaHeuristic, MetaCriteria
+from .models import User, MetaHeuristic, MetaCriteria, Website, Review
 from django.utils.safestring import mark_safe
 import datetime
 
@@ -67,19 +67,32 @@ class UserRegistrationForm(forms.Form):
 		return users
 		
 class EvaluationGeneralForm(forms.Form):
+	
+	def __init__(self, user, *args, **kwargs):
+		reviews = Review.objects.filter(username = user.user)
+		reviewed_website_ids = [rev.website.id for rev in reviews]
+		super(EvaluationGeneralForm, self).__init__(*args, **kwargs)
+		
+		self.fields['website'] = forms.ModelChoiceField(
+			required = True,
+			label = 'Website',
+			empty_label = 'Seleccione uno',
+			queryset = Website.objects.exclude(id__in = reviewed_website_ids)
+		)
+		
 	evaluator = forms.CharField(
 		required = True,
 		label = 'Evaluador',
 		max_length = 60,
 		widget = forms.TextInput({"placeholder": "Ej. Maigualida Perez",
-								   "readonly": True
-								   })
+								   "readonly": True})
 	)
 	date = forms.DateField(
 		required = True,
 		label = 'Fecha de la Evaluación',
 		initial = datetime.date.today,
 	)
+	"""
 	website_name = forms.CharField(
 		required = True,
 		label = "Nombre del Website",
@@ -120,22 +133,21 @@ class EvaluationGeneralForm(forms.Form):
 		label = 'Tipo de sitio web',
 		choices = website_type_choices
 	)
+	"""
 	browser_name = forms.CharField(
 		required = True,
 		label = 'Explorador Usado',
 		max_length = 20,
-		widget = forms.TextInput({"placeholder": "Ej. Google Chrome"})
+		widget = forms.TextInput({"placeholder": "Ej. Google Chrome",
+								   "readonly": True})
 	)
 	browser_version = forms.CharField(
 		required = True,
 		label = 'Versión del explorador',
 		max_length = 10,
-		widget = forms.TextInput({"placeholder": "Ej. 66"})
+		widget = forms.TextInput({"placeholder": "Ej. 66",
+								   "readonly": True})
 	)
-
-class HorizontalRadioRenderer(forms.RadioSelect):
-	def render(self):
-		return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
 	
 class ReviewItemsForm(forms.Form):
 	def __init__(self, *args, **kwargs):

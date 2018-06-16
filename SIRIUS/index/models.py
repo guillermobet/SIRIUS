@@ -60,6 +60,10 @@ class Website(models.Model):
 	name = models.CharField(max_length=100, unique=True)
 	description = models.TextField()
 	type = models.IntegerField(default = 1)
+	
+	def __str__(self):
+		
+		return self.name
 
 class Review(models.Model):
 
