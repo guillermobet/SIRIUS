@@ -357,77 +357,62 @@ def delete_meta_heuristics(request, meta_heuristic_id):
 def meta_criteria(request, meta_criterion_id=None):
 	filterCriteria = False
 	
+	# POST STUFF
 	if request.method == 'POST':
-		if('criterion_form' in request.POST):
-			form = MetaCriterionForm(request.POST)
-			metrics_form = MetaCriterionMetricsForm(request.POST)
+		form = MetaCriterionForm(request.POST)
+		metrics_form = MetaCriterionMetricsForm(request.POST)
+		
+		if form.is_valid() and metrics_form.is_valid():
 			
-			if form.is_valid() and metrics_form.is_valid():
+		# Creating new MetaCriteria
+			if(meta_criterion_id == None):
+				heuristic = form.cleaned_data['heuristic']
+				name = form.cleaned_data['name']
+				acronym = form.cleaned_data['acronym']
+				atribute = form.cleaned_data['atribute']
 				
-			# Creating new MetaCriteria
-				if(meta_criterion_id == None):
-					heuristic = form.cleaned_data['heuristic']
-					name = form.cleaned_data['name']
-					acronym = form.cleaned_data['acronym']
-					atribute = form.cleaned_data['atribute']
-					
-					# Building relevance string from form data
-					relevance_string = ''
-					for i in range(17):
-						relevance_string += metrics_form.cleaned_data['metric_{}'.format(i)]+' '
-					relevance_string = relevance_string[:-1]
-					
-					try:
-						MetaCriteria.objects.create(
-							heuristic = heuristic,
-							name = name,
-							acronym = acronym,
-							atribute = atribute,
-							relevance = relevance_string
-							)
-						messages.success(request, 'Sub-Heuristica creada exitosamente!')
-					except IntegrityError:
-						messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
-						
-				# Editing existing MetaCriteria
-				else:
-					criterion = MetaCriteria.objects.get(pk = meta_criterion_id)
-					criterion.heuristic = form.cleaned_data['heuristic']
-					criterion.name = form.cleaned_data['name']
-					criterion.acronym = form.cleaned_data['acronym']
-					criterion.atribute = form.cleaned_data['atribute']
-					
-					# Building relevance string from form data
-					relevance_string = ''
-					for i in range(17):
-						relevance_string += metrics_form.cleaned_data['metric_{}'.format(i)]+' '
-					relevance_string = relevance_string[:-1]
-					criterion.relevance = relevance_string
-					try:
-						criterion.save()
-						messages.success(request, 'Sub-Heuristica editada exitosamente')
-					except IntegrityError:
-						messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
-					
-					return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
-					
-		
-		# Getting data from filtering form		
-		filterForm = FilterMetaCriteriaForm(request.POST)
-		if filterForm.is_valid():
-			filterHeuristic = filterForm.cleaned_data['heuristic']
-			if(filterHeuristic != None):
-				filterCriteria = True
+				# Building relevance string from form data
+				relevance_string = ''
+				for i in range(17):
+					relevance_string += metrics_form.cleaned_data['metric_{}'.format(i)]+' '
+				relevance_string = relevance_string[:-1]
 				
-	filterForm = FilterMetaCriteriaForm()
-	# Filtering criteria for showing
-	if(filterCriteria):
-		criteria = 	MetaCriteria.objects.filter(heuristic = filterHeuristic)
-		filterForm = FilterMetaCriteriaForm(initial={'heuristic' : filterHeuristic})
-	else:
-		criteria = MetaCriteria.objects.all()
-		
+				try:
+					MetaCriteria.objects.create(
+						heuristic = heuristic,
+						name = name,
+						acronym = acronym,
+						atribute = atribute,
+						relevance = relevance_string
+						)
+					messages.success(request, 'Sub-Heuristica creada exitosamente!')
+				except IntegrityError:
+					messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
+					
+			# Editing existing MetaCriteria
+			else:
+				criterion = MetaCriteria.objects.get(pk = meta_criterion_id)
+				criterion.heuristic = form.cleaned_data['heuristic']
+				criterion.name = form.cleaned_data['name']
+				criterion.acronym = form.cleaned_data['acronym']
+				criterion.atribute = form.cleaned_data['atribute']
+				
+				# Building relevance string from form data
+				relevance_string = ''
+				for i in range(17):
+					relevance_string += metrics_form.cleaned_data['metric_{}'.format(i)]+' '
+				relevance_string = relevance_string[:-1]
+				criterion.relevance = relevance_string
+				try:
+					criterion.save()
+					messages.success(request, 'Sub-Heuristica editada exitosamente')
+				except IntegrityError:
+					messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
+				
+				return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
+					
 	
+	# GET STUFF
 	# Edit MetaCriteria form
 	if(meta_criterion_id != None):
 		try:
@@ -458,11 +443,10 @@ def meta_criteria(request, meta_criterion_id=None):
 		metrics_form = MetaCriterionMetricsForm()
 		editing = False
 		
-	context = {'criteria' : criteria,
-			   'form' : form,
+	context = {'form' : form,
 			   'metrics_form' : metrics_form,
-			   'filter_form' : filterForm,
-			   'editing' : editing
+			   'editing' : editing,
+			   'heuristics' : MetaHeuristic.objects.all()
 			   }
 			   
 	return render(request, 'settings/criteria.html', context)
@@ -480,8 +464,26 @@ def delete_meta_criterion(request, meta_criterion_id):
 		messages.error(request, 'El Criterio que esta tratando de eliminar no existe')
 		
 	return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
-
-
+	
+def filter_meta_criteria(request):
+	meta_heuristic_id = int(request.GET.get('meta_heuristic_id'))
+	if(meta_heuristic_id == -1):
+		filtered_criteria = MetaCriteria.objects.all()
+	else:
+		filtered_criteria = MetaCriteria.objects.filter(heuristic = meta_heuristic_id)
+		
+	serialized_criteria = {}
+	for i in range(len(filtered_criteria)):
+		serialized_criteria['crit_{}'.format(i)] = {
+			'id' : filtered_criteria[i].id,
+			'heuristic_name' : filtered_criteria[i].heuristic.name,
+			'name' : filtered_criteria[i].name,
+			'acronym' : filtered_criteria[i].acronym,
+			'attribute' : filtered_criteria[i].atribute,
+			}
+	
+	return JsonResponse(serialized_criteria)
+	
 def websites(request, website_id = None):
 	
 	if request.method == 'POST':

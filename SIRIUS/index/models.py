@@ -82,7 +82,6 @@ class Review(models.Model):
 class MetaHeuristic(models.Model):
 
 	id = models.AutoField(primary_key=True)
-	#review = models.ForeignKey("Review", to_field="id", on_delete=models.CASCADE)
 	name = models.CharField(max_length=100, unique=True)
 	acronym = models.CharField(max_length=2, unique=True)
 	relevance = models.CharField(max_length = 35, default = '4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4')
@@ -101,7 +100,6 @@ class MetaHeuristic(models.Model):
 class MetaCriteria(models.Model):
 
 	id = models.AutoField(primary_key=True)
-	#heuristic = models.ForeignKey("Heuristic", to_field="id", on_delete=models.CASCADE)
 	heuristic = models.ForeignKey("MetaHeuristic", to_field="id", on_delete=models.CASCADE)
 	name = models.CharField(max_length=100)
 	acronym = models.CharField(max_length=4, unique=True)
@@ -117,7 +115,6 @@ class MetaCriteria(models.Model):
 
 class Criteria(models.Model):
 	id = models.AutoField(primary_key=True)
-	#heuristic = models.ForeignKey("Heuristic", to_field="id", on_delete=models.CASCADE)
 	review = models.ForeignKey("Review", to_field="id", on_delete=models.CASCADE)
 	meta_criteria = models.ForeignKey("MetaCriteria", to_field="id", on_delete=models.CASCADE)
 	value = models.CharField(max_length=12)

@@ -84,26 +84,5 @@ $('#setting').click(function(){
     $('#s1').removeClass('active');
 	$('#setting').addClass('active');
 });
-
-/*
-$(function () {
-  $(".js-edit-heuristic").click(function () {
-	var btn = $(this);
-    $.ajax({
-      url: btn.attr('data-url'),
-      type: 'get',
-      dataType: 'json',
-      beforeSend: function () {
-       $("#editModal").modal("show");
-      },
-      success: function (data) {
-        $("#editModal .modal-content").html(data.html_form);
-        //$("#editModal").modal("show");
-      }
-    });
-  });
-
-});
-*/
 </script>
 {% endblock %}

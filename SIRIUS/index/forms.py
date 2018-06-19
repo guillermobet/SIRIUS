@@ -243,14 +243,6 @@ class MetaCriterionMetricsForm(forms.Form):
 				widget = forms.RadioSelect(attrs = {'metric' : True}),
 			)
 	
-class FilterMetaCriteriaForm(forms.Form):
-	heuristic = forms.ModelChoiceField(
-		required = False,
-		label = 'Heuristica',
-		empty_label = 'Todos',
-		queryset=MetaHeuristic.objects.all()
-	)
-	
 class UserUpdateForm(forms.Form):
 	full_name = forms.CharField(
 		required = True,

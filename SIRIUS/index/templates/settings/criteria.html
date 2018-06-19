@@ -36,24 +36,30 @@
 		</div>	
 	</div> <!-- row-->
 	<div class="row">
+		
 		<!-- Filtrador de sub-heuristicas -->
 		<div class="col-md-12" style="margin-top: 70px;">
-			<form class="form-horizontal" action="" method="post">
+			<form class="form-horizontal" method="get">
 				{% csrf_token %}
 				<div class="form-group">
-					<label for="{{filter_form.heuristic.name}}" class="col-sm-3 control-label">{{filter_form.heuristic.label}}</label>
+					<label class="col-sm-3 control-label">Heuristica:</label>
 					<div class="col-sm-6">
-						{{filter_form.heuristic|addcssclass:"form-control"}}
+							<select id="heuristic_ids" class="form-control">
+								<option value="-1">Todos</option>
+								{% for heuristic in heuristics %}
+									<option value="{{heuristic.pk}}">
+										{{heuristic.name}}
+									</option>
+								{% endfor %}
+							</select>
 					</div>
 					<div class="col-sm-3">
-							<button type="submit" class="btn azul" name="filter_form">Filtrar <span class="glyphicon glyphicon-search"></span></button>
+						<button class="btn azul" type="button" id="filter_form_but" method="GET">Filtrar <span class="glyphicon glyphicon-search"></span></button>
 					</div>
-				</div>
-				<div class="form-group">
-						
 				</div>
 			</form>
 		</div><!-- Filtrador -->
+		
 	</div>
 	<div class="row">
 		<div class="col-md-12">
@@ -63,25 +69,14 @@
 			        <th style="text-align: center;">Heuristica</th>
 			        <th style="text-align: center;">Nombre</th>
 			        <th style="text-align: center;">Acrónimo</th>
-			        <th style="text-align: center;">Metrica</th>
 			        <th style="text-align: center;">Atributo</th>
 			        <th style="text-align: center;">Modificar</th>
 			        <th style="text-align: center;">Eliminar</th>
 			      </tr>
 			    </thead>
-			    <tbody>
-			    {% for criterion in criteria %}
-			      <tr align="center">
-			        <td>{{criterion.heuristic}}</td>
-			        <td>{{criterion.name}}</td>
-			        <td>{{criterion.acronym}}</td>
-			        <td>{{criterion.metric}}</td>
-			        <td>{{criterion.atribute}}</td>
-			        <td><a href="{% url 'edit_meta_criterion' criterion.pk %}"><span class="glyphicon glyphicon-edit centro"></span></a></td>
-			        <td><a href="{% url 'delete_meta_criterion' criterion.pk %}"><span class="glyphicon glyphicon-remove centro"></span></a></td>
-			      </tr>
-			    {% endfor %}
-			    </tbody>
+			    
+			    <tbody id="criteria_tbody"> </tbody>
+			    
 			  </table>
 		</div><!-- col-->
 		
@@ -96,5 +91,39 @@ $('#s1,#s2,#s3,#s4').show();
 $('#setting').click(function(){
     $('#s1,#s2,#s3,#s4').toggle();
 });
+
+$("#filter_form_but").click(getFilteredCriteria);
+
+function getFilteredCriteria(event) {
+	var selected_heuristic_id = $('#heuristic_ids').find(":selected").val();
+
+	$.ajax({
+		url: url = "{% url 'filter_meta_criteria' %}",
+		method: 'GET',
+		data:{ meta_heuristic_id: parseInt(selected_heuristic_id) },
+		dataType: "json",
+		success: 
+			function(data){ updateCriteriaList(data) },
+		error: 
+			function(xhr, errmsg, err){ console.log("error") },
+	})
+}
+
+function updateCriteriaList(data){
+	var html = '';
+	for (var key in data){
+		html += '<tr align="center">';
+		html += '	<td>'+data[key]['heuristic_name']+'</td>';
+		html += '	<td>'+data[key]['name']+'</td>';
+		html += '	<td>'+data[key]['acronym']+'</td>';
+		html += '	<td>'+data[key]['attribute']+'</td>';
+		html += '	<td><a href="/home/metacriteria/'+data[key]['id']+'/"><span class="glyphicon glyphicon-edit centro"></span></a></td>';
+		html += '	<td><a href="/home/delete-metacriterion/'+data[key]['id']+'/"><span class="glyphicon glyphicon-remove centro"></span></a></td>';
+		html += '</tr>';
+	}
+	$("tbody#criteria_tbody").html(html);
+}
+
+$(document).ready(getFilteredCriteria(0));
 </script>
 {% endblock %}
