@@ -176,6 +176,7 @@ class MetaHeuristicForm(forms.Form):
 	)
 	
 class MetaCriterionForm(forms.Form):
+	
 	heuristic = forms.ModelChoiceField(
 		required = True,
 		label = 'Heuristica',
@@ -202,12 +203,45 @@ class MetaCriterionForm(forms.Form):
 		choices = [('cualitativo', 'cualitativo'), ('cuantitativo', 'cuantitativo')],
 		initial = 'cualitativo',
 	)
-	metric = forms.CharField(
-		required = True,
-		label = 'Métrica',
-		max_length = 12,
-		widget = forms.TextInput({"placeholder": "Ej. - "})
-	)
+	
+website_types = [
+		'Administración Pública/Institucional',
+		'Banca Electronica',
+		'Blog',
+		'Buscador',
+		'Comercio electrónico',
+		'Comunicación/Noticias',
+		'Corporativo/Empresa',
+		'Descargas',
+		'Educativo/Formativo',
+		'Entornos colaborativos/Wikis',
+		'Foros/Chat',
+		'Ocio/Entretenimiento',
+		'Personal',
+		'Portal de Servicios',
+		'Servicios interactivos basados en imágenes',
+		'Servicios interactivos no basados en imágenes',
+		'Webmail/Correo'
+		]
+		
+metric_choices = [ ('CR', 'Crítico'),
+				   ('MA', 'Muy Alto'),
+				   ('ME', 'Medio'),
+				   ('MO', 'Moderado')
+				 ]
+class MetaCriterionMetricsForm(forms.Form):
+	
+	def __init__(self, *args, **kwargs):
+		super(MetaCriterionMetricsForm, self).__init__(*args, **kwargs)
+		#for type in website_types:
+		for i in range(len(website_types)):
+			self.fields['metric_{}'.format(i)] = forms.ChoiceField(
+				required = True,
+				label = website_types[i],
+				choices = metric_choices,
+				initial = 'MO',
+				widget = forms.RadioSelect(attrs = {'metric' : True}),
+			)
 	
 class FilterMetaCriteriaForm(forms.Form):
 	heuristic = forms.ModelChoiceField(

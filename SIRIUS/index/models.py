@@ -106,9 +106,7 @@ class MetaCriteria(models.Model):
 	name = models.CharField(max_length=100)
 	acronym = models.CharField(max_length=4, unique=True)
 	relevance = models.CharField(max_length = 55, default = 'CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR')
-	metric = models.CharField(max_length=12)
 	atribute = models.CharField(max_length=12)
-	relevance = models.CharField(max_length = 55, default = 'CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR CR')
 	comment = models.TextField()
 
 	def get_relevance_list(self):

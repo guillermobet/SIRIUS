@@ -360,22 +360,29 @@ def meta_criteria(request, meta_criterion_id=None):
 	if request.method == 'POST':
 		if('criterion_form' in request.POST):
 			form = MetaCriterionForm(request.POST)
-			if form.is_valid():
-				
+			metrics_form = MetaCriterionMetricsForm(request.POST)
+			
+			if form.is_valid() and metrics_form.is_valid():
 			# Creating new MetaCriteria
 				if(meta_criterion_id == None):
 					heuristic = form.cleaned_data['heuristic']
 					name = form.cleaned_data['name']
 					acronym = form.cleaned_data['acronym']
 					atribute = form.cleaned_data['atribute']
-					metric = form.cleaned_data['metric']
+					
+					# Building relevance string from form data
+					relevance_string = ''
+					for i in range(17):
+						relevance_string += metrics_form.cleaned_data['metric_{}'.format(i)]+' '
+					relevance_string = relevance_string[:-1]
+					
 					try:
 						MetaCriteria.objects.create(
 							heuristic = heuristic,
 							name = name,
 							acronym = acronym,
 							atribute = atribute,
-							metric = metric
+							relevance = relevance_string
 							)
 						messages.success(request, 'Sub-Heuristica creada exitosamente!')
 					except IntegrityError:
@@ -387,8 +394,14 @@ def meta_criteria(request, meta_criterion_id=None):
 					criterion.heuristic = form.cleaned_data['heuristic']
 					criterion.name = form.cleaned_data['name']
 					criterion.acronym = form.cleaned_data['acronym']
-					criterion.metric = form.cleaned_data['metric']
 					criterion.atribute = form.cleaned_data['atribute']
+					
+					# Building relevance string from form data
+					relevance_string = ''
+					for i in range(17):
+						relevance_string += metrics_form.cleaned_data['metric_{}'.format(i)]+' '
+					relevance_string = relevance_string[:-1]
+					criterion.relevance = relevance_string
 					try:
 						criterion.save()
 						messages.success(request, 'Sub-Heuristica editada exitosamente')
@@ -402,10 +415,8 @@ def meta_criteria(request, meta_criterion_id=None):
 			filterHeuristic = filterForm.cleaned_data['heuristic']
 			if(filterHeuristic != None):
 				filterCriteria = True
-	
-	form = MetaCriterionForm()
+				
 	filterForm = FilterMetaCriteriaForm()
-	
 	# Filtering criteria for showing
 	if(filterCriteria):
 		criteria = 	MetaCriteria.objects.filter(heuristic = filterHeuristic)
@@ -425,17 +436,26 @@ def meta_criteria(request, meta_criterion_id=None):
 		data = {'heuristic' : criterion.heuristic,
 				'name' : criterion.name,
 				'acronym' : criterion.acronym,
-				'metric' : criterion.metric,
 				'atribute' : criterion.atribute
 				}
+		
+		# Getting metrics from relevance_string
+		metrics_data = {}
+		criterion_metrics = criterion.relevance.split()
+		for i in range(17):
+			metrics_data['metric_{}'.format(i)] = criterion_metrics[i]
+		
 		form = MetaCriterionForm(data)
+		metrics_form = MetaCriterionMetricsForm(metrics_data)
 		
 	# Create MetaCriteria form	
 	else:
 		form = MetaCriterionForm()
+		metrics_form = MetaCriterionMetricsForm()
 		
 	context = {'criteria' : criteria,
 			   'form' : form,
+			   'metrics_form' : metrics_form,
 			   'filter_form' : filterForm
 			   }
 			   
