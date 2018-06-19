@@ -363,6 +363,7 @@ def meta_criteria(request, meta_criterion_id=None):
 			metrics_form = MetaCriterionMetricsForm(request.POST)
 			
 			if form.is_valid() and metrics_form.is_valid():
+				
 			# Creating new MetaCriteria
 				if(meta_criterion_id == None):
 					heuristic = form.cleaned_data['heuristic']
@@ -408,6 +409,8 @@ def meta_criteria(request, meta_criterion_id=None):
 					except IntegrityError:
 						messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
 					
+					return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
+					
 		
 		# Getting data from filtering form		
 		filterForm = FilterMetaCriteriaForm(request.POST)
@@ -447,19 +450,26 @@ def meta_criteria(request, meta_criterion_id=None):
 		
 		form = MetaCriterionForm(data)
 		metrics_form = MetaCriterionMetricsForm(metrics_data)
+		editing = True
 		
 	# Create MetaCriteria form	
 	else:
 		form = MetaCriterionForm()
 		metrics_form = MetaCriterionMetricsForm()
+		editing = False
 		
 	context = {'criteria' : criteria,
 			   'form' : form,
 			   'metrics_form' : metrics_form,
-			   'filter_form' : filterForm
+			   'filter_form' : filterForm,
+			   'editing' : editing
 			   }
 			   
 	return render(request, 'settings/criteria.html', context)
+	
+def edit_meta_criterion(request, meta_criterion_id):
+	context = {}
+	return render(request, 'modals/meta_criteria_modal.html', context)
 
 @admin_required
 def delete_meta_criterion(request, meta_criterion_id):
