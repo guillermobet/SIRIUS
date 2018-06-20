@@ -494,7 +494,7 @@ def websites(request, website_id = None):
 			if(website_id == None):
 				name = form.cleaned_data['website_name']
 				url = form.cleaned_data['website_url']
-				type = form.clenaed_data['website_type']
+				type = form.cleaned_data['website_type']
 				description = form.cleaned_data['website_description']
 				try:
 					Website.objects.create(

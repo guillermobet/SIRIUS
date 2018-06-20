@@ -62,7 +62,7 @@ class Command(BaseCommand):
 					name = criterion_name,
 					acronym = criterion_acronym,
 					relevance = add_search_relevance(criterion_relevance),
-					metric = '',
+					#metric = '',
 					atribute = criterion_attribute,
 					comment = ''
 				)
