@@ -63,6 +63,8 @@
 							        <td><a href="{% url 'delete_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-remove centro"></span></a></td>
 							       <!--  <td><span class="glyphicon glyphicon-link centro"></span></td> -->
 							      </tr>
+							    {% empty %}
+									<td colspan = "4" class = "text-center bg-warning">No hay heuristicas</td>
 							    {% endfor %}
 							    </tbody>
 							  </table>
