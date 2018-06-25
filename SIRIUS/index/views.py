@@ -381,7 +381,7 @@ def meta_heuristics(request, meta_heuristic_id = None):
 					messages.error(request, 'Una Heuristica con estas caracteristicas ya esta registrada en el sistema')
 	
 	# Heuristics for showing
-	heuristics = MetaHeuristic.objects.all()
+	heuristics = MetaHeuristic.objects.all().order_by('id')
 	
 	# Edit MetaHeuristic form
 	if(meta_heuristic_id != None):
@@ -509,11 +509,8 @@ def edit_meta_criterion(request, meta_criterion_id):
 		data = {}
 		form = MetaCriterionForm(request.POST)
 		metrics_form = MetaCriterionMetricsForm(request.POST)
-		print('POST')
 		if form.is_valid() and metrics_form.is_valid():
 			criterion = MetaCriteria.objects.get(pk = meta_criterion_id)
-			print('FORM VALID')
-			print(form.cleaned_data['name'])
 			criterion.heuristic = form.cleaned_data['heuristic']
 			criterion.name = form.cleaned_data['name']
 			criterion.acronym = form.cleaned_data['acronym']
@@ -564,6 +561,7 @@ def filter_meta_criteria(request):
 		filtered_criteria = MetaCriteria.objects.all()
 	else:
 		filtered_criteria = MetaCriteria.objects.filter(heuristic = meta_heuristic_id)
+	filtered_criteria = filtered_criteria.order_by('id')
 	
 	context = {'filtered_criteria' : filtered_criteria}
 		
@@ -634,3 +632,5 @@ def websites(request, website_id = None):
 	context = {'form' : form,
 			   'websites' : websites}
 	return render(request, 'websites/websites.html', context)
+	
+

@@ -125,6 +125,7 @@ $(function(){
 	
 	// Editing
 	function getEditMetaCriterionForm(event){
+		event.preventDefault();
 		$.ajax({
 			url: $(this).attr("data-url"),
 			type: "get",
