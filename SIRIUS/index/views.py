@@ -280,11 +280,7 @@ def see_review(request, review_id):
 				criterion_value = Criteria.objects.get(review = review, meta_criteria = meta_criterion).value
 			except Criteria.DoesNotExist:
 				criterion_value = '-'
-			"""
-			review_items[heuristic.name].append({'meta_criterion' : meta_criterion,
-												 'criterion_value' : criterion_value
-												 })
-			"""
+				
 			review_items[(heuristic.name, str(heuristic.pk))].append({'meta_criterion' : meta_criterion,
 												 'criterion_value' : criterion_value
 												 })
@@ -538,18 +534,14 @@ def filter_meta_criteria(request):
 		filtered_criteria = MetaCriteria.objects.all()
 	else:
 		filtered_criteria = MetaCriteria.objects.filter(heuristic = meta_heuristic_id)
-		
-	serialized_criteria = {}
-	for i in range(len(filtered_criteria)):
-		serialized_criteria['crit_{}'.format(i)] = {
-			'id' : filtered_criteria[i].id,
-			'heuristic_name' : filtered_criteria[i].heuristic.name,
-			'name' : filtered_criteria[i].name,
-			'acronym' : filtered_criteria[i].acronym,
-			'attribute' : filtered_criteria[i].atribute,
-			}
 	
-	return JsonResponse(serialized_criteria)
+	context = {'filtered_criteria' : filtered_criteria}
+		
+	html_list = render_to_string('settings/criteria_list.html',
+        context,
+        request=request,
+    )
+	return JsonResponse({'html_list' : html_list})
 	
 def websites(request, website_id = None):
 	

@@ -1,0 +1,10 @@
+{% for criteria in filtered_criteria %}
+	<tr align="center">
+		<td>{{criteria.heuristic.name}}</td>
+		<td>{{criteria.name}}</td>
+		<td>{{criteria.acronym}}</td>
+		<td>{{criteria.atribue}}</td>
+		<td><a href="{% url 'edit_meta_criterion' criteria.id %}"><span class="glyphicon glyphicon-edit centro"></span></a></td>
+		<td><a href="{% url 'delete_meta_criterion' criteria.id %}"><span class="glyphicon glyphicon-remove centro"></span></a></td>
+	</tr>
+{% endfor %}

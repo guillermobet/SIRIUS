@@ -93,7 +93,6 @@ $('#setting').click(function(){
 });
 
 $("#filter_form_but").click(getFilteredCriteria);
-
 function getFilteredCriteria(event) {
 	var selected_heuristic_id = $('#heuristic_ids').find(":selected").val();
 
@@ -103,27 +102,11 @@ function getFilteredCriteria(event) {
 		data:{ meta_heuristic_id: parseInt(selected_heuristic_id) },
 		dataType: "json",
 		success: 
-			function(data){ updateCriteriaList(data) },
+			function(data){ $("tbody#criteria_tbody").html(data.html_list); },
 		error: 
 			function(xhr, errmsg, err){ console.log("error") },
 	})
 }
-
-function updateCriteriaList(data){
-	var html = '';
-	for (var key in data){
-		html += '<tr align="center">';
-		html += '	<td>'+data[key]['heuristic_name']+'</td>';
-		html += '	<td>'+data[key]['name']+'</td>';
-		html += '	<td>'+data[key]['acronym']+'</td>';
-		html += '	<td>'+data[key]['attribute']+'</td>';
-		html += '	<td><a href="/home/metacriteria/'+data[key]['id']+'/"><span class="glyphicon glyphicon-edit centro"></span></a></td>';
-		html += '	<td><a href="/home/delete-metacriterion/'+data[key]['id']+'/"><span class="glyphicon glyphicon-remove centro"></span></a></td>';
-		html += '</tr>';
-	}
-	$("tbody#criteria_tbody").html(html);
-}
-
 $(document).ready(getFilteredCriteria(0));
 </script>
 {% endblock %}
