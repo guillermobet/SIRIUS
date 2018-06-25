@@ -451,54 +451,10 @@ def meta_criteria(request, meta_criterion_id=None):
 					messages.success(request, 'Sub-Heuristica creada exitosamente!')
 				except IntegrityError:
 					messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
-					
-			# Editing existing MetaCriteria
-			else:
-				criterion = MetaCriteria.objects.get(pk = meta_criterion_id)
-				criterion.heuristic = form.cleaned_data['heuristic']
-				criterion.name = form.cleaned_data['name']
-				criterion.acronym = form.cleaned_data['acronym']
-				criterion.atribute = form.cleaned_data['atribute']
-				
-				# Building relevance string from form data
-				relevance_string = ''
-				for i in range(17):
-					relevance_string += metrics_form.cleaned_data['metric_{}'.format(i)]+' '
-				relevance_string = relevance_string[:-1]
-				criterion.relevance = relevance_string
-				try:
-					criterion.save()
-					messages.success(request, 'Sub-Heuristica editada exitosamente')
-				except IntegrityError:
-					messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
-				
-				return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
-					
 	
 	# GET STUFF
-	# Edit MetaCriteria form
 	if(meta_criterion_id != None):
-		try:
-			criterion = MetaCriteria.objects.get(pk = meta_criterion_id)
-		except MetaCriteria.DoesNotExist:
-			messages.error(request, 'El Criterio que esta tratando de editar no existe')
-			return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
-			
-		data = {'heuristic' : criterion.heuristic,
-				'name' : criterion.name,
-				'acronym' : criterion.acronym,
-				'atribute' : criterion.atribute
-				}
-		
-		# Getting metrics from relevance_string
-		metrics_data = {}
-		criterion_metrics = criterion.relevance.split()
-		for i in range(17):
-			metrics_data['metric_{}'.format(i)] = criterion_metrics[i]
-		
-		form = MetaCriterionForm(data)
-		metrics_form = MetaCriterionMetricsForm(metrics_data)
-		editing = True
+		print('this shouldnt be happening')
 		
 	# Create MetaCriteria form	
 	else:
@@ -515,8 +471,82 @@ def meta_criteria(request, meta_criterion_id=None):
 	return render(request, 'settings/criteria.html', context)
 	
 def edit_meta_criterion(request, meta_criterion_id):
-	context = {}
-	return render(request, 'modals/meta_criteria_modal.html', context)
+	if request.method == 'GET':
+		try:
+			criterion = MetaCriteria.objects.get(pk = meta_criterion_id)
+		except MetaCriteria.DoesNotExist:
+			messages.error(request, 'El Criterio que esta tratando de editar no existe')
+			return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
+			
+		data = {'heuristic' : criterion.heuristic,
+				'name' : criterion.name,
+				'acronym' : criterion.acronym,
+				'atribute' : criterion.atribute
+				}
+		# Getting metrics from relevance_string
+		metrics_data = {}
+		criterion_metrics = criterion.relevance.split()
+		for i in range(17):
+			metrics_data['metric_{}'.format(i)] = criterion_metrics[i]
+		
+		form = MetaCriterionForm(data)
+		metrics_form = MetaCriterionMetricsForm(metrics_data)
+		editing = True
+		
+		context = {
+			'form' : form,
+			'metrics_form' : metrics_form,
+			'criteria_id' : criterion.pk
+		}
+		
+		html_forms = render_to_string('settings/edit_meta_criterion_form.html',
+			context,
+			request=request,
+		)
+		return JsonResponse({'html_forms' : html_forms})
+		
+	if request.method == 'POST':
+		data = {}
+		form = MetaCriterionForm(request.POST)
+		metrics_form = MetaCriterionMetricsForm(request.POST)
+		print('POST')
+		if form.is_valid() and metrics_form.is_valid():
+			criterion = MetaCriteria.objects.get(pk = meta_criterion_id)
+			print('FORM VALID')
+			print(form.cleaned_data['name'])
+			criterion.heuristic = form.cleaned_data['heuristic']
+			criterion.name = form.cleaned_data['name']
+			criterion.acronym = form.cleaned_data['acronym']
+			criterion.atribute = form.cleaned_data['atribute']
+			
+			# Building relevance string from form data
+			relevance_string = ''
+			for i in range(17):
+				relevance_string += metrics_form.cleaned_data['metric_{}'.format(i)]+' '
+			relevance_string = relevance_string[:-1]
+			criterion.relevance = relevance_string
+			try:
+				criterion.save()
+				messages.success(request, 'Sub-Heuristica editada exitosamente')
+			except IntegrityError:
+				messages.error(request, 'Una Sub-Heuristica con estas caracteristicas ya esta registrada en el sistema')
+			data['form_is_valid'] = True
+			
+		else:
+			data['form_is_valid'] = False
+		
+		context = {
+			'form' : form,
+			'metrics_form' : metrics_form,
+			'criteria_id' : criterion.pk
+		}
+		
+		html_forms = render_to_string('settings/edit_meta_criterion_form.html',
+			context,
+			request=request,
+		)
+		data['html_forms'] = html_forms
+		return JsonResponse(data)
 
 @admin_required
 def delete_meta_criterion(request, meta_criterion_id):

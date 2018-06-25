@@ -6,12 +6,6 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
 
-<!-- En caso de que se este editando una sub-heuristica cargo el modal automaticamente -->
-{% if editing %}
-		{% include 'modals/meta_criteria_modal.html' %}
-		<script>$('#meta_criteria_modal').modal('show')</script>
-{% endif %}
-
 <div class="col-md-12">
 	<div class="page-header">
 	  <h1><small> Configuración de</small> Sub-Heuristicas</h1>
@@ -63,7 +57,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table table-hover ">
+			<table id="criteria_table" class="table table-hover ">
 			    <thead>
 			      <tr class="" style="background-color: #3f9db6;color:white;">
 			        <th style="text-align: center;">Heuristica</th>
@@ -83,6 +77,24 @@
 	</div> <!--  row -->
 
 </div> <!-- col md 12-->
+
+<!-- Edit Modal Html -->
+<div class="modal fade" id="edit_meta_criteria_modal">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" style="display: inline;">Editar Sub-Heuristica</h4>
+				<button type="button" class="btn btn-default" style="display: inline; float: right;" data-dismiss="modal"><span>X</span></button>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>
+
 <script>
 $('#home').removeClass('active');
 $('#s2').addClass('active');
@@ -92,21 +104,57 @@ $('#setting').click(function(){
     $('#s1,#s2,#s3,#s4').toggle();
 });
 
-$("#filter_form_but").click(getFilteredCriteria);
-function getFilteredCriteria(event) {
-	var selected_heuristic_id = $('#heuristic_ids').find(":selected").val();
+$(function(){
+	// Filtering
+	function getFilteredCriteria(event) {
+		var selected_heuristic_id = $('#heuristic_ids').find(":selected").val();
 
-	$.ajax({
-		url: url = "{% url 'filter_meta_criteria' %}",
-		method: 'GET',
-		data:{ meta_heuristic_id: parseInt(selected_heuristic_id) },
-		dataType: "json",
-		success: 
-			function(data){ $("tbody#criteria_tbody").html(data.html_list); },
-		error: 
-			function(xhr, errmsg, err){ console.log("error") },
-	})
-}
-$(document).ready(getFilteredCriteria(0));
+		$.ajax({
+			url: url = "{% url 'filter_meta_criteria' %}",
+			method: 'GET',
+			data:{ meta_heuristic_id: parseInt(selected_heuristic_id) },
+			dataType: "json",
+			success: 
+				function(data){ $("tbody#criteria_tbody").html(data.html_list); },
+			error: 
+				function(xhr, errmsg, err){ console.log("error") },
+		})
+	}
+	$("#filter_form_but").click(getFilteredCriteria);
+	$(document).ready(getFilteredCriteria(0));
+	
+	// Editing
+	function getEditMetaCriterionForm(event){
+		$.ajax({
+			url: $(this).attr("data-url"),
+			type: "get",
+			dataType: "json",
+			beforeSend: function(){$('#edit_meta_criteria_modal').modal('show')},
+			success: function(data){$('#edit_meta_criteria_modal .modal-body').html(data.html_forms)},
+		});
+	}
+	$("#criteria_table").on('click', '.js-edit-link', getEditMetaCriterionForm);
+	
+	function saveEditedCriteria(event){
+		event.preventDefault();
+		$.ajax({
+			url: $(this).attr("action"),
+			data: $(this).serialize(),
+			type: $(this).attr("method"),
+			dataType: "json",
+			success: function(data){
+				if(data.form_is_valid){
+					getFilteredCriteria(0);
+					$('#edit_meta_criteria_modal').modal('hide');
+					$('#message_modal').modal('show');
+				}else{
+					$('#edit_meta_criteria_modal .modal-body').html(data.html_forms);
+				}
+			}
+		});
+	}
+	$('#edit_meta_criteria_modal').on('submit', '.js-edit-form', saveEditedCriteria);
+});
+//$('#message_modal').modal('show')
 </script>
 {% endblock %}

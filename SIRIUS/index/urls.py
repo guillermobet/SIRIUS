@@ -18,8 +18,8 @@ urlpatterns = [
 	
 	# MetaCriteria
 	path("home/metacriteria", views.meta_criteria, name="meta_criteria"),
-	path("home/metacriteria/<int:meta_criterion_id>/", views.meta_criteria, name="edit_meta_criterion"),
-	#path("home/metacriteria/<int:meta_criterion_id>/", views.edit_meta_criterion, name="edit_meta_criterion"),
+	
+	path("home/edit_metacriteria/<int:meta_criterion_id>/", views.edit_meta_criterion, name="edit_meta_criterion"),
 	path("home/delete-metacriterion/<int:meta_criterion_id>/", views.delete_meta_criterion, name="delete_meta_criterion"),
 	path("home/filter_meta_criteria", views.filter_meta_criteria, name="filter_meta_criteria"),
 	
