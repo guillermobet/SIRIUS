@@ -74,6 +74,7 @@ class Review(models.Model):
 	browser_version = models.CharField(max_length=10)
 	date = models.DateField(default = datetime.date.today)
 	UP = models.DecimalField(max_digits = 5, decimal_places = 2, default = 0.0)
+	partial = models.BooleanField(default = False)
 	comment = models.TextField()
 
 	class Meta:

@@ -70,7 +70,7 @@ class EvaluationGeneralForm(forms.Form):
 	
 	def __init__(self, user, *args, **kwargs):
 		reviews = Review.objects.filter(username = user.user)
-		reviewed_website_ids = [rev.website.id for rev in reviews]
+		reviewed_website_ids = [rev.website.id for rev in reviews if rev.partial == False]
 		super(EvaluationGeneralForm, self).__init__(*args, **kwargs)
 		
 		self.fields['website'] = forms.ModelChoiceField(

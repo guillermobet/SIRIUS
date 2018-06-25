@@ -87,26 +87,36 @@ def evaluate(request):
 			website = form.cleaned_data['website']
 			browser_name = form.cleaned_data['browser_name']
 			browser_version = form.cleaned_data['browser_version']
-						
-			# Create Review object
+			
+			# Searching if the user already has a review for this site
 			try:
+				review = Review.objects.get(website = website,
+					username = user,
+					browser = browser_name,
+					browser_version = browser_version,
+					date = date,
+					partial = True,
+					UP = 0.0,
+					comment = ''
+				)
+				# If the user has one but is already finished, promt an error message and show review
+				if not review.partial:
+					messages.error(request, 'Usted ya hizo un review de este website')
+					review = Review.objects.get(website = website, username = user)
+					kwargs = {'review_id' : review.pk}
+					return HttpResponseRedirect(reverse('see_review', args=(), kwargs=kwargs))
+			# If user hasnt created a review, create one
+			except Review.DoesNotExist:
 				review = Review.objects.create(
 					website = website,
 					username = user,
 					browser = browser_name,
 					browser_version = browser_version,
 					date = date,
+					partial = True,
 					UP = 0.0,
 					comment = ''
 				)
-			
-			# In case the user has already reviewed this site, it will raise an error and redirect to the review
-			except IntegrityError:
-				messages.error(request, 'Usted ya hizo un review de este website')
-				review = Review.objects.get(website = website, username = user)
-				kwargs = {'review_id' : review.pk}
-				return HttpResponseRedirect(reverse('see_review', args=(), kwargs=kwargs))
-
 
 			kwargs = {'review_id' : review.pk}
 			return HttpResponseRedirect(reverse('evaluate_items', args=(), kwargs=kwargs))
@@ -117,16 +127,35 @@ def evaluate(request):
 def evaluate_items(request, review_id):
 	
 	user = request.user
-	form = ReviewItemsForm()
+	review = Review.objects.get(pk = review_id)
 	heuristics = MetaHeuristic.objects.all()
+	
+	if(review.partial):
+		# Setting up data dict with the data from the review for the form
+		data = {}
+		for heuristic in heuristics:
+			data['H_'+str(heuristic.pk)] = None
+			meta_criteria = MetaCriteria.objects.filter(heuristic = heuristic)
+			for meta_criterion in meta_criteria:
+				try:
+					criterion = Criteria.objects.get(meta_criteria = meta_criterion, review = review)
+					criterion_value = criterion.value
+				except Criteria.DoesNotExist:
+					criterion_value = None
+				data['H_'+str(heuristic.pk)+'_C_'+str(meta_criterion.pk)] = criterion_value
+			data['H_'+str(heuristic.pk)+'_END'] = None
+		form = ReviewItemsForm(data)
+	else:
+		form = ReviewItemsForm()
+	
 	context = {'form' : form,
-			   'heuristics' : heuristics
+			   'heuristics' : heuristics,
+			   'review_id' : review_id
 			  }
 	
 	if request.method == 'POST':
 		form = ReviewItemsForm(request.POST)
 		if form.is_valid():
-			review = Review.objects.get(pk = review_id)
 			criteria_list = []
 			for value in form.cleaned_data:
 				split = value.split('_')
@@ -142,12 +171,49 @@ def evaluate_items(request, review_id):
 				criteria_list.append(crit)
 			
 			review.UP = get_up(criteria_list, review.website.type)
+			review.partial = False
 			review.save()
 				
 			messages.success(request, 'Review registrado con exito, Porcentaje de Usabilidad obtenido: %.2f%%'%review.UP)
 			return HttpResponseRedirect(reverse('home', args=(), kwargs={}))
 	
 	return render(request, "evaluate/evaluateItems.html", context)
+	
+def store_partial_review(request, review_id):
+	user = request.user
+	form = ReviewItemsForm()
+	data = {}
+	
+	if request.method == 'POST':
+		form = ReviewItemsForm(request.POST)
+		if form.is_valid():
+			review = Review.objects.get(pk = review_id)#, username = user)
+			for value in form.cleaned_data:
+				split = value.split('_')
+				if(len(split) != 4):
+					continue
+				criteria_id = int(split[3])
+				
+				# Update or create if doesnt exist
+				meta_criteria = MetaCriteria.objects.get(pk = criteria_id)
+				try:
+					crit = Criteria.objects.get(review = review, meta_criteria = meta_criteria)
+					crit.value = form.cleaned_data[value]
+					crit.save()
+				except:
+					crit = Criteria.objects.create(
+						review = review,
+						meta_criteria = meta_criteria,
+						value = form.cleaned_data[value]
+					)
+				data['form_is_valid'] = True
+			else:
+				data['form_is_valid'] = False
+				
+		return JsonResponse(data)
+	else:
+		messages.error(request, 'You shall not pass!')
+		return HttpResponseRedirect(reverse('home', args=(), kwargs={}))
 
 def register(request):
 
@@ -256,6 +322,7 @@ def edit_review(request, review_id):
 				criteria_list.append(criterion)
 				
 			review.UP = get_up(criteria_list, review.website.type)
+			review.partial = False
 			review.save()
 			messages.success(request, 'Review editada de manera exitosa, Porcentaje de Usabilidad obtenido: %.2f%%'%review.UP)
 			return HttpResponseRedirect(reverse('reviews', args=(), kwargs={}))

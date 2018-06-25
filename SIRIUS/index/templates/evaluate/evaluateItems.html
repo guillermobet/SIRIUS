@@ -17,7 +17,7 @@
 			
 		</div> <!-- col md 12-->
     	<div class="col-md-10" >
-			<form action = "" method="post" >
+			<form action="" method="post" id="evaluate_items_form">
 				{% csrf_token %}
 				<div id="tabber">
 				<label for="tabber_buttons" >HEURISTICA:</label>
@@ -52,7 +52,7 @@
 				<div class="form-group" >
 					<div class="col-sm-8 col-sm-offset-1">
 						<!-- <button type="submit" href="/home/evaluate/1" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;" onclick="validateForm()">  Siguiente  <span class="glyphicon glyphicon-saved"></span></button> -->
-						<button type="submit" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;" onclick="validateForm()">  Siguiente  <span class="glyphicon glyphicon-saved"></span></button>
+						<button type="submit" class="btn btn-group-justified azul" id="submit_evaluate_items_form" style="margin-top: 50px; margin-bottom: 50px;" onclick="validateForm()">  Siguiente  <span class="glyphicon glyphicon-saved"></span></button>
 					</div>
 				</div>
 					
@@ -107,6 +107,22 @@ function refreshTabs(){
 				}
 			});
 		}
+$(document).ready(function(){
+	$(window).bind('beforeunload', function(){
+		var form = $("#evaluate_items_form");
+		$.ajax({
+			url: "{% url 'store_partial_review' review_id %}",
+			data: form.serialize(),
+			type: form.attr("method"),
+			dataType: "json",
+			error: function(xhr, errmsg, err){
+				console.log(xhr);
+				console.log(errmsg);
+				console.log(err);
+			}
+		});
+	});
+});
 </script>
 
 {% endblock %}

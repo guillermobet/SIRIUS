@@ -26,6 +26,7 @@ urlpatterns = [
 	# Evaluate
 	path("home/evaluate", views.evaluate, name="evaluate"),
 	path("home/evaluate/items/<int:review_id>/", views.evaluate_items, name="evaluate_items"),
+	path("home/evaluate/store_partial_review/<int:review_id>/", views.store_partial_review, name="store_partial_review"),
 	
 	# Reviews
 	path("home/reviews", views.reviews, name="reviews"),
