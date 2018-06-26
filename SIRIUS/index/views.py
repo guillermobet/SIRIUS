@@ -86,12 +86,11 @@ def evaluate(request):
 					username = user,
 					browser = browser_name,
 					browser_version = browser_version,
-					date = date,
 					partial = True,
 					UP = 0.0,
 					comment = ''
 				)
-				# If the user has one but is already finished, promt an error message and show review
+				# If the user has one but is already finished, prompt an error message and show review
 				if not review.partial:
 					messages.error(request, 'Usted ya hizo un review de este website')
 					review = Review.objects.get(website = website, username = user)
@@ -105,7 +104,7 @@ def evaluate(request):
 					browser = browser_name,
 					browser_version = browser_version,
 					date = date,
-					partial = True,
+					partial = False,
 					UP = 0.0,
 					comment = ''
 				)
@@ -123,6 +122,7 @@ def evaluate_items(request, review_id):
 	heuristics = MetaHeuristic.objects.all()
 	
 	if(review.partial):
+		print('PARTIAL')
 		# Setting up data dict with the data from the review for the form
 		data = {}
 		for heuristic in heuristics:
@@ -155,11 +155,16 @@ def evaluate_items(request, review_id):
 					continue
 				criteria_id = int(split[3])
 				meta_criteria = MetaCriteria.objects.get(pk = criteria_id)
-				crit = Criteria.objects.create(
-					review = review,
-					meta_criteria = meta_criteria,
-					value = form.cleaned_data[value]
-				)
+				try:
+					crit = Criteria.objects.get(meta_criteria = meta_criteria, review = review)
+					crit.value = form.cleaned_data[value]
+					crit.save()
+				except Criteria.DoesNotExist:
+					crit = Criteria.objects.create(
+						review = review,
+						meta_criteria = meta_criteria,
+						value = form.cleaned_data[value]
+					)
 				criteria_list.append(crit)
 			
 			review.UP = get_up(criteria_list, review.website.type)
@@ -173,13 +178,12 @@ def evaluate_items(request, review_id):
 	
 def store_partial_review(request, review_id):
 	user = request.user
-	form = ReviewItemsForm()
 	data = {}
 	
 	if request.method == 'POST':
 		form = ReviewItemsForm(request.POST)
 		if form.is_valid():
-			review = Review.objects.get(pk = review_id)#, username = user)
+			review = Review.objects.get(pk = review_id)
 			for value in form.cleaned_data:
 				split = value.split('_')
 				if(len(split) != 4):
@@ -198,6 +202,8 @@ def store_partial_review(request, review_id):
 						meta_criteria = meta_criteria,
 						value = form.cleaned_data[value]
 					)
+				review.partial = True
+				review.save()
 				data['form_is_valid'] = True
 			else:
 				data['form_is_valid'] = False

@@ -80,6 +80,9 @@ class Review(models.Model):
 	class Meta:
 		unique_together = ("website", "username")
 		
+	def __str__(self):
+		return 'Review for {} by {}'.format(self.website.name, self.username.user)
+		
 class MetaHeuristic(models.Model):
 
 	id = models.AutoField(primary_key=True)

@@ -1,8 +1,6 @@
 {% extends 'index/barMenu.html' %}
 {% load static %}
 
-
-
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
@@ -124,6 +122,10 @@ $(document).ready(function(){
 			}
 		});
 	});
+	$(document).on("submit", "form#evaluate_items_form", function(event){
+        // disable warning
+        $(window).off('beforeunload');
+    })
 });
 </script>
 
