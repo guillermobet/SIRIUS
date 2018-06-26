@@ -1,0 +1,81 @@
+{% extends 'index/barMenu.html' %}
+{% load static %}
+{% load addcssclass %}
+
+{% block content %}
+	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-header">
+				  <h1>Reportes</h1>
+				</div>
+			</div> <!-- col md 12-->
+		</div>
+		
+		<div class = "row">
+			<div class="col-md-12">
+				<h2 align="center" id="mean">Promedio: 0.0</h2>
+			</div>
+		</div>
+		</br>
+		<div class = "row">
+			<!-- Website Selector -->
+			<div class="col-md-12">
+				<select id="website_selector" class="form-control">
+					<option value="-1">Seleccione un website</option>
+					{% for website in websites %}
+						<option value="{{website.pk}}">{{website.name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" style="margin-top: 20px;">
+				<table class="table table-hover">
+					<thead> 
+						<tr style="background-color: #3f9db6;color:white;" >
+							<th style="text-align: center;">Usuario</th>
+							<th style="text-align: center;">URL</th>
+							<th style="text-align: center;">Navegador</th>
+							<th style="text-align: center;">Versión</th>
+							<th style="text-align: center;">Fecha</th>
+							<th style="text-align: center;">Porcentaje de Usabilidad</th>
+						</tr>
+					</thead>
+					<tbody id="reports_table"></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+$('#home').removeClass('active');
+$('#reports').addClass('active');
+$('#setting').click(function(){
+   	$('#s1,#s2,#s3,#s4').toggle();
+	$('#reviews').removeClass('active');
+	$('#setting').addClass('active');
+});
+
+function getReport(event){
+	event.preventDefault();
+	website_id = $('#website_selector').find(":selected").val();
+	
+	$.ajax({
+			url: "{% url 'get_report' %}",
+			method: 'GET',
+			data:{ website_id: parseInt(website_id) },
+			dataType: "json",
+			success: 
+				function(data){
+					$("tbody#reports_table").html(data.html_list);
+					$("h2#mean").html("Promedio: "+data.mean);
+					},
+			error: 
+				function(xhr, errmsg, err){ console.log("error") },
+		});
+}
+$('#website_selector').on('change', getReport);
+</script>
+
+{% endblock %}

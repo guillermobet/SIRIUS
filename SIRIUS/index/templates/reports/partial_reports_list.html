@@ -1,0 +1,14 @@
+
+{% for review in report %}
+	<!--<tr style="background-color: #3f9db6;color:white;" >-->
+	<tr align="center">
+		<td style="text-align: center;">{{review.username}}</td>
+		<td style="text-align: center;"><a href="{{review.website.url}}">{{review.website.url}}</a></td>
+		<td style="text-align: center;">{{review.browser}}</td>
+		<td style="text-align: center;">{{review.browser_version}}</td>
+		<td style="text-align: center;">{{review.date}}</td>
+		<td style="text-align: center;"><b>{{review.UP}}</b></td>
+	</tr>
+{% empty %}
+	<tr align="center"><td colspan="6">No hay reviews para este sitio web</td></tr>
+{% endfor %}

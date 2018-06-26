@@ -325,3 +325,12 @@ class WebsiteForm(forms.Form):
 		label = "Descripción del Website",
 		widget = forms.TextInput({"placeholder": 'Ej. Búsqueda'})
 	)
+"""	
+class ReportsWebsitesForm(forms.Form):
+	website = forms.ChoiceField(
+		required = True,
+		label = 'Tipo de sitio web',
+		#choices = Website.objects.all()
+		choices = [(website.id, website) for website in Website.objects.all()]
+	)
+"""

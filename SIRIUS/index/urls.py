@@ -36,4 +36,8 @@ urlpatterns = [
 	# Websites
 	path("home/websites", views.websites, name="websites"),
 	path("home/websites/<int:website_id>/", views.websites, name="edit_website"),
+	
+	# Reports
+	path("home/reports", views.Reports.as_view(), name="reports"),
+	path("home/reports/get_report", views.update_reviews_list, name="get_report"),
 ]

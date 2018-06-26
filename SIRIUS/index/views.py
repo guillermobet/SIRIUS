@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
+from django.views import View
 from django import forms
 from .forms import *
 from django.contrib import messages
@@ -23,22 +24,15 @@ def home(request):
 	return render(request, "index/home.html", {})
 
 def perfil(request):
-	#user1=request.user
 	error=False
 	if request.method == 'POST':
 		form = UserUpdateForm(request.POST)
 		if form.is_valid():
-			#user = User.objects.get(user=user1)
 			user = request.user
-			#user.telephone=request.POST.get('telephone')                    
 			user.telephone = form.cleaned_data['telephone']
-			#user.email=request.POST.get('email') 
 			new_email = form.cleaned_data['email']
-			#password=request.POST.get('password')
 			password = form.cleaned_data['password']
-			#password2=request.POST.get('password_confirmation')
 			password2 = form.cleaned_data['password_confirmation']
-			#if (User.objects.filter(email=user.email).exists() and user.email != user1.email):
 			if (User.objects.exclude(pk = user.pk).filter(email = new_email).exists()):
 				messages.error(request,"El email ya existe")
 				error=True
@@ -46,8 +40,6 @@ def perfil(request):
 				messages.error(request,"Contraseña no coincide")
 				error=True
 			if(password != ''):
-				#user.password = password
-				# v--- Con esto se guarda la contrasena encriptada
 				user.set_password(password)
 					
 			if not error:
@@ -634,3 +626,31 @@ def websites(request, website_id = None):
 	return render(request, 'websites/websites.html', context)
 	
 
+class Reports(View):
+	template_path = 'reports/reports.html'
+	
+	def get(self, request):
+		websites = Website.objects.all()
+		
+		context = {'websites' : websites}
+		
+		return render(request, self.template_path, context)
+		
+def update_reviews_list(request):
+	data = {}
+	website_id = int(request.GET.get('website_id'))
+	report = Review.objects.filter(website = website_id, partial = False)
+	
+	if(len(report) > 0):
+		mean = sum(review.UP for review in report)/len(report)
+	else:
+		mean = 0.0
+	
+	context = {'report' : report}
+		
+	data['html_list'] = render_to_string('reports/partial_reports_list.html',
+		context,
+		request=request,
+	)
+	data['mean'] = mean
+	return JsonResponse(data)
