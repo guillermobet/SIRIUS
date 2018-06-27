@@ -77,7 +77,22 @@
     </div>	
 </div>
 
-
+<!-- Partial Review Modal -->
+<div class="modal fade" id="partial_review_modal">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" style="display: inline;">Guardando Review</h4>
+			</div>
+			<div class="modal-body">
+				<p> Estamos guardando los datos que ha introducido para agilizar el proceso la proxima vez que lo intente</p>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript">
 $('#home').removeClass('active');
@@ -108,13 +123,16 @@ function refreshTabs(){
 			});
 		}
 $(document).ready(function(){
-	$(window).bind('beforeunload', function(){
+	$(window).bind('beforeunload', function(event){
+		event.preventDefault();
 		var form = $("#evaluate_items_form");
 		$.ajax({
 			url: "{% url 'store_partial_review' review_id %}",
 			data: form.serialize(),
 			type: form.attr("method"),
 			dataType: "json",
+			beforeSend: function(){$("#partial_review_modal").modal('show')},
+			success: function(){$("#partial_review_modal").delay(600).modal('hide')},
 			error: function(xhr, errmsg, err){
 				console.log(xhr);
 				console.log(errmsg);
@@ -123,7 +141,6 @@ $(document).ready(function(){
 		});
 	});
 	$(document).on("submit", "form#evaluate_items_form", function(event){
-        // disable warning
         $(window).off('beforeunload');
     })
 });
