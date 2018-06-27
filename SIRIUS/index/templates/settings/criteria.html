@@ -5,7 +5,6 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
-
 <div class="col-md-12">
 	<div class="page-header">
 	  <h1><small> Configuración de</small> Sub-Heuristicas</h1>
@@ -14,19 +13,16 @@
 </div> <!-- col md 12-->
 <div class="col-md-12">
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-sm-1">
 		</div>	
-		<div class="col-md-8">
-		    <div class="well well-lg">
-				
+		<div class="col-sm-9">
 				<!-- Con esto cargo el html del modal -->
 				{% include 'modals/meta_criteria_modal.html' %}
 				<!-- Con este boton se activa el modal -->
-				<button type="button" class="btn azul espacio-izq" data-toggle="modal" data-target="#meta_criteria_modal"> Agregar <span class="glyphicon glyphicon-plus"></span></button>
-				
-			</div> <!-- well  -->		        			
-		</div><!-- col-md-8 -->	
-		<div class="col-md-2">
+				<button type="button" class="btn azul " data-toggle="modal" data-target="#meta_criteria_modal"> Agregar Sub-Heuristica  <span class="glyphicon glyphicon-plus"></span></button>
+        			
+		</div><!-- col-md-9 -->	
+		<div class="col-sm-2">
 		</div>	
 	</div> <!-- row-->
 	<div class="row">
@@ -57,7 +53,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<table id="criteria_table" class="table table-hover ">
+			<table id="criteria_table " class="table table-hover" data-pagination="true" data-id-field="name" data-page-size="2">
 			    <thead>
 			      <tr class="" style="background-color: #3f9db6;color:white;">
 			        <th style="text-align: center;">Heuristica</th>
@@ -85,7 +81,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" style="display: inline;">Editar Sub-Heuristica</h4>
-				<button type="button" class="btn btn-default" style="display: inline; float: right;" data-dismiss="modal"><span>X</span></button>
+				<button type="button" class="btn btn-sm azul" style="display: inline; float: right;" data-dismiss="modal"><span>X</span></button>
 			</div>
 			<div class="modal-body">
 			</div>
@@ -103,6 +99,7 @@ $('#s1,#s2,#s3,#s4').show();
 $('#setting').click(function(){
     $('#s1,#s2,#s3,#s4').toggle();
 });
+
 
 $(function(){
 	// Filtering
