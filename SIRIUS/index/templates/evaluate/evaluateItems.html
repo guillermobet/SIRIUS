@@ -124,7 +124,6 @@ function refreshTabs(){
 		}
 $(document).ready(function(){
 	$(window).bind('beforeunload', function(event){
-		event.preventDefault();
 		var form = $("#evaluate_items_form");
 		$.ajax({
 			url: "{% url 'store_partial_review' review_id %}",
