@@ -1,0 +1,83 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	
+	<style>
+		@page{
+			size: a4 portrait;
+			
+			@frame header_frame {           /* Static Frame */
+				-pdf-frame-content: header_content;
+				left: 30pt; width: 535pt; top: 30pt; height: 75pt;
+				/* -pdf-frame-border: 1; */
+			}
+			@frame content_frame {          /* Content Frame */
+				left: 30pt; width: 535pt; top: 110pt; height: 672pt;
+				/* -pdf-frame-border: 1; */
+			}
+			@frame footer_frame {           /* Another static Frame */
+				-pdf-frame-content: footer_content;
+				left: 30pt; width: 535pt; top: 790pt; height: 40pt;
+				/* -pdf-frame-border: 1; */
+			}
+		}
+		
+		p{
+			font-size: 12px;
+		}
+		
+		h1{
+			font-size: 17px;
+		}
+		
+		table {
+			padding: 3px;
+			border: 1px solid black;
+		}
+		
+		div#footer_content{
+			padding: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="header_content">
+		<p>Reporte para <b>{{website.name}}</b> generado por el sistema <b>SIRIUS</b></p>
+		<p>URL: <a href="{{website.url}}">{{website.url}}</a></p>
+		<h1 align="center">Promedio: {{mean}}</h1>
+	</div>
+	
+	<div id="content">
+		<table class="table table-bordered">
+			<thead>
+				<tr align="center">
+					<th style="text-align: center;">Usuario</th>
+					<th style="text-align: center;">Navegador</th>
+					<th style="text-align: center;">Versión</th>
+					<th style="text-align: center;">Fecha</th>
+					<th style="text-align: center;">Porcentaje de Usabilidad</th>
+				</tr>
+			</thead>
+			
+			<tbody id="reports_table">
+				{% for review in report %}
+					<tr align="center">
+						<td style="text-align: center;">{{review.username}}</td>
+						<td style="text-align: center;">{{review.browser}}</td>
+						<td style="text-align: center;">{{review.browser_version}}</td>
+						<td style="text-align: center;">{{review.date}}</td>
+						<td style="text-align: center;"><b>{{review.UP}}</b></td>
+					</tr>
+				{% empty %}
+					<tr align="center"><td colspan="5">No hay reviews para este sitio web</td></tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+	<div id="footer_content">
+		<p align="center">page <pdf:pagenumber> of <pdf:pagecount></p>
+	</div>
+</body>
+</html>

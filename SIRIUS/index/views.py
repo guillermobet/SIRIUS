@@ -4,18 +4,19 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 from django.contrib import messages
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from django.views import View
 from django import forms
 from .forms import *
 from django.contrib import messages
-import datetime
 from .decorators import student_required, admin_required
 from .models import Website, Review, Criteria, MetaCriteria, MetaHeuristic
 from django.db import IntegrityError
 from django.template.loader import render_to_string
 from .scoreEvaluator import get_up
+from .pdfutils import *
+import datetime
 
 def index(request):
 	return render(request, "index/index.html", {})
@@ -660,3 +661,22 @@ def update_reviews_list(request):
 	)
 	data['mean'] = mean
 	return JsonResponse(data)
+
+def generate_pdf(request, website_id):
+	website = Website.objects.get(pk = website_id)
+	report = Review.objects.filter(website = website_id, partial = False)
+	bootstrap_path = os.path.realpath(os.path.dirname(__file__))+'/static/index/css/xhtml2pdf-bootstrap.css'
+	
+	if(len(report) > 0):
+		mean = sum(review.UP for review in report)/len(report)
+	else:
+		mean = 0.0
+		
+	context = {
+		'website' : website,
+		'report' : report,
+		'mean' : mean,
+		'bootstrap_path' : bootstrap_path
+	}
+	
+	return render_pdf_view(request, 'reports/report_pdf_template.html', context, '{}_Report'.format(website.name))

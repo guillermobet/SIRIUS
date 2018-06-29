@@ -3,6 +3,8 @@
 {% load addcssclass %}
 
 {% block content %}
+	<link rel="stylesheet" type="text/css" href="{% static 'interface/css/settings.css' %}">
+
 	<div class="col-md-9">
 		<div class="row">
 			<div class="col-md-12">
@@ -46,6 +48,16 @@
 				</table>
 			</div>
 		</div>
+		
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-6">
+				<button type="button" class="btn azul" id="generate_pdf_btn" onClick="generatePDF()" disabled> Generar PDF <span class="glyphicon glyphicon-list-alt"></span></button>
+			</div>
+			<div class="col-md-4">
+			</div>
+		</div>
 	</div>
 
 <script type="text/javascript">
@@ -60,6 +72,11 @@ $('#setting').click(function(){
 function getReport(event){
 	event.preventDefault();
 	website_id = $('#website_selector').find(":selected").val();
+	if(parseInt(website_id) == -1){
+		$('#generate_pdf_btn').prop("disabled",true);
+	}else{
+		$('#generate_pdf_btn').prop("disabled",false);
+	}
 	
 	$.ajax({
 			url: "{% url 'get_report' %}",
@@ -76,6 +93,11 @@ function getReport(event){
 		});
 }
 $('#website_selector').on('change', getReport);
+
+function generatePDF(){
+	website_id = $('#website_selector').find(":selected").val();
+	window.location.href = 'reports/generate_pdf/'+website_id+'/'
+}
 </script>
 
 {% endblock %}

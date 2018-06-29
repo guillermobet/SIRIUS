@@ -40,4 +40,6 @@ urlpatterns = [
 	# Reports
 	path("home/reports", views.Reports.as_view(), name="reports"),
 	path("home/reports/get_report", views.update_reviews_list, name="get_report"),
+	path("home/reports/generate_pdf/<int:website_id>/", views.generate_pdf, name="generate_pdf"),
+	
 ]
