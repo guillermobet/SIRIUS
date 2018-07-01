@@ -1,7 +1,9 @@
+{% load static %}
+
 <html>
 <head>
 	<meta charset="utf-8">
-	
+
 	<style>
 		@page{
 			/* a4 size: 595 × 842 pt */
@@ -10,44 +12,72 @@
 			
 			@frame header_frame {           /* Static Frame */
 				-pdf-frame-content: header_content;
-				left: 30pt; width: 535pt; top: 30pt; height: 75pt;
+				left: 30pt; width: 535pt; top: 40pt; height: 150pt;
 				/* -pdf-frame-border: 1; */
 			}
 			@frame content_frame {          /* Content Frame */
-				left: 30pt; width: 535pt; top: 110pt; height: 672pt;
+				left: 30pt; width: 535pt; top: 180pt; height: 692pt;
 				/* -pdf-frame-border: 1; */
 			}
 			@frame footer_frame {           /* Another static Frame */
 				-pdf-frame-content: footer_content;
-				left: 30pt; width: 535pt; top: 790pt; height: 40pt;
-				/* -pdf-frame-border: 1; */
+				left: 30pt; width: 535pt; top: 800pt; height: 40pt;
 			}
 		}
 		
 		p{
 			font-size: 12px;
+			text-align: center;
 		}
 		
+		.titulo{
+			font-size: 30px;
+			color: #3f9db6;
+			text-align: center;
+		}
 		h1{
-			font-size: 17px;
+			font-size: 20px;
+			color: black;
+			text-align: center;
 		}
-		
+
+
+		h2{
+			text-align: left;
+			font-size: 13px;
+
+		}
 		table {
 			padding: 3px;
-			border: 1px solid black;
+			border: 1px solid #3f9db6;
+		}
+		thead{
+			color:#3f9db6;
 		}
 		
 		div#footer_content{
 			padding: 10px;
 		}
+		a{
+			text-decoration: none;
+			color: #3f9db6;
+			font-weight: bolder;
+		}
+
 	</style>
+
 </head>
 
 <body>
 	<div id="header_content">
-		<p>Reporte para <b>{{website.name}}</b> generado por el sistema <b>SIRIUS</b></p>
-		<p>URL: <a href="{{website.url}}">{{website.url}}</a></p>
-		<h1 align="center">Promedio: {{mean}}</h1>
+		<h1 class="titulo">SIRIUS</h1>
+		<h1>Reporte de evaluación web</h1>
+		<h2> Sitio Web: {{website.name}}</h2>
+		<h2> URL del sitio web: <a href="{{website.url}}">{{website.url}}</a></h2>
+		<h1> Promedio Total: {{mean}} </h1> 
+		<br>
+		
+
 	</div>
 	
 	<div id="content">
@@ -79,7 +109,8 @@
 	</div>
 	
 	<div id="footer_content">
-		<p align="center">page <pdf:pagenumber> of <pdf:pagecount></p>
+		<p align="center">Pagina <pdf:pagenumber></p>
+		<!--p align="center">page <pdf:pagenumber> of <pdf:pagecount></p-->
 	</div>
 </body>
 </html>
