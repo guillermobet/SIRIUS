@@ -35,11 +35,12 @@
 							<div class="form-group" >
 								<label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label>
 								<div id="input_group" class=" col-sm-12">
-									{% for i in field %}
-										<label class="radio-inline " style="margin-right: 5px;">
-										<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" > {{i}}
+									{% for radio in field %}
+										<label for="{{ radio.id_for_label }}" style="margin-right: 8px">
+											{{ radio.choice_label }}
+											{{ radio.tag }}
 										</label>
-									{% endfor%}
+									{% endfor %}
 								</div>
 							</div>
 						{% endif %}
@@ -50,7 +51,7 @@
 						<button onclick="location.href='{% url 'see_review' review.pk %}'" type="button" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;">  <span class="glyphicon glyphicon-arrow-left"></span>  Regresar  </button>
 					</div>
 					<div class="col-sm-6">
-						<button type="submit" href="/home/evaluate/1" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;" onclick="validateForm()">  Guardar  <span class="glyphicon glyphicon-saved"></span></button>
+						<button type="submit" id="edit_review_submit" href="/home/evaluate/1" class="btn btn-group-justified azul" style="margin-top: 50px; margin-bottom: 50px;" onclick="validateForm()">  Guardar  <span class="glyphicon glyphicon-saved"></span></button>
 					</div>
 				</div>
 					

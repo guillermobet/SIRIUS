@@ -13,7 +13,7 @@
 			</div> <!-- col md 12-->
 			
     		<div class="col-md-12">
-				<table class="table table-hover">
+				<table id="reviews_table" class="table table-hover">
 					<thead> 
 						<tr style="background-color: #3f9db6;color:white;" >
 							<th style="text-align: center;">Website</th>
@@ -40,7 +40,7 @@
 								{% else %}
 									<td>Terminada</td>
 								{% endif %}
-								<td><a href="{% url 'see_review' review.pk %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+								<td><a id="edit_{{review.pk}}" href="{% url 'see_review' review.pk %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 							</tr>
 						{% empty %}
 							<tr>

@@ -21,10 +21,10 @@
                 </div>
             {% endif %}
             {% csrf_token %}
-            <input type="text" title="username" name="username" placeholder="Username *" required="" />
-            <input type="password" title="password" placeholder="Contraseña *" name="password" required="" />
+            <input type="text" id="id_user" title="username" name="username" placeholder="Username *" required="" />
+            <input type="password" id="id_password" title="password" placeholder="Contraseña *" name="password" required="" />
             <p class="col-xs-4 col-xs-offset-8" style="color:red; font-size: 12px; font-weight:bold; padding-left:50px; padding-right: 0px "> (*) Obligatorio </p>
-            <button type="submit" class="btn">Ingresar</button>
+            <button type="submit" class="btn" id="submit">Ingresar</button>
             <a class="forgot" href="../register">Crear una cuenta</a>
 
           </form>
