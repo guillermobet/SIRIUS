@@ -26,7 +26,7 @@
 					    	{% endif %}
 					    {% endfor %}
 					</select>	
-								
+							
 					{% for field in form %}
 						{% if field.field.widget.attrs.heuristic %}
 							<div id='tabber_tab_{{field.field.widget.attrs.pk}}'> 
@@ -36,7 +36,7 @@
 						{% else %}
 							<div class="form-group" >
 								<label class="control-label col-sm-12" for="{{field.name}}" style="margin-top: 20px;">{{field.label}}:</label>
-								<div id="input_group"class="col-sm-12">
+								<div id="input_group" class="col-sm-12">
 									{% for radio in field %}
 										<label for="{{ radio.id_for_label }}" style="margin-right: 8px">
 											{{ radio.choice_label }}

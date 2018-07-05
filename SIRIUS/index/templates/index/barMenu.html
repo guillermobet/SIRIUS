@@ -11,6 +11,9 @@
     <meta name="author" content="">
 
     <title>SIRIUS</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'index/img/favicon.png' %}"/>
 
      <!-- Custom fonts for this template -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -114,23 +117,23 @@
               <div >
                 <ul class="nav nav-pills nav-stacked collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <li id="home" class="active" role="presentation"><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio </a></li>
-                <li id="profile" role="presentation"><a href="{% url 'perfil' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Perfil </a></li>
-                <li id="evaluate" role="presentation"><a href="{% url 'evaluate' %}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Evaluar </a></li>
-                <li id="reviews" role="presentation"><a href="{% url 'reviews' %}"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Reviews </a></li>
+                <li id="profile" role="presentation"><a id="menu_profile" href="{% url 'perfil' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Perfil </a></li>
+                <li id="evaluate" role="presentation"><a id="menu_evaluate" href="{% url 'evaluate' %}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Evaluar </a></li>
+                <li id="reviews" role="presentation"><a id="menu_reviews" href="{% url 'reviews' %}"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Reviews </a></li>
                 {% if user.is_superuser %}
                 
-                <li id="websites" role="presentation"><a href="{% url 'websites' %}"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Websites </a></li>
-                <li id="reports" role="presentation"><a href="{% url 'reports' %}"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Reportes </a></li>
-                <li id="setting"  role="presentation"><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Configuración <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
+                <li id="websites" role="presentation"><a id="menu_websites" href="{% url 'websites' %}"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Websites </a></li>
+                <li id="reports" role="presentation"><a id="menu_reports" href="{% url 'reports' %}"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Reportes </a></li>
+                <li id="setting"  role="presentation"><a id="menu_settings" href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Configuración <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></li>
                 <!--<li id="s1" role="presentation"><a href="/home/indicator"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Indicator</a></li>
                 <li id="s2" role="presentation"><a href="/home/features"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Features</a></li>
                 <li id="s3" role="presentation"><a href="/home/subfeatures"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-features</a></li>
                 <li  id="s4" role="presentation"><a href="/home/attributes"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Attributes</a></li> -->
-                <li id="s1" role="presentation"><a href="{% url 'meta_heuristics' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Heuristicas </a></li>
-                <li id="s2" role="presentation"><a href="{% url 'meta_criteria' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-Heuristicas </a></li>
+                <li id="s1" role="presentation"><a id="menu_settings_heu" href="{% url 'meta_heuristics' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Heuristicas </a></li>
+                <li id="s2" role="presentation"><a id="menu_settings_subheu" href="{% url 'meta_criteria' %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Sub-Heuristicas </a></li>
 
                 {% endif %}
-                <li id="logout" role="presentation"><a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Cerrar Sesion </a></li>
+                <li id="logout" role="presentation"><a id="menu_logout" href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Cerrar Sesion </a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
           </div>

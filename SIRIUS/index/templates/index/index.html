@@ -46,11 +46,11 @@
               {% if user.is_authenticated %}
               <div class="row">
                 <div class="col-md-6">
-                  <p><a class="btn azul btn-lg" href="/home" role="button"><span class="glyphicon glyphicon-home"></span> IR A INICIO</a></p>
+                  <p><a class="btn azul btn-lg" id="home_btn" href="/home" role="button"><span class="glyphicon glyphicon-home"></span> IR A INICIO</a></p>
                     
                 </div>
                 <div class="col-md-6">
-                  <p><a class="btn azul btn-lg" href="/logout" role="button"><span class="glyphicon glyphicon-log-out"></span> CERRAR SESION</a></p>
+                  <p><a class="btn azul btn-lg" id="logout_btn" href="/logout" role="button"><span class="glyphicon glyphicon-log-out"></span> CERRAR SESION</a></p>
                 </div>
                   
                 </div>
@@ -58,11 +58,11 @@
               {% else %}
               <div class="row">
                 <div class="col-md-6">
-                  <p><a class="btn azul btn-lg" href="/login" role="button">INGRESA</a></p>
+                  <p><a class="btn azul btn-lg" id="login_btn" href="/login" role="button">INGRESA</a></p>
                     
                 </div>
                 <div class="col-md-6">
-                  <p><a class="btn azul btn-lg" href="/register" role="button">REGISTRATE</a></p>
+                  <p><a class="btn azul btn-lg" id="register_btn" href="/register" role="button">REGISTRATE</a></p>
                 </div>
                   
                 </div>
