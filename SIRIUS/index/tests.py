@@ -92,7 +92,7 @@ class TestRegister(TestCase):
     #############################################################################
 
     #ESQUINA:
-    #Full name debe tener maximo 100 caracteres
+    #Full name debe tener maximo 60 caracteres
     def test_min_name_max_last(self):
         response = self.client.post('/register/', 
         data = { 'user': 'usuario', 'email': 'usuario@gmail.com' , 'full_name': 'UsuarioRegUsuarioRegUsuarioRegUsuarioRegUsuarioRegUsuarioReg',
