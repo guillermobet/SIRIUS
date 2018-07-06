@@ -217,10 +217,11 @@ class GoogleSearch(unittest.TestCase):
 		# Edit heuristic
 		self.wait_for_item('heuristic_table')
 		time.sleep(3)
-		rows = self.driver.find_elements_by_xpath('//tr[contains(@id, "heuristic_")]')
-		edit_link = rows[-1].find_element_by_xpath('//a[contains(@id, "edit_heuristic_")]')
+		row = self.driver.find_element_by_xpath('//td[text()="{}"]'.format(heuristic_name)).find_element_by_xpath('..')
+		edit_link = row.find_element_by_xpath('./td/a[contains(@id, "edit_heuristic_")]')
 		self.click_item(edit_link.get_attribute('id'))
 		self.wait_for_item('id_name')
+		time.sleep(2)
 		self.fill_text_field('id_name', heuristic_name+" Modificada")
 		time.sleep(0.3)
 		field = self.fill_text_field('id_acronym', heuristic_acronym+"M")
@@ -233,13 +234,15 @@ class GoogleSearch(unittest.TestCase):
 		# Delete heuristic
 		self.wait_for_item('heuristic_table')
 		time.sleep(3)
-		rows = self.driver.find_elements_by_xpath('//tr[contains(@id, "heuristic_")]')
-		delete_link = rows[-1].find_element_by_xpath('//a[contains(@id, "delete_heuristic_")]')
+		row = self.driver.find_element_by_xpath('//td[text()="{}"]'.format(heuristic_name+" Modificada")).find_element_by_xpath('..')
+		delete_link = row.find_element_by_xpath('./td/a[contains(@id, "delete_heuristic_")]')
 		self.click_item(delete_link.get_attribute('id'))
 		time.sleep(1)
 		self.wait_for_item('message_modal_close')
 		self.click_item('message_modal_close')
 		time.sleep(10)
+		
+		# Create new sub-heuristic
 		
 	def tearDown(self):
 		self.driver.close()
