@@ -87,7 +87,7 @@ class MetaHeuristic(models.Model):
 
 	id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=100, unique=True)
-	acronym = models.CharField(max_length=2, unique=True)
+	acronym = models.CharField(max_length=3, unique=True)
 	relevance = models.CharField(max_length = 35, default = '4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4')
 	comment = models.TextField()
 	

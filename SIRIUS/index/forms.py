@@ -168,7 +168,7 @@ class MetaHeuristicForm(forms.Form):
 	acronym = forms.CharField(
 		required = True,
 		label = 'Acrónimo',
-		max_length = 2,
+		max_length = 3,
 		min_length = 1,
 		widget = forms.TextInput({"placeholder": "Ej. AG"})
 	)

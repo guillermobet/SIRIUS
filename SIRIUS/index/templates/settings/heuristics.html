@@ -16,25 +16,25 @@
 		        		<div class="col-md-3">
 		        		</div>	
 		        		<div class="col-md-6">
-							    <div class="well well-lg">
-			        				<form class="form-horizontal" action="" method="post" id="heuristic_form">
-										{% csrf_token %}
-										{% for field in form.visible_fields %}
-											<div class="form-group">
-												<label for="{{field.name}}" class="col-sm-3 control-label">{{field.label}}</label>
-												<div class="col-sm-9">
-													{{field|addcssclass:"form-control"}}
-												</div>
-											</div>
-										{% endfor %}
+							<div class="well well-lg">
+								<form class="form-horizontal" action="" method="post" id="heuristic_form">
+									{% csrf_token %}
+									{% for field in form.visible_fields %}
 										<div class="form-group">
-											<div class="col-sm-offset-3 col-sm-9">
-												<button type="button" class="btn rojo espacio-der" onclick="clearForm('heuristic_form')">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
-												<button type="submit" class="btn azul espacio-izq" name="create_form">Guardar <span class="glyphicon glyphicon-ok"></span></button>
+											<label for="{{field.name}}" class="col-sm-3 control-label">{{field.label}}</label>
+											<div class="col-sm-9">
+												{{field|addcssclass:"form-control"}}
 											</div>
 										</div>
-									</form>
-			        			</div> <!-- well  -->		        			
+									{% endfor %}
+									<div class="form-group">
+										<div class="col-sm-offset-3 col-sm-9">
+											<button type="button" class="btn rojo espacio-der" onclick="clearForm('heuristic_form')">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+											<button type="submit" class="btn azul espacio-izq" id="submit_heuristic_btn" name="create_form">Guardar <span class="glyphicon glyphicon-ok"></span></button>
+										</div>
+									</div>
+								</form>
+							</div> <!-- well  -->		        			
 		        		</div><!-- col-md-6 -->	
 		        		<div class="col-md-3">
 		        		</div>	
@@ -43,25 +43,22 @@
 						<div class="col-md-1">
 						</div><!-- col-->
 						<div class="col-md-10">
-							<table class="table table-hover">
+							<table class="table table-hover" id="heuristic_table">
 							    <thead>
 							      <tr style="background-color: #3f9db6;color:white;text-align: center;">
 							        <th style="text-align: center;">Nombre</th>
 							        <th style="text-align: center;">Acrónimo</th>
 							        <th style="text-align: center;">Modificar</th>
 							        <th style="text-align: center;">Eliminar</th>
-							        <!-- <th>Manita</th> -->
 							      </tr>
 							    </thead>
 							    <tbody>
 							    {% for heuristic in heuristics %}
-							      <tr align="center">
+							      <tr id="heuristic_{{heuristic.pk}}" align="center">
 							        <td>{{heuristic.name}}</td>
 							        <td>{{heuristic.acronym}}</td>
-							        <!-- <td><a href="#" class="js-edit-heuristic" data-url="{% url 'edit_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-edit centro"></span></a></td> -->
-							        <td><a href="{% url 'edit_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-edit centro"></span></button></td>
-							        <td><a href="{% url 'delete_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-remove centro"></span></a></td>
-							       <!--  <td><span class="glyphicon glyphicon-link centro"></span></td> -->
+							        <td><a id="edit_heuristic_{{heurusitc.pk}}" href="{% url 'edit_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-edit centro"></span></button></td>
+							        <td><a id="delete_heuristic_{{heuristic.pk}}" href="{% url 'delete_meta_heuristic' heuristic.pk %}"><span class="glyphicon glyphicon-remove centro"></span></a></td>
 							      </tr>
 							    {% empty %}
 									<td colspan = "4" class = "text-center bg-warning">No hay heuristicas</td>

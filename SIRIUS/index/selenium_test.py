@@ -83,6 +83,9 @@ class GoogleSearch(unittest.TestCase):
 		
 	def test_full_site_run(self):
 		
+		heuristic_name = 'Heuristica Nueva'
+		heuristic_acronym = 'HN'
+		"""
 		user = "juansitu"
 		full_name = "Juan Situ"
 		telephone = "1234567"
@@ -158,15 +161,6 @@ class GoogleSearch(unittest.TestCase):
 		self.click_item('message_modal_close')
 		time.sleep(1)
 		
-		"""
-		user = 'nek'
-		pswd = '08042009a'
-		self.click_item('login_btn')
-		self.fill_text_field('id_user', user)
-		f = self.fill_text_field('id_password', pswd)
-		f.submit()
-		"""
-		
 		# See and edit a review
 		self.wait_for_item('menu_reviews')
 		self.click_item('menu_reviews')
@@ -198,8 +192,54 @@ class GoogleSearch(unittest.TestCase):
 		time.sleep(2)
 		self.click_item('edit_review_submit')
 		time.sleep(3)
-			
-	
+		"""
+		user = 'nek'
+		pswd = '08042009a'
+		self.click_item('login_btn')
+		self.fill_text_field('id_user', user)
+		f = self.fill_text_field('id_password', pswd)
+		f.submit()
+		
+		# Create new heuristic
+		self.click_item('menu_settings')
+		self.wait_for_item('menu_settings_heu')
+		self.click_item('menu_settings_heu')
+		self.wait_for_item('submit_heuristic_btn')
+		self.fill_text_field('id_name', heuristic_name)
+		time.sleep(0.5)
+		field = self.fill_text_field('id_acronym', heuristic_acronym)
+		time.sleep(0.5)
+		field.submit()
+		self.wait_for_item('message_modal_close')
+		time.sleep(1)
+		self.click_item('message_modal_close')
+		
+		# Edit heuristic
+		self.wait_for_item('heuristic_table')
+		time.sleep(3)
+		rows = self.driver.find_elements_by_xpath('//tr[contains(@id, "heuristic_")]')
+		edit_link = rows[-1].find_element_by_xpath('//a[contains(@id, "edit_heuristic_")]')
+		self.click_item(edit_link.get_attribute('id'))
+		self.wait_for_item('id_name')
+		self.fill_text_field('id_name', heuristic_name+" Modificada")
+		time.sleep(0.3)
+		field = self.fill_text_field('id_acronym', heuristic_acronym+"M")
+		time.sleep(0.3)
+		field.submit()
+		self.wait_for_item('message_modal_close')
+		time.sleep(1)
+		self.click_item('message_modal_close')
+		
+		# Delete heuristic
+		self.wait_for_item('heuristic_table')
+		time.sleep(3)
+		rows = self.driver.find_elements_by_xpath('//tr[contains(@id, "heuristic_")]')
+		delete_link = rows[-1].find_element_by_xpath('//a[contains(@id, "delete_heuristic_")]')
+		self.click_item(delete_link.get_attribute('id'))
+		time.sleep(1)
+		self.wait_for_item('message_modal_close')
+		self.click_item('message_modal_close')
+		time.sleep(10)
 		
 	def tearDown(self):
 		self.driver.close()
