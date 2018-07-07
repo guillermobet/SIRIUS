@@ -1,4 +1,5 @@
 {% load addcssclass %}
+{% load addclassandid %}
 
 <form class="form-horizontal js-edit-form" action="{% url 'edit_meta_criterion' criteria_id %}" data-url="{% url 'edit_meta_criterion' criteria_id %}" method="post" id="criterion_form">
 	{% csrf_token %}
@@ -9,7 +10,7 @@
 		<div class="form-group">
 			<label for="{{field.name}}" class="col-sm-3 control-label">{{field.label}}</label>
 			<div class="col-sm-9">
-				{{field|addcssclass:"form-control"}}
+				{{field|addclassandid:"form-control_-edit"}}
 			</div>
 		</div>
 	{% endfor %}
@@ -19,12 +20,20 @@
 	</div>
 	{% for field in metrics_form %}
 		<div class="form-group">
-			<label for="{{field.name}}" class="col-sm-3 control-label">{{field.label}}</label>
-			<div class="col-sm-9">
+			<label for="{{field.name}}" class="col-sm-4 control-label">{{field.label}}</label>
+			<div class="col-sm-8" id="input-group-edit">
+			<!--
 			{% for i in field %}
 				<label class="radio-inline " style="margin-right: 8px;"><input type="radio" name="inlineRadioOptions" id="inlineRadio1"> {{i}}
 				</label>
 			{% endfor%}
+			-->
+				{% for radio in field %}
+					<label for="{{ radio.id_for_label }}" style="margin-right: 8px">
+						{{ radio.choice_label }}
+						{{ radio.tag }}
+					</label>
+				{% endfor %}
 			</div>
 		</div>
 	{% endfor %}
@@ -32,7 +41,7 @@
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-9">
 			<button type="button" class="btn rojo espacio-der" onclick="clearForm('criterion_form')">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
-			<button type="submit" class="btn azul espacio-izq" name="criterion_form">Guardar <span class="glyphicon glyphicon-ok"></span></button>
+			<button type="submit" class="btn azul espacio-izq" id="edit_meta_criteria_btn" name="criterion_form">Guardar <span class="glyphicon glyphicon-ok"></span></button>
 		</div>
 	</div>
 </form>

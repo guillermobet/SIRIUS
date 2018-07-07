@@ -30,12 +30,22 @@
 					</div>
 					{% for field in metrics_form %}
 						<div class="form-group">
-							<label for="{{field.name}}" class="col-sm-3 control-label">{{field.label}}</label>
-							<div class="col-sm-9">
+							<label for="{{field.name}}" class="col-sm-4 control-label">{{field.label}}</label>
+							<div class="col-sm-8" id="input-group">
+							<!-- 
 							{% for i in field %}
 								<label class="radio-inline " style="margin-right: 8px;"><input type="radio" name="inlineRadioOptions" id="inlineRadio1"> {{i}}
 								</label>
 							{% endfor%}
+							-->
+							
+								{% for radio in field %}
+									<label for="{{ radio.id_for_label }}" style="margin-right: 8px">
+										{{ radio.choice_label }}
+										{{ radio.tag }}
+									</label>
+								{% endfor %}
+							
 							</div>
 						</div>
 					{% endfor %}
@@ -43,7 +53,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-9">
 							<button type="button" class="btn rojo espacio-der" onclick="clearForm('criterion_form')">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
-							<button type="submit" class="btn azul espacio-izq" name="criterion_form">Guardar <span class="glyphicon glyphicon-ok"></span></button>
+							<button type="submit" id="submit_meta_criteria_btn" class="btn azul espacio-izq" name="criterion_form">Guardar <span class="glyphicon glyphicon-ok"></span></button>
 						</div>
 					</div>
 				</form>

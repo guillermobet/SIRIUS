@@ -3,8 +3,8 @@
 		<td>{{criteria.heuristic.name}}</td>
 		<td>{{criteria.name}}</td>
 		<td>{{criteria.acronym}}</td>
-		<td>{{criteria.atribue}}</td>
-		<td><a data-url="{% url 'edit_meta_criterion' criteria.id %}" class="js-edit-link" href="#"><span class="glyphicon glyphicon-edit centro"></span></a></td>
-		<td><a href="{% url 'delete_meta_criterion' criteria.id %}"><span class="glyphicon glyphicon-remove centro"></span></a></td>
+		<td>{{criteria.atribute}}</td>
+		<td><a  id="edit_criteria_{{criteria.pk}}" data-url="{% url 'edit_meta_criterion' criteria.id %}" class="js-edit-link" href="#"><span class="glyphicon glyphicon-edit centro"></span></a></td>
+		<td><a id ="delete_criteria_{{criteria.pk}}" href="{% url 'delete_meta_criterion' criteria.id %}"><span class="glyphicon glyphicon-remove centro"></span></a></td>
 	</tr>
 {% endfor %}

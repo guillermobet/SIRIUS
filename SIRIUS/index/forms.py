@@ -191,7 +191,7 @@ class MetaCriterionForm(forms.Form):
 	acronym = forms.CharField(
 		required = True,
 		label = 'Acrónimo',
-		max_length = 3,
+		max_length = 4,
 		min_length = 1,
 		widget = forms.TextInput({"placeholder": "Ej. AG1"})
 	)

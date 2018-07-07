@@ -43,7 +43,7 @@
 		        		</div>	
 					</div> <!-- row-->
 				
-				<table class="table table-hover">
+				<table class="table table-hover" id="website_table">
 					<thead> 
 						<tr style="background-color: #3f9db6;color:white;" >
 							<th style="text-align: center;">Nombre del Website</th>
@@ -58,7 +58,7 @@
 								<td>{{website.name}}</a></td>
 								<td><a href="{{website.url}}">{{website.url}}</td>
 								<td>{{website.description}}</td>
-								<td><a href="{% url 'edit_website' website.pk %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+								<td><a id="edit_website_{{website.pk}}" href="{% url 'edit_website' website.pk %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 							</tr>
 						{% endfor %}
 					</tbody>

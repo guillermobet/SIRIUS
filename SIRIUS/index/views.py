@@ -548,9 +548,9 @@ def edit_meta_criterion(request, meta_criterion_id):
 def delete_meta_criterion(request, meta_criterion_id):
 	try:
 		MetaCriteria.objects.get(pk = meta_criterion_id).delete()
-		messages.success(request, 'Criterio eliminado exitosamente')
+		messages.success(request, 'Sub-Heuristica eliminada exitosamente')
 	except MetaCriteria.DoesNotExist:
-		messages.error(request, 'El Criterio que esta tratando de eliminar no existe')
+		messages.error(request, 'La Sub-Heuristica que esta tratando de eliminar no existe')
 		
 	return HttpResponseRedirect(reverse('meta_criteria', args=(), kwargs={}))
 	
